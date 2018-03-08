@@ -5,5 +5,4 @@ export interface Action<T, TPayload, TMeta> {
   readonly meta?: TMeta;
 }
 
-export * from "./UserResponses";
 export * from "./Questions";
