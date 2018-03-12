@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../styles/question.css";
 
 type Props = {
   handleAnswerSelect: (index: number, score: number) => void;
@@ -13,8 +14,8 @@ export default ({
   currentAnswer,
   index
 }: Props) => (
-  <div>
-    <p>{questionText}</p>
+  <div className="question">
+    <p className="question-text">{questionText}</p>
     <label>
       <input
         id="answerResponseStronglyAgree"

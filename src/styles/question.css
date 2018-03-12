@@ -1,0 +1,19 @@
+.question {
+  margin-top: 20px;
+  border-radius: 4px;
+  padding: 10px;
+  border: #aaa 1px solid;
+}
+
+.question:hover {
+  border: #1db0ed 1px solid;
+}
+
+.question label {
+  margin: 0 20px;
+  font-weight: 300;
+}
+
+.question input {
+  margin-right: 10px;
+}
