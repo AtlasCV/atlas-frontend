@@ -39,7 +39,7 @@ export default () => (
             </Link>
           </div>
           <div className="col-md-6 image">
-            <img src="/assets/EmployeeMatchedjobs.png" alt="mobile-with-hand" />
+            <img src="/assets/EmployeeMatchedJobs.png" alt="mobile-with-hand" />
           </div>
         </div>
       </div>
