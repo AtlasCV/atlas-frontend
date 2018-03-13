@@ -4,6 +4,7 @@ import { ConnectedRouter } from "react-router-redux";
 import { Route, Switch } from "react-router-dom";
 
 import PersonalityEvaluator from "./containers/PersonalityEvaluator";
+import LandingPage from "./containers/LandingPage";
 
 const init = require("./init").default;
 
@@ -14,6 +15,7 @@ const App = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/personality-evaluator" component={PersonalityEvaluator} />
+        <Route path="/" component={LandingPage} />
       </Switch>
     </ConnectedRouter>
   </Provider>

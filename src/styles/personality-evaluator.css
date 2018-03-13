@@ -13,6 +13,13 @@
 .profile-picture-container {
   background-color: #17171a;
   height: 150px;
+  text-align: center;
+  padding-top: 25px;
+}
+
+.profile-picture-container img {
+  height: 100px;
+  width: 100px;
 }
 
 .no-padding {

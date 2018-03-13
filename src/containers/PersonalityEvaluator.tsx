@@ -48,7 +48,9 @@ class PersonalityEvaluator extends React.Component<Props> {
       <div className="container personality-evaluator">
         <div className="row">
           <div className="col-sm-3 navigation no-padding">
-            <div className="profile-picture-container">ATLAS LOGO HERE</div>
+            <div className="profile-picture-container">
+              <img src="/assets/logo-white.png" alt="logo-white" />
+            </div>
             <ul className="navigation-steps">
               <li className="active">Personality Evaluator</li>
               <li>Qualifications</li>
