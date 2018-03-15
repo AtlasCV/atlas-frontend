@@ -7,6 +7,10 @@ const calculateScore = (questionState: QuestionState) => {
     question => (finalScoreCopy[question.questionType] += question.userResponse)
   );
 
+  questionState.questionList.forEach(
+    question =>
+      (finalScoreCopy[question.questionOpposite] -= question.userResponse)
+  );
   return finalScoreCopy;
 };
 
