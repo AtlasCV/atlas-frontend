@@ -22,6 +22,7 @@ const QUESTION_INITIAL_STATE = {
   questionList: questions,
   currentQuestionIndex: 0,
   finalScore: {
+    scoreSignature: "",
     independent: 0,
     collaborative: 0,
     clientFacing: 0,

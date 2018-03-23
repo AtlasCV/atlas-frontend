@@ -34,7 +34,7 @@ export default () => (
               Sick of submitting dozens of identical job applications? We make
               it easier and simpler - and all completely free.
             </h5>
-            <Link to="/personality-evaluator">
+            <Link to="/onboarding/introduction">
               <button>Get started</button>
             </Link>
           </div>

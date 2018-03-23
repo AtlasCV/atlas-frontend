@@ -1,12 +1,12 @@
 .question {
   margin-top: 20px;
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 10px;
-  border: #aaa 1px solid;
+  border: #aaa 2px solid;
 }
 
 .question:hover {
-  border: #1db0ed 1px solid;
+  border: #1db0ed 2px solid;
 }
 
 .question label {

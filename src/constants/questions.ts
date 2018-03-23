@@ -9,27 +9,29 @@ const personalityQuestions: PersonalityQuestion[] = [
     userResponse: 0
   },
   {
-    text: "I go stir crazy sitting at a desk for too long",
+    text:
+      "I prefer being sent out on new assignments and challenges, rather than working from the same desk each day.",
     questionType: "clientFacing",
     questionOpposite: "backOffice",
     userResponse: 0
   },
   {
     text:
-      "I have desires to be a top level executive. The corporate world is an arena I would be excited to conquery.",
+      "The corporate world is an arena in which I would be excited to progress and conquer.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
   },
   {
-    text: "Formal attire is a rare occurnace for me. I find it to be a drag",
+    text:
+      "Formal attire is a rarity for me. I like a casual work environment as long as my performance speaks for itself.",
     questionType: "casual",
     questionOpposite: "formal",
     userResponse: 0
   },
   {
     text:
-      "Social interactions with new affiliates can be an anxious experience for me.",
+      "I know that I work well when left to my own devices. Social interaction with new affiliates doesn't always come naturally to me, but I know that I've got my own bases covered.",
     questionType: "backOffice",
     questionOpposite: "clientFacing",
     userResponse: 0
@@ -42,7 +44,8 @@ const personalityQuestions: PersonalityQuestion[] = [
     userResponse: 0
   },
   {
-    text: "I feel lost if my duties aren't clearly defined.",
+    text:
+      "I am very task oriented and work well when duties are clearly assigned to me. Otherwise, I tend to feel my job is unclear.",
     questionType: "taskOriented",
     questionOpposite: "improvisor",
     userResponse: 0
@@ -68,14 +71,15 @@ const personalityQuestions: PersonalityQuestion[] = [
     userResponse: 0
   },
   {
-    text: "I believe in dressing dor the job you want, not the one you have.",
+    text:
+      "I believe in dressing for the job you want not the job you have. I definitely prefer to be overdressed than appear informal",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
   },
   {
     text:
-      "I find that to get anyting done, I need to first to list out all of the steps and objectives.",
+      "I find that to get things done, I need to first list out all of the steps and objectives",
     questionType: "taskOriented",
     questionOpposite: "improvisor",
     userResponse: 0
@@ -89,21 +93,21 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I consider myself cut out for the traditional business office culture -- rules and regulations don't bother me as long as my work shines through and I can advance quickly",
+      "I consider myself cut out for the traditional business office culture -- strict guidelines, operating procedures, and regulations don't bother me as long as my work shines through and I can advance quickly",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
   },
   {
     text:
-      'The idea of a "suit and tie desk job" scares me. I want to be able to dress like I would on the weekend',
+      'I don\'t see myself in the traditional "suit & tie" desk join. I prefer an office culture that is informal but promotes creativity and expression.',
     questionType: "casual",
     questionOpposite: "formal",
     userResponse: 0
   },
   {
     text:
-      "Give me alist of 10 things that need tobe on your desk by 5 o'clock, and I'll feel in the zone",
+      "Give me alist of 10 things that need tobe on your desk by 5 pm, and I'll be in the zone. I work more productively when given clear direction.",
     questionType: "taskOriented",
     questionOpposite: "improvisor",
     userResponse: 0
@@ -138,14 +142,14 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I would rather work in the office that has staff games and a keg on draft than a suit and tie desk job",
+      "I’d rather work in the type of office that has staff bonding games and beer on tap for special occasions, than in a formal or corporate environment with strict guidelines.",
     questionType: "casual",
     questionOpposite: "formal",
     userResponse: 0
   },
   {
     text:
-      "In my experience, too many hands in the pie derail a project. I prefer to take the reigns.",
+      "In my experience, too many hands in the pie derail a project. I prefer to take the reigns and get things done myself.",
     questionType: "independent",
     questionOpposite: "collaborative",
     userResponse: 0
@@ -187,7 +191,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "Nothing bogs me down more than a rigif daily routine. Leave me free to roam in my day to day schedule and I'll make magic.",
+      "Nothing bogs me down more than a rigid daily routine. Leave me free to roam in my day to day schedule and I'll make magic.",
     questionType: "improvisor",
     questionOpposite: "taskOriented",
     userResponse: 0

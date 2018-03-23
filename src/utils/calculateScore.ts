@@ -11,6 +11,23 @@ const calculateScore = (questionState: QuestionState) => {
     question =>
       (finalScoreCopy[question.questionOpposite] -= question.userResponse)
   );
+  const {
+    collaborative,
+    independent,
+    formal,
+    casual,
+    taskOriented,
+    improvisor,
+    backOffice,
+    clientFacing
+  } = finalScoreCopy;
+  let scoreSignature = "";
+  scoreSignature += collaborative > independent ? "L" : "I";
+  scoreSignature += formal > casual ? "B" : "C";
+  scoreSignature += taskOriented > improvisor ? "T" : "M";
+  scoreSignature += backOffice > clientFacing ? "O" : "F";
+
+  finalScoreCopy.scoreSignature = scoreSignature;
   return finalScoreCopy;
 };
 

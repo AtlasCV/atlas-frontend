@@ -1,46 +1,5 @@
-.personality-evaluator {
-  margin-top: 50px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  min-height: 600px;
-}
-
-.navigation {
-  background-color: #505155;
-  box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.19);
-  z-index: 2;
-}
-
-.profile-picture-container {
-  background-color: #17171a;
-  height: 150px;
-  text-align: center;
-  padding-top: 25px;
-}
-
-.profile-picture-container img {
-  height: 100px;
-  width: 100px;
-}
-
 .no-padding {
   padding: 0px;
-}
-
-.navigation-steps {
-  color: white;
-  list-style-type: none;
-}
-
-.navigation-steps li {
-  margin-top: 20px;
-  margin-right: 20px;
-  font-size: 16px;
-  padding: 5px;
-}
-
-.navigation-steps .active {
-  border: #d2ba3b solid 2px;
-  border-radius: 5px;
 }
 
 .question-container {

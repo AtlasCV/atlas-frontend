@@ -18,15 +18,13 @@ export const answerQuestion = (
   error: false
 });
 
-export const nextQuestionSet = (score: number): Actions.NextQuestionSet => ({
+export const nextQuestionSet = (): Actions.NextQuestionSet => ({
   type: NEXT_QUESTION_SET,
   payload: {},
   error: false
 });
 
-export const previousQuestionSet = (
-  score: number
-): Actions.PreviousQuestionSet => ({
+export const previousQuestionSet = (): Actions.PreviousQuestionSet => ({
   type: PREVIOUS_QUESTION_SET,
   payload: {},
   error: false
