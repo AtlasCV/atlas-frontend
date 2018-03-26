@@ -1,0 +1,19 @@
+.header-text {
+  margin-bottom: 30px;
+}
+
+.progress-labels {
+  display: inline-block;
+  height: 50px;
+  position: absolute;
+  top: 92px;
+  color: #333;
+}
+
+.start-label {
+  left: 35px;
+}
+
+.end-label {
+  right: 35px;
+}

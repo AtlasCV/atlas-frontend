@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import Question from "./Question";
+import ProgressTracker from "./ProgressTracker";
 import { connect } from "react-redux";
 import * as actions from "../actions/questions";
 import { QuestionState } from "../reducers/questions";
@@ -40,6 +41,9 @@ export default connect(({ questions }: AppState) => ({ questions }), {
       return (
         <div className="col-sm-9 no-padding question-container">
           <h3>Personality Evalulator</h3>
+          <ProgressTracker
+            progress={currentQuestionIndex / questionList.length * 100}
+          />
           <React.Fragment>
             {questionList
               .slice(currentQuestionIndex, currentQuestionIndex + 5)
