@@ -1,14 +1,19 @@
 const ROOT_URL = "http://zeus-dev.us-east-1.elasticbeanstalk.com";
 
 // create constants for each service URL here and replace DEV_URL
-const DEV_URL = "https://localhost:10013";
+const DEV_URL = "http://localhost:10013";
 const URL = {
   development: {
-    personalityEvaluations: `${DEV_URL}/applicants/personality-evaluations`
+    personalityEvaluations: `${DEV_URL}/personality-evaluations`,
+    applicants: `${DEV_URL}/applicants`
   },
-  staging: {},
+  staging: {
+    personalityEvaluations: `${DEV_URL}/personality-evaluations`,
+    applicants: `${DEV_URL}/applicants`
+  },
   production: {
-    personalityEvaluations: `${ROOT_URL}/applicants/personality-evaluations`
+    personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
+    applicants: `${ROOT_URL}/applicants`
   }
 };
 

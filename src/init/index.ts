@@ -1,5 +1,6 @@
 import { Store, createStore, applyMiddleware, Middleware } from "redux";
 import { createEpicMiddleware } from "redux-observable";
+import { routerMiddleware } from "react-router-redux";
 import { createLogger } from "redux-logger";
 import createHistory from "history/createBrowserHistory";
 import { History } from "history";
@@ -23,7 +24,8 @@ export default (): { store: Store<AppState>; history: History } => {
   });
   const middleware: Middleware[] = [
     epicMiddleware,
-    createLogger()
+    createLogger(),
+    routerMiddleware(history)
   ] as Middleware[];
 
   const enhancer = applyMiddleware(...middleware);

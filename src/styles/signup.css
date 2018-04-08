@@ -1,0 +1,20 @@
+.signup-container {
+  padding: 50px 100px;
+  background-color: #fff;
+}
+
+.signup-container button {
+  background-color: #1db0ed;
+  border: none;
+  color: white;
+  width: 150px;
+  height: 40px;
+  border-radius: 2px;
+  margin-top: 50px;
+  cursor: pointer;
+  float: left;
+}
+
+.signup-container h2 {
+  margin-bottom: 40px;
+}

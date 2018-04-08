@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "../styles/onboarding-intro.css";
 
-export default () => (
+export default ({ uuid }: { uuid?: string }) => (
   <div className="introduction col-sm-9">
     <h2>Welcome to AtlasCV</h2>
     <p>

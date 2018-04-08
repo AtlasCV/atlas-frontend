@@ -4,21 +4,18 @@ import { FinalScore } from "../types/FinalScore";
 import * as Actions from "../actions/types";
 import questions from "../constants/questions";
 import calculateScore from "../utils/calculateScore";
-import {
-  ANSWER_QUESTION,
-  NEXT_QUESTION_SET,
-  PREVIOUS_QUESTION_SET,
-  CALCULATE_RESULTS
-} from "../constants/actionTypes";
+import * as actionTypes from "../constants/actionTypes";
+import determineCurrentScore from "../utils/determineCurrentScore";
 
 export type QuestionState = {
   questionList: PersonalityQuestion[];
   currentQuestionIndex: number;
   finalScore: FinalScore;
   evaluatorCompleted: boolean;
+  uuid?: string;
 };
 
-const QUESTION_INITIAL_STATE = {
+const QUESTION_INITIAL_STATE: QuestionState = {
   questionList: questions,
   currentQuestionIndex: 0,
   finalScore: {
@@ -75,19 +72,41 @@ const calculateResults = (
   evaluatorCompleted: true
 });
 
+const loadEvaluatorSuccess = (
+  state: QuestionState,
+  {
+    payload: {
+      personalityEvaluator: {
+        uuid,
+        answers,
+        currentQuestionIndex,
+        scoreSignature
+      }
+    }
+  }: Actions.LoadEvaluatorSuccess
+) => ({
+  ...state,
+  uuid,
+  questionList: determineCurrentScore(state.questionList, answers),
+  currentQuestionIndex,
+  finalScore: { ...state.finalScore, scoreSignature }
+});
+
 const questionsReducer: Reducer<QuestionState> = (
   state = QUESTION_INITIAL_STATE,
   action: Actions.QuestionActions
 ) => {
   switch (action.type) {
-    case ANSWER_QUESTION:
+    case actionTypes.ANSWER_QUESTION:
       return answerQuestion(state, action);
-    case NEXT_QUESTION_SET:
+    case actionTypes.NEXT_QUESTION_SET:
       return nextQuestionSet(state, action);
-    case PREVIOUS_QUESTION_SET:
+    case actionTypes.PREVIOUS_QUESTION_SET:
       return previousQuestionSet(state, action);
-    case CALCULATE_RESULTS:
+    case actionTypes.CALCULATE_RESULTS:
       return calculateResults(state, action);
+    case actionTypes.LOAD_EVALUATOR_SUCCESS:
+      return loadEvaluatorSuccess(state, action);
     default:
       return state;
   }

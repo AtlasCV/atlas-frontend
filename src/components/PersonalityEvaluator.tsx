@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect, Dispatch } from "react-redux";
+import { Link, match } from "react-router-dom";
 import Question from "./Question";
 import ProgressTracker from "./ProgressTracker";
-import { connect } from "react-redux";
 import * as actions from "../actions/questions";
 import { QuestionState } from "../reducers/questions";
 import { AppState } from "../reducers/index";
@@ -10,7 +11,9 @@ import {
   AnswerQuestion,
   NextQuestionSet,
   PreviousQuestionSet,
-  CalculateResults
+  CalculateResults,
+  LoadEvaluatorRequest,
+  StartEvaluatorRequest
 } from "../actions/types";
 import "../styles/personality-evaluator.css";
 
@@ -19,20 +22,49 @@ type Props = {
   nextQuestionSet: () => NextQuestionSet;
   previousQuestionSet: () => PreviousQuestionSet;
   calculateResults: () => CalculateResults;
+  loadEvaluatorRequest: (uuid: string) => LoadEvaluatorRequest;
+  startEvaluatorRequest: () => StartEvaluatorRequest;
   questions: QuestionState;
+  match: match<{ uuid: string }>;
 };
 
-export default connect(({ questions }: AppState) => ({ questions }), {
-  ...actions
-})(
+export default connect(
+  ({ questions }: AppState) => ({ questions }),
+  (dispatch: Dispatch<AppState>) =>
+    bindActionCreators(
+      {
+        answerQuestion: actions.answerQuestion,
+        nextQuestionSet: actions.nextQuestionSet,
+        previousQuestionSet: actions.previousQuestionSet,
+        calculateResults: actions.calculateResults,
+        loadEvaluatorRequest: actions.loadEvaluatorRequest,
+        startEvaluatorRequest: actions.startEvaluatorRequest
+      },
+      dispatch
+    )
+)(
   class PersonalityEvaluator extends React.Component<Props> {
+    componentDidMount() {
+      const {
+        match: { params: { uuid } },
+        loadEvaluatorRequest,
+        startEvaluatorRequest
+      } = this.props;
+      if (uuid) {
+        loadEvaluatorRequest(uuid);
+      } else {
+        startEvaluatorRequest();
+      }
+    }
+
     render() {
       const {
         questions: { questionList, currentQuestionIndex, evaluatorCompleted },
         nextQuestionSet,
         previousQuestionSet,
         calculateResults,
-        answerQuestion
+        answerQuestion,
+        match: { params: { uuid } }
       } = this.props;
       const disableNext = questionList
         .slice(currentQuestionIndex, currentQuestionIndex + 5)
@@ -87,7 +119,7 @@ export default connect(({ questions }: AppState) => ({ questions }), {
                 </button>
               )}
               {currentQuestionIndex > 39 && (
-                <Link to="/onboarding/results">
+                <Link to={`/onboarding/results/${uuid}`}>
                   <button className="next-btn" onClick={calculateResults}>
                     Finish
                   </button>
