@@ -25,10 +25,12 @@ type Props = {
   loadEvaluatorRequest: (uuid: string) => LoadEvaluatorRequest;
   updateApplicantRequest: (
     applicantId: number,
-    applicantFormProps: UpdateApplicantFormProps
+    applicantFormProps: UpdateApplicantFormProps,
+    nextPage: string
   ) => UpdateApplicantRequest;
   createApplicantRequest: (
-    applicantFormProps: CreateApplicantFormProps
+    applicantFormProps: CreateApplicantFormProps,
+    nextPage: string
   ) => CreateApplicantRequest;
 };
 
@@ -51,22 +53,32 @@ export default connect(
 
     render() {
       const {
-        match: { url },
+        match: { params },
         createApplicantRequest,
         updateApplicantRequest,
         profile: { info: { id } }
       } = this.props;
+
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about yourself</h2>
           <Route
-            path={url + "/1/:uuid"}
-            component={() => <PageOne handleSubmit={createApplicantRequest} />}
+            path={"/onboarding/signup/1/:uuid"}
+            component={() => (
+              <PageOne
+                uuid={params.uuid}
+                handleSubmit={createApplicantRequest}
+              />
+            )}
           />
           <Route
-            path={url + "/2/:uuid"}
+            path={"/onboarding/signup/2/:uuid"}
             component={() => (
-              <PageTwo handleSubmit={updateApplicantRequest} applicantId={id} />
+              <PageTwo
+                uuid={params.uuid}
+                handleSubmit={updateApplicantRequest}
+                applicantId={id}
+              />
             )}
           />
         </div>

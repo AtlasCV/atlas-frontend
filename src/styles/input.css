@@ -24,3 +24,9 @@
   position: relative;
   margin: 20px 0px;
 }
+
+.text-box-error {
+  color: red;
+  font-size: 12px;
+  margin-left: 20px;
+}

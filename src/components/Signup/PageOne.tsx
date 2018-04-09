@@ -2,11 +2,17 @@ import * as React from "react";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import { CreateApplicantFormProps } from "../../types";
+import "../../styles/input.css";
+
 type Props = {
-  handleSubmit: (applicantFormProps: CreateApplicantFormProps) => void;
+  handleSubmit: (
+    applicantFormProps: CreateApplicantFormProps,
+    nextPage: string
+  ) => void;
+  uuid: string;
 };
 
-export default ({ handleSubmit }: Props) => (
+export default ({ handleSubmit, uuid }: Props) => (
   <Formik
     initialValues={{
       firstName: "",
@@ -16,16 +22,100 @@ export default ({ handleSubmit }: Props) => (
       confirmPassword: "",
       linkedIn: ""
     }}
-    onSubmit={handleSubmit}
-  >
-    <React.Fragment>
-      <Input label="FIRST NAME" id="firstName" />
-      <Input label="LAST NAME" id="lastName" />
-      <Input label="EMAIL" id="email" />
-      <Input label="LINKED IN URL" id="linkedIn" />
-      <Input label="PASSWORD" id="password" />
-      <Input label="CONFIRM PASSWORD" id="confirmPassword" />
-      <button>Next</button>
-    </React.Fragment>
-  </Formik>
+    onSubmit={values => {
+      return handleSubmit(values, `/onboarding/signup/2/${uuid}`);
+    }}
+    validate={values => {
+      let errors: {
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        password?: string;
+      } = {};
+      Object.keys(errors).forEach(key => {
+        if (values[key] !== "linkedIn" && !values[key]) {
+          errors[key] = "Required";
+        }
+      });
+      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = "Invalid email address";
+      }
+      if (values.password !== values.confirmPassword) {
+        errors.password = "Password fields must match";
+      }
+      return errors;
+    }}
+    render={({
+      values,
+      errors,
+      touched,
+      handleBlur,
+      handleChange,
+      handleSubmit,
+      isSubmitting
+    }) => {
+      return (
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="FIRST NAME"
+            name="firstName"
+            type="text"
+            value={values.firstName}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.firstName && errors.firstName}
+          />
+
+          <Input
+            label="LAST NAME"
+            name="lastName"
+            type="text"
+            value={values.lastName}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.lastName && errors.lastName}
+          />
+          <Input
+            label="EMAIL"
+            name="email"
+            type="text"
+            value={values.email}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.email && errors.email}
+          />
+          <Input
+            label="LINKED IN URL"
+            name="linkedIn"
+            type="text"
+            value={values.linkedIn}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.linkedIn && errors.linkedIn}
+          />
+          <Input
+            label="PASSWORD"
+            name="password"
+            type="password"
+            value={values.password}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.password && errors.password}
+          />
+          <Input
+            label="CONFIRM PASSWORD"
+            name="confirmPassword"
+            type="password"
+            value={values.confirmPassword}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={touched.confirmPassword && errors.confirmPassword}
+          />
+          <button disabled={isSubmitting} type="submit">
+            Next
+          </button>
+        </form>
+      );
+    }}
+  />
 );

@@ -59,7 +59,10 @@ export default connect(
               path={this.props.match.url + "/results/:uuid"}
               component={Results}
             />
-            <Route path={this.props.match.url + "/signup"} component={Signup} />
+            <Route
+              path={this.props.match.url + "/signup/:page/:uuid"}
+              component={Signup}
+            />
           </div>
         </div>
       );

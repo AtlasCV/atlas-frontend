@@ -4,12 +4,19 @@ import * as Types from "../../types";
 
 export type CreateApplicantRequest = Action<
   typeof actionTypes.CREATE_APPLICANT_REQUEST,
-  { applicantFormProps: Types.CreateApplicantFormProps }
+  {
+    applicantFormProps: Types.CreateApplicantFormProps;
+    nextPage?: string;
+  }
 >;
 
 export type UpdateApplicantRequest = Action<
   typeof actionTypes.UPDATE_APPLICANT_REQUEST,
-  { applicantFormProps: Types.UpdateApplicantFormProps; applicantId: number }
+  {
+    applicantFormProps: Types.UpdateApplicantFormProps;
+    applicantId: number;
+    nextPage?: string;
+  }
 >;
 
 export type LoadApplicantSuccess = Action<

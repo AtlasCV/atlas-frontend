@@ -8,6 +8,7 @@ import * as Actions from "../actions/types";
 import endpoint from "../constants/endpoint";
 import * as actions from "../actions/profile";
 import * as actionTypes from "../constants/actionTypes";
+import { push } from "react-router-redux";
 
 type CreateOrUpdateApplicantEpic = Epic<AnyAction, AppState, Dependencies>;
 export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
@@ -25,7 +26,7 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
       Actions.LoadApplicantSuccess
     >(
       ({
-        payload: { applicantFormProps, applicantId }
+        payload: { applicantFormProps, applicantId, nextPage }
       }: Actions.CreateApplicantRequest & Actions.UpdateApplicantRequest) =>
         ajax({
           method: applicantId ? "PUT" : "POST",
@@ -33,9 +34,13 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
           headers: { "content-type": "application/json" },
           data: applicantFormProps
         })
-          .map(({ data: { result } }: AxiosResponse) =>
-            actions.loadApplicantSuccess(result)
-          )
+          .concatMap(({ data: { result } }: AxiosResponse) => {
+            if (nextPage) {
+              return [actions.loadApplicantSuccess(result), push(nextPage)];
+            } else {
+              return [actions.loadApplicantSuccess(result)];
+            }
+          })
           .catch((err: AxiosError) =>
             Observable.of(
               actions.profileAjaxFailure(

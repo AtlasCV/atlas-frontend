@@ -3,19 +3,21 @@ import * as actionTypes from "../constants/actionTypes";
 import * as types from "../types";
 
 export const createApplicantRequest = (
-  applicantFormProps: types.CreateApplicantFormProps
+  applicantFormProps: types.CreateApplicantFormProps,
+  nextPage?: string
 ): Actions.CreateApplicantRequest => ({
   type: actionTypes.CREATE_APPLICANT_REQUEST,
-  payload: { applicantFormProps },
+  payload: { applicantFormProps, nextPage },
   error: false
 });
 
 export const updateApplicantRequest = (
   applicantId: number,
-  applicantFormProps: types.UpdateApplicantFormProps
+  applicantFormProps: types.UpdateApplicantFormProps,
+  nextPage?: string
 ): Actions.UpdateApplicantRequest => ({
   type: actionTypes.UPDATE_APPLICANT_REQUEST,
-  payload: { applicantFormProps, applicantId },
+  payload: { applicantFormProps, applicantId, nextPage },
   error: false
 });
 
