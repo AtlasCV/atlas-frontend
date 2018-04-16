@@ -5,15 +5,21 @@ const DEV_URL = "http://localhost:10013";
 const URL = {
   development: {
     personalityEvaluations: `${DEV_URL}/personality-evaluations`,
-    applicants: `${DEV_URL}/applicants`
+    applicants: `${DEV_URL}/applicants`,
+    industries: `${DEV_URL}/industries`,
+    me: `${DEV_URL}/me`
   },
   staging: {
     personalityEvaluations: `${DEV_URL}/personality-evaluations`,
-    applicants: `${DEV_URL}/applicants`
+    applicants: `${DEV_URL}/applicants`,
+    industries: `${DEV_URL}/industries`,
+    me: `${DEV_URL}/me`
   },
   production: {
     personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
-    applicants: `${ROOT_URL}/applicants`
+    applicants: `${ROOT_URL}/applicants`,
+    industries: `${ROOT_URL}/industries`,
+    me: `${ROOT_URL}/me`
   }
 };
 

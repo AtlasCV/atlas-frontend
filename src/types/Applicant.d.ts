@@ -7,6 +7,6 @@ export interface Applicant {
   aboutMe?: string;
   transcript?: string;
   city?: string;
-  user: User;
+  user?: User;
   personalityEvaluation: PersonalityEvaluator;
 }

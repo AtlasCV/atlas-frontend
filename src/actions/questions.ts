@@ -1,63 +1,35 @@
-import * as Actions from "./types";
 import * as actionTypes from "../constants/actionTypes";
 import { PersonalityEvaluator } from "../types";
+import { createAction } from "./helpers";
 
-export const answerQuestion = (
-  index: number,
-  score: number
-): Actions.AnswerQuestion => ({
-  type: actionTypes.ANSWER_QUESTION,
-  payload: {
+export const answerQuestion = (index: number, score: number) =>
+  createAction(actionTypes.ANSWER_QUESTION, {
     index,
     score
-  },
-  error: false
-});
+  });
 
-export const nextQuestionSet = (): Actions.NextQuestionSet => ({
-  type: actionTypes.NEXT_QUESTION_SET,
-  payload: {},
-  error: false
-});
+export const nextQuestionSet = () =>
+  createAction(actionTypes.NEXT_QUESTION_SET);
 
-export const previousQuestionSet = (): Actions.PreviousQuestionSet => ({
-  type: actionTypes.PREVIOUS_QUESTION_SET,
-  payload: {},
-  error: false
-});
+export const previousQuestionSet = () =>
+  createAction(actionTypes.PREVIOUS_QUESTION_SET);
 
-export const calculateResults = (score: number): Actions.CalculateResults => ({
-  type: actionTypes.CALCULATE_RESULTS,
-  payload: {},
-  error: false
-});
+export const calculateResults = () =>
+  createAction(actionTypes.CALCULATE_RESULTS);
 
-export const startEvaluatorRequest = (): Actions.StartEvaluatorRequest => ({
-  type: actionTypes.START_EVALUATOR_REQUEST,
-  payload: {},
-  error: false
-});
+export const startEvaluatorRequest = () =>
+  createAction(actionTypes.START_EVALUATOR_REQUEST);
 
-export const loadEvaluatorRequest = (
-  uuid: string
-): Actions.LoadEvaluatorRequest => ({
-  type: actionTypes.LOAD_EVALUATOR_REQUEST,
-  payload: { uuid },
-  error: false
-});
+export const loadEvaluatorRequest = (uuid: string) =>
+  createAction(actionTypes.LOAD_EVALUATOR_REQUEST, { uuid });
 
 export const loadEvaluatorSuccess = (
   personalityEvaluator: PersonalityEvaluator
-): Actions.LoadEvaluatorSuccess => ({
-  type: actionTypes.LOAD_EVALUATOR_SUCCESS,
-  payload: { personalityEvaluator },
-  error: false
-});
+) => createAction(actionTypes.LOAD_EVALUATOR_SUCCESS, { personalityEvaluator });
 
-export const questionAjaxFailure = (
-  reason: string
-): Actions.QuestionAjaxFailure => ({
-  type: actionTypes.QUESTION_AJAX_FAILURE,
-  payload: { error: new Error(reason) },
-  error: true
-});
+export const questionAjaxFailure = (reason: string) =>
+  createAction(
+    actionTypes.QUESTION_AJAX_FAILURE,
+    { error: new Error(reason) },
+    true
+  );

@@ -5,6 +5,7 @@ export interface CreateApplicantFormProps {
   password: string;
   confirmPassword: string;
   linkedIn: string;
+  uuid: string;
 }
 
 export interface UpdateApplicantFormProps {

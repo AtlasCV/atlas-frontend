@@ -8,15 +8,15 @@ import PersonalityEvaluator from "../components/PersonalityEvaluator";
 import Results from "../components/Results";
 import Signup from "../components/Signup";
 import * as actions from "../actions/questions";
-import { StartEvaluatorRequest } from "../actions/types";
 import { AppState } from "../reducers/index";
 import "../styles/onboarding.css";
 import { QuestionState } from "../reducers/questions";
 
 type Props = {
-  startEvaluatorRequest: () => StartEvaluatorRequest;
+  startEvaluatorRequest: () => ReturnType<typeof actions.startEvaluatorRequest>;
   match: match<{ uuid: string }>;
   questions: QuestionState;
+  location: Location;
 };
 
 export default connect(
@@ -38,7 +38,7 @@ export default connect(
       return (
         <div className="container onboarding">
           <div className="row">
-            <OnboardingSidebar />
+            <OnboardingSidebar location={this.props.location} />
             <Route
               path={this.props.match.url + "/introduction"}
               component={() => (

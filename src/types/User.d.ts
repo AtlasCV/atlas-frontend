@@ -1,3 +1,5 @@
+import { Applicant } from "./";
+
 export interface User {
   id: number;
   firstName: string;
@@ -9,4 +11,6 @@ export interface User {
   profileImgUrl?: string;
   activated: boolean;
   userType: string;
+  token?: string;
+  applicant?: Applicant;
 }

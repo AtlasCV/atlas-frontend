@@ -1,11 +1,14 @@
 import { Reducer } from "redux";
 import { PersonalityQuestion } from "../types/PersonalityQuestion";
 import { FinalScore } from "../types/FinalScore";
-import * as Actions from "../actions/types";
+import * as actions from "../actions/questions";
 import questions from "../constants/questions";
 import calculateScore from "../utils/calculateScore";
 import * as actionTypes from "../constants/actionTypes";
 import determineCurrentScore from "../utils/determineCurrentScore";
+import { ActionUnion } from "../actions/helpers";
+
+type Action = ActionUnion<typeof actions>;
 
 export type QuestionState = {
   questionList: PersonalityQuestion[];
@@ -34,7 +37,7 @@ const QUESTION_INITIAL_STATE: QuestionState = {
 
 const answerQuestion = (
   state: QuestionState,
-  { payload: { score, index } }: Actions.AnswerQuestion
+  { payload: { score, index } }: ReturnType<typeof actions.answerQuestion>
 ) => {
   const questionListCopy = [...state.questionList];
   questionListCopy[index] = {
@@ -49,7 +52,7 @@ const answerQuestion = (
 
 const nextQuestionSet = (
   state: QuestionState,
-  action: Actions.NextQuestionSet
+  action: ReturnType<typeof actions.nextQuestionSet>
 ) => ({
   ...state,
   currentQuestionIndex: state.currentQuestionIndex + 5
@@ -57,7 +60,7 @@ const nextQuestionSet = (
 
 const previousQuestionSet = (
   state: QuestionState,
-  action: Actions.PreviousQuestionSet
+  action: ReturnType<typeof actions.previousQuestionSet>
 ) => ({
   ...state,
   currentQuestionIndex: state.currentQuestionIndex - 5
@@ -65,7 +68,7 @@ const previousQuestionSet = (
 
 const calculateResults = (
   state: QuestionState,
-  action: Actions.CalculateResults
+  action: ReturnType<typeof actions.calculateResults>
 ) => ({
   ...state,
   finalScore: calculateScore(state),
@@ -83,18 +86,21 @@ const loadEvaluatorSuccess = (
         scoreSignature
       }
     }
-  }: Actions.LoadEvaluatorSuccess
+  }: ReturnType<typeof actions.loadEvaluatorSuccess>
 ) => ({
   ...state,
   uuid,
   questionList: determineCurrentScore(state.questionList, answers),
   currentQuestionIndex,
-  finalScore: { ...state.finalScore, scoreSignature }
+  finalScore: {
+    ...state.finalScore,
+    scoreSignature: scoreSignature || state.finalScore.scoreSignature
+  }
 });
 
 const questionsReducer: Reducer<QuestionState> = (
   state = QUESTION_INITIAL_STATE,
-  action: Actions.QuestionActions
+  action: Action
 ) => {
   switch (action.type) {
     case actionTypes.ANSWER_QUESTION:

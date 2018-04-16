@@ -1,10 +1,14 @@
 import { Reducer } from "redux";
-import { Applicant } from "../types";
-import * as Actions from "../actions/types";
+import { User } from "../types";
+import * as profileActions from "../actions/profile";
+import * as authActions from "../actions/auth";
 import * as actionTypes from "../constants/actionTypes";
+import { ActionUnion } from "../actions/helpers";
+
+type Action = ActionUnion<typeof profileActions | typeof authActions>;
 
 export type ProfileState = {
-  info: Applicant;
+  info: User;
   fetchingApplicant: boolean;
   error?: Error;
 };
@@ -12,28 +16,29 @@ export type ProfileState = {
 const PROFILE_INITIAL_STATE: ProfileState = {
   info: {
     id: 0,
-    user: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    activated: false,
+    userType: "",
+    applicant: {
       id: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      activated: false,
-      userType: ""
-    },
-    personalityEvaluation: {
-      uuid: "",
-      answers: [],
-      currentQuestionIndex: 0,
-      scoreSignature: "",
-      completed: false
+      personalityEvaluation: {
+        uuid: "",
+        answers: [],
+        currentQuestionIndex: 0,
+        scoreSignature: "",
+        completed: false
+      }
     }
   },
+
   fetchingApplicant: false
 };
 
 const createApplicantRequest = (
   state: ProfileState,
-  action: Actions.CreateApplicantRequest
+  action: ReturnType<typeof profileActions.createApplicantRequest>
 ) => ({
   ...state,
   fetchingApplicant: true
@@ -41,7 +46,7 @@ const createApplicantRequest = (
 
 const updateApplicantRequest = (
   state: ProfileState,
-  action: Actions.UpdateApplicantRequest
+  action: ReturnType<typeof profileActions.updateApplicantRequest>
 ) => ({
   ...state,
   fetchingApplicant: true
@@ -49,25 +54,33 @@ const updateApplicantRequest = (
 
 const loadApplicantSuccess = (
   state: ProfileState,
-  { payload: { applicant } }: Actions.LoadApplicantSuccess
+  { payload: { user } }: ReturnType<typeof profileActions.loadApplicantSuccess>
 ) => ({
   ...state,
-  info: applicant,
+  info: user,
   fetchingApplicant: false
 });
 
 const profileAjaxFailure = (
   state: ProfileState,
-  { payload: { error } }: Actions.ProfileAjaxFailure
+  { payload: { error } }: ReturnType<typeof profileActions.profileAjaxFailure>
 ) => ({
   ...state,
   error,
   fetchingApplicant: false
 });
 
+const getMeSuccess = (
+  state: ProfileState,
+  { payload: { user } }: ReturnType<typeof authActions.getMeSuccess>
+) => ({
+  ...state,
+  info: user
+});
+
 const profileReducer: Reducer<ProfileState> = (
   state = PROFILE_INITIAL_STATE,
-  action: Actions.ProfileActions
+  action: Action
 ) => {
   switch (action.type) {
     case actionTypes.CREATE_APPLICANT_REQUEST:
@@ -78,6 +91,8 @@ const profileReducer: Reducer<ProfileState> = (
       return loadApplicantSuccess(state, action);
     case actionTypes.PROFILE_AJAX_FAILURE:
       return profileAjaxFailure(state, action);
+    case actionTypes.GET_ME_SUCCESS:
+      return getMeSuccess(state, action);
     default:
       return state;
   }

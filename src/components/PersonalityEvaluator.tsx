@@ -7,23 +7,20 @@ import ProgressTracker from "./ProgressTracker";
 import * as actions from "../actions/questions";
 import { QuestionState } from "../reducers/questions";
 import { AppState } from "../reducers/index";
-import {
-  AnswerQuestion,
-  NextQuestionSet,
-  PreviousQuestionSet,
-  CalculateResults,
-  LoadEvaluatorRequest,
-  StartEvaluatorRequest
-} from "../actions/types";
 import "../styles/personality-evaluator.css";
 
 type Props = {
-  answerQuestion: (index: number, score: number) => AnswerQuestion;
-  nextQuestionSet: () => NextQuestionSet;
-  previousQuestionSet: () => PreviousQuestionSet;
-  calculateResults: () => CalculateResults;
-  loadEvaluatorRequest: (uuid: string) => LoadEvaluatorRequest;
-  startEvaluatorRequest: () => StartEvaluatorRequest;
+  answerQuestion: (
+    index: number,
+    score: number
+  ) => ReturnType<typeof actions.answerQuestion>;
+  nextQuestionSet: () => ReturnType<typeof actions.nextQuestionSet>;
+  previousQuestionSet: () => ReturnType<typeof actions.previousQuestionSet>;
+  calculateResults: () => ReturnType<typeof actions.calculateResults>;
+  loadEvaluatorRequest: (
+    uuid: string
+  ) => ReturnType<typeof actions.loadEvaluatorRequest>;
+  startEvaluatorRequest: () => ReturnType<typeof actions.startEvaluatorRequest>;
   questions: QuestionState;
   match: match<{ uuid: string }>;
 };
@@ -46,7 +43,9 @@ export default connect(
   class PersonalityEvaluator extends React.Component<Props> {
     componentDidMount() {
       const {
-        match: { params: { uuid } },
+        match: {
+          params: { uuid }
+        },
         loadEvaluatorRequest,
         startEvaluatorRequest
       } = this.props;
@@ -64,7 +63,9 @@ export default connect(
         previousQuestionSet,
         calculateResults,
         answerQuestion,
-        match: { params: { uuid } }
+        match: {
+          params: { uuid }
+        }
       } = this.props;
       const disableNext = questionList
         .slice(currentQuestionIndex, currentQuestionIndex + 5)

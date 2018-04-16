@@ -7,7 +7,7 @@ import "../../styles/input.css";
 type Props = {
   handleSubmit: (
     applicantFormProps: CreateApplicantFormProps,
-    nextPage: string
+    nextPage?: string
   ) => void;
   uuid: string;
 };
@@ -23,7 +23,7 @@ export default ({ handleSubmit, uuid }: Props) => (
       linkedIn: ""
     }}
     onSubmit={values => {
-      return handleSubmit(values, `/onboarding/signup/2/${uuid}`);
+      return handleSubmit({ ...values, uuid }, `/onboarding/signup/2/${uuid}`);
     }}
     validate={values => {
       let errors: {

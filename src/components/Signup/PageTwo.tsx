@@ -10,7 +10,7 @@ type Props = {
   handleSubmit: (
     applicantId: number,
     applicantFormProps: UpdateApplicantFormProps,
-    nextPage: string
+    nextPage?: string
   ) => void;
   applicantId: number;
   uuid: string;
@@ -21,8 +21,6 @@ export default ({ handleSubmit, applicantId, uuid }: Props) => (
     initialValues={{
       phone: "",
       profileImgUrl: "",
-      website: "",
-      city: "",
       birthday: "",
       gender: ""
     }}
@@ -34,11 +32,7 @@ export default ({ handleSubmit, applicantId, uuid }: Props) => (
       )
     }
     validate={values => {
-      let errors: UpdateApplicantFormProps = {
-        phone: "",
-        city: "",
-        birthday: ""
-      };
+      let errors: UpdateApplicantFormProps = {};
       Object.keys(errors).forEach(key => {
         if (!values[key]) {
           errors[key] = "Required";
@@ -79,24 +73,6 @@ export default ({ handleSubmit, applicantId, uuid }: Props) => (
           error={touched.profileImgUrl && errors.profileImgUrl}
         />
         <Input
-          label="WEBSITE"
-          name="website"
-          type="text"
-          value={values.website}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
-          error={touched.website && errors.website}
-        />
-        <Input
-          label="CITY"
-          name="city"
-          type="text"
-          value={values.city}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
-          error={touched.city && errors.city}
-        />
-        <Input
           label="BIRTHDAY"
           name="birthday"
           type="text"
@@ -105,12 +81,19 @@ export default ({ handleSubmit, applicantId, uuid }: Props) => (
           handleBlur={handleBlur}
           error={touched.birthday && errors.birthday}
         />
-        <Select label="GENDER" name="gender" value={values.gender}>
-          <option>-</option>
-          <option>Male</option>
-          <option>Female</option>
+        <Select
+          label="GENDER"
+          name="gender"
+          value={values.gender}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          error={errors.gender}
+        >
+          <option />
+          <option value="M">Male</option>
+          <option value="F">Female</option>
         </Select>
-        <button>Next</button>
+        <button type="submit">Next</button>
       </form>
     )}
   />

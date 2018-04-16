@@ -8,11 +8,12 @@ import * as actions from "../actions/questions";
 import results from "../constants/results";
 import "../styles/results.css";
 import { QuestionState } from "../reducers/questions";
-import { LoadEvaluatorRequest } from "../actions/types";
 
 type ResultsProps = {
   questions: QuestionState;
-  loadEvaluatorRequest: (uuid: string) => LoadEvaluatorRequest;
+  loadEvaluatorRequest: (
+    uuid: string
+  ) => ReturnType<typeof actions.loadEvaluatorRequest>;
   match: match<{ uuid: string }>;
   push: () => RouterAction;
 };
@@ -30,7 +31,12 @@ export default connect(
 )(
   class Results extends React.Component<ResultsProps> {
     componentDidMount() {
-      const { match: { params: { uuid } }, loadEvaluatorRequest } = this.props;
+      const {
+        match: {
+          params: { uuid }
+        },
+        loadEvaluatorRequest
+      } = this.props;
       if (uuid) {
         loadEvaluatorRequest(uuid);
       } else {
@@ -40,7 +46,9 @@ export default connect(
     render() {
       const {
         questions: { finalScore },
-        match: { params: { uuid } }
+        match: {
+          params: { uuid }
+        }
       } = this.props;
       const {
         scoreSignature,
@@ -91,7 +99,7 @@ export default connect(
               {results[scoreSignature] && results[scoreSignature].description}
             </p>
           </div>
-          <Link to={`/onboarding/signup/${uuid}`}>
+          <Link to={`/onboarding/signup/1/${uuid}`}>
             <button>Next</button>
           </Link>
         </div>

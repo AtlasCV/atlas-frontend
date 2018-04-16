@@ -1,15 +1,38 @@
 import * as React from "react";
 import "../styles/onboarding-sidebar.css";
 
-export default () => (
-  <div className="col-sm-3 navigation no-padding">
-    <div className="profile-picture-container">
-      <img src="/assets/logo-white.png" alt="logo-white" />
+type Props = {
+  location: Location;
+};
+
+export default ({ location: { pathname } }: Props) => {
+  return (
+    <div className="col-sm-3 navigation no-padding">
+      <div className="profile-picture-container">
+        <img src="/assets/logo-white.png" alt="logo-white" />
+      </div>
+      <ul className="navigation-steps">
+        <li
+          className={
+            pathname.includes("personality-evaluator") ||
+            pathname.includes("results")
+              ? "active"
+              : ""
+          }
+        >
+          Personality Evaluator
+        </li>
+        <li className={pathname.includes("signup") ? "active" : ""}>
+          Qualifications
+        </li>
+        <li
+          className={
+            pathname.includes("distinguishing-criteria") ? "active" : ""
+          }
+        >
+          Distinguishing Criteria
+        </li>
+      </ul>
     </div>
-    <ul className="navigation-steps">
-      <li className="active">Personality Evaluator</li>
-      <li>Qualifications</li>
-      <li>Distinguishing Criteria</li>
-    </ul>
-  </div>
-);
+  );
+};
