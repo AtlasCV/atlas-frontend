@@ -35,7 +35,8 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "deploy": "aws s3 sync ./build/ s3://new-atlas-frontend"
   },
   "devDependencies": {
     "tslint-config-prettier": "^1.9.0"
