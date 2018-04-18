@@ -2,7 +2,6 @@ import * as React from "react";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import Select from "../Shared/Select";
-import * as profileActions from "../../actions/profile";
 import { loadIndustriesRequest } from "../../actions/industries";
 import { UpdateApplicantFormProps, Industry } from "../../types";
 import "../../styles/input.css";
@@ -11,8 +10,8 @@ type Props = {
   handleSubmit: (
     applicantId: number,
     applicantFormProps: UpdateApplicantFormProps
-  ) => ReturnType<typeof profileActions.updateApplicantRequest>;
-  loadIndustriesRequest: () => ReturnType<typeof loadIndustriesRequest>;
+  ) => void;
+  loadIndustriesRequest: typeof loadIndustriesRequest;
   applicantId: number;
   industries: Industry[];
   uuid: string;
@@ -29,7 +28,7 @@ class PageThree extends React.Component<Props> {
     return (
       <Formik
         initialValues={{
-          industry: "",
+          industryId: 0,
           city: "",
           jobType: ""
         }}
@@ -52,12 +51,13 @@ class PageThree extends React.Component<Props> {
           <form onSubmit={handleSubmit}>
             <Select
               label="INDUSTRY"
-              name="industry"
-              value={values.industry}
+              name="industryId"
+              value={values.industryId}
               handleChange={handleChange}
               handleBlur={handleBlur}
-              error={touched.industry && errors.industry}
+              error={touched.industryId && errors.industryId}
             >
+              <option value={0}>{` `}</option>
               {industries.map(industry => (
                 <option key={industry.id} value={industry.id}>
                   {industry.name}

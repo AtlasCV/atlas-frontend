@@ -2,10 +2,13 @@ import { Reducer } from "redux";
 import { User } from "../types";
 import * as profileActions from "../actions/profile";
 import * as authActions from "../actions/auth";
+import * as industryActions from "../actions/industries";
 import * as actionTypes from "../constants/actionTypes";
 import { ActionUnion } from "../actions/helpers";
 
-type Action = ActionUnion<typeof profileActions | typeof authActions>;
+type Action = ActionUnion<
+  typeof profileActions | typeof authActions | typeof industryActions
+>;
 
 export type ProfileState = {
   info: User;
@@ -23,6 +26,7 @@ const PROFILE_INITIAL_STATE: ProfileState = {
     userType: "",
     applicant: {
       id: 0,
+      industries: [],
       personalityEvaluation: {
         uuid: "",
         answers: [],
@@ -32,7 +36,6 @@ const PROFILE_INITIAL_STATE: ProfileState = {
       }
     }
   },
-
   fetchingApplicant: false
 };
 
@@ -78,6 +81,22 @@ const getMeSuccess = (
   info: user
 });
 
+const addIndustriesToApplicantSuccess = (
+  state: ProfileState,
+  {
+    payload: { industries }
+  }: ReturnType<typeof industryActions.addIndustriesToApplicantSuccess>
+) => ({
+  ...state,
+  info: {
+    ...state.info,
+    applicant: {
+      ...state.info.applicant,
+      industries
+    }
+  }
+});
+
 const profileReducer: Reducer<ProfileState> = (
   state = PROFILE_INITIAL_STATE,
   action: Action
@@ -93,6 +112,8 @@ const profileReducer: Reducer<ProfileState> = (
       return profileAjaxFailure(state, action);
     case actionTypes.GET_ME_SUCCESS:
       return getMeSuccess(state, action);
+    case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_SUCCESS:
+      return addIndustriesToApplicantSuccess(state, action);
     default:
       return state;
   }

@@ -40,6 +40,22 @@ const industryAjaxFailure = (
   fetchingIndustries: false
 });
 
+const addIndustriesToApplicantRequest = (
+  state: IndustryState,
+  action: ReturnType<typeof actions.addIndustriesToApplicantRequest>
+) => ({
+  ...state,
+  fetchingIndustries: true
+});
+
+const addIndustriesToApplicantSuccess = (
+  state: IndustryState,
+  action: ReturnType<typeof actions.addIndustriesToApplicantSuccess>
+) => ({
+  ...state,
+  fetchingIndustries: false
+});
+
 const industryReducer: Reducer<IndustryState> = (
   state = INITIAL_INDUSTRY_STATE,
   action: Action
@@ -51,6 +67,10 @@ const industryReducer: Reducer<IndustryState> = (
       return loadIndustriesSuccess(state, action);
     case actionTypes.INDUSTRY_AJAX_FAILURE:
       return industryAjaxFailure(state, action);
+    case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_REQUEST:
+      return addIndustriesToApplicantRequest(state, action);
+    case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_SUCCESS:
+      return addIndustriesToApplicantSuccess(state, action);
     default:
       return state;
   }

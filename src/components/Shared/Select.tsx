@@ -4,7 +4,7 @@ import "../../styles/input.css";
 type SelectProps = {
   label: string;
   name: string;
-  value: string;
+  value: string | number;
   error: boolean | string;
   children: React.ReactNode;
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;

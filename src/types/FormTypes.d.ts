@@ -21,4 +21,12 @@ export interface UpdateApplicantFormProps {
   aboutMe?: string;
   gender?: string;
   birthday?: string;
+  industryId?: number;
+}
+
+export interface educationDetails {
+  areaOfStudy: string;
+  gpa?: string;
+  educationLevel?: string;
+  university?: string;
 }

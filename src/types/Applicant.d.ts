@@ -1,5 +1,4 @@
-import { User } from "./User";
-import { PersonalityEvaluator } from "./PersonalityEvaluator";
+import { User, Industry, PersonalityEvaluator } from "./";
 
 export interface Applicant {
   id: number;
@@ -9,4 +8,5 @@ export interface Applicant {
   city?: string;
   user?: User;
   personalityEvaluation: PersonalityEvaluator;
+  industries: Industry[];
 }

@@ -5,37 +5,28 @@ import { Route, match } from "react-router-dom";
 import * as questionActions from "../../actions/questions";
 import * as profileActions from "../../actions/profile";
 import { getMeRequest } from "../../actions/auth";
-import { loadIndustriesRequest } from "../../actions/industries";
+import * as industryActions from "../../actions/industries";
 import { AppState } from "../../reducers";
 import PageOne from "./PageOne";
 import PageTwo from "./PageTwo";
 import PageThree from "./PageThree";
-import {
-  CreateApplicantFormProps,
-  UpdateApplicantFormProps
-} from "../../types";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
+import { AuthState } from "../../reducers/auth";
 import "../../styles/signup.css";
+import { UpdateApplicantFormProps } from "../../types";
 
 type Props = {
   match: match<{ uuid: string }>;
   profile: ProfileState;
+  auth: AuthState;
   industries: IndustryState;
-  loadEvaluatorRequest: (
-    uuid: string
-  ) => ReturnType<typeof questionActions.loadEvaluatorRequest>;
-  updateApplicantRequest: (
-    applicantId: number,
-    applicantFormProps: UpdateApplicantFormProps,
-    nextPage?: string
-  ) => ReturnType<typeof profileActions.updateApplicantRequest>;
-  createApplicantRequest: (
-    applicantFormProps: CreateApplicantFormProps,
-    nextPage?: string
-  ) => ReturnType<typeof profileActions.createApplicantRequest>;
-  getMeRequest: () => ReturnType<typeof getMeRequest>;
-  loadIndustriesRequest: () => ReturnType<typeof loadIndustriesRequest>;
+  loadEvaluatorRequest: typeof questionActions.loadEvaluatorRequest;
+  updateApplicantRequest: typeof profileActions.updateApplicantRequest;
+  createApplicantRequest: typeof profileActions.createApplicantRequest;
+  getMeRequest: typeof getMeRequest;
+  loadIndustriesRequest: typeof industryActions.loadIndustriesRequest;
+  addIndustriesToApplicantRequest: typeof industryActions.addIndustriesToApplicantRequest;
 };
 
 export default connect(
@@ -47,7 +38,9 @@ export default connect(
         createApplicantRequest: profileActions.createApplicantRequest,
         updateApplicantRequest: profileActions.updateApplicantRequest,
         getMeRequest,
-        loadIndustriesRequest
+        loadIndustriesRequest: industryActions.loadIndustriesRequest,
+        addIndustriesToApplicantRequest:
+          industryActions.addIndustriesToApplicantRequest
       },
       dispatch
     )
@@ -58,9 +51,31 @@ export default connect(
     }
 
     componentDidMount() {
-      this.props.getMeRequest();
-      this.props.loadEvaluatorRequest(this.props.match.params.uuid);
+      const {
+        match: {
+          params: { uuid }
+        },
+        getMeRequest,
+        loadEvaluatorRequest
+      } = this.props;
+      getMeRequest();
+      loadEvaluatorRequest(uuid);
     }
+
+    submitPageThreeInformation = (
+      applicantId: number,
+      { industryId, ...applicantFormProps }: UpdateApplicantFormProps
+    ) => {
+      this.props.updateApplicantRequest(
+        applicantId,
+        applicantFormProps,
+        `/onboarding/signup/4/${this.props.match.params.uuid}`
+      );
+      if (industryId) {
+        console.log("hey");
+        this.props.addIndustriesToApplicantRequest(applicantId, [+industryId]);
+      }
+    };
 
     render() {
       const {
@@ -100,7 +115,7 @@ export default connect(
             path={"/onboarding/signup/3/:uuid"}
             render={() => (
               <PageThree
-                handleSubmit={updateApplicantRequest}
+                handleSubmit={this.submitPageThreeInformation}
                 loadIndustriesRequest={loadIndustriesRequest}
                 applicantId={id}
                 industries={industries}

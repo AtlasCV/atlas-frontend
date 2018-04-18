@@ -6,7 +6,7 @@ import { ActionUnion } from "../actions/helpers";
 type Action = ActionUnion<typeof actions>;
 
 export type AuthState = {
-  token?: string;
+  token: string;
   id: number;
   fetchingAuth: boolean;
   authenticated: boolean;
