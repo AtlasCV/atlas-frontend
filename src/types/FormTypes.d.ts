@@ -24,7 +24,7 @@ export interface UpdateApplicantFormProps {
   industryId?: number;
 }
 
-export interface educationDetails {
+export interface EducationDetails {
   areaOfStudy: string;
   gpa?: string;
   educationLevel?: string;

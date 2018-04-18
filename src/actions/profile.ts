@@ -26,6 +26,8 @@ export const updateApplicantRequest = (
 export const loadApplicantSuccess = (user: types.User) =>
   createAction(actionTypes.LOAD_APPLICANT_SUCCESS, { user }, false);
 
+export const createEducationExperience = 
+
 export const profileAjaxFailure = (reason: string) =>
   createAction(
     actionTypes.PROFILE_AJAX_FAILURE,

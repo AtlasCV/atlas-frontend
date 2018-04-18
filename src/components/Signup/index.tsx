@@ -10,11 +10,12 @@ import { AppState } from "../../reducers";
 import PageOne from "./PageOne";
 import PageTwo from "./PageTwo";
 import PageThree from "./PageThree";
+import PageFour from "./PageFour";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
 import { AuthState } from "../../reducers/auth";
 import "../../styles/signup.css";
-import { UpdateApplicantFormProps } from "../../types";
+import { UpdateApplicantFormProps, EducationDetails } from "../../types";
 
 type Props = {
   match: match<{ uuid: string }>;
@@ -27,6 +28,7 @@ type Props = {
   getMeRequest: typeof getMeRequest;
   loadIndustriesRequest: typeof industryActions.loadIndustriesRequest;
   addIndustriesToApplicantRequest: typeof industryActions.addIndustriesToApplicantRequest;
+  createEducationExperience: typeof profileActions.createEducationExperience;
 };
 
 export default connect(
@@ -77,6 +79,13 @@ export default connect(
       }
     };
 
+    submitPageFourInformation = (
+      applicantId: number,
+      educationDetails: EducationDetails
+    ) => {
+      this.props.createEducationExperience(applicantId, educationDetails);
+    };
+
     render() {
       const {
         match: { params },
@@ -119,6 +128,17 @@ export default connect(
                 loadIndustriesRequest={loadIndustriesRequest}
                 applicantId={id}
                 industries={industries}
+                uuid={params.uuid}
+              />
+            )}
+          />
+          <Route
+            path={"/onboarding/signup/4/:uuid"}
+            render={() => (
+              <PageFour
+                handleSubmit={this.submitPageFourInformation}
+                applicantId={id}
+                education={education}
                 uuid={params.uuid}
               />
             )}
