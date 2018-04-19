@@ -17,7 +17,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "The corporate world is an arena in which I would be excited to progress and conquer.",
+      "I enjoy working in a corporate environment. The corporate world is an arena in which I would be excited to progress and conquer.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
@@ -58,7 +58,7 @@ const personalityQuestions: PersonalityQuestion[] = [
     userResponse: 0
   },
   {
-    text: 'I consider myself a sort of "jack of all trades."',
+    text: 'I consider myself a "jack of all trades."',
     questionType: "improvisor",
     questionOpposite: "taskOriented",
     userResponse: 0
@@ -100,14 +100,14 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      'I don\'t see myself in the traditional "suit & tie" desk join. I prefer an office culture that is informal but promotes creativity and expression.',
+      'I don\'t see myself in the traditional "suit & tie" desk job. I prefer an office culture that is informal but promotes creativity and expression.',
     questionType: "casual",
     questionOpposite: "formal",
     userResponse: 0
   },
   {
     text:
-      "Give me alist of 10 things that need tobe on your desk by 5 pm, and I'll be in the zone. I work more productively when given clear direction.",
+      "Give me a list of 10 things that need to be on your desk by 5 pm, and I'll be in the zone. I work more productively when given clear direction.",
     questionType: "taskOriented",
     questionOpposite: "improvisor",
     userResponse: 0
@@ -121,7 +121,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "Pushing a team to vicory can be more rewarding to me than winning alone",
+      "Pushing a team to victory can be more rewarding to me than winning alone",
     questionType: "collaborative",
     questionOpposite: "independent",
     userResponse: 0
