@@ -27,12 +27,16 @@ export default () => (
       <div className="hero-section">
         <div className="row">
           <div className="col-md-6 intro-text">
-            <h3>
-              One application to end <br /> all applications
-            </h3>
+            <div className="header-text">
+              <h3>ONE APPLICATION</h3>
+              <h5>To End</h5>
+              <h3>ALL APPLICATIONS</h3>
+            </div>
             <h5>
-              Sick of submitting dozens of identical job applications? We make
-              it easier and simpler - and all completely free.
+              Consider us your 'Common App' for the job hunt. We build one
+              profile to showcase your qualifications, talents & preferences,
+              and allow you to apply & match with jobs that you are compatible
+              with. No repeating applications, no wasting time.{" "}
             </h5>
             <Link to="/onboarding/introduction">
               <button>Get started</button>

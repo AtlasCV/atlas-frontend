@@ -26,12 +26,22 @@
   padding: 50px 200px 0px 200px;
 }
 
-.hero-section h3 {
+.hero-section .header-text {
   margin-bottom: 50px;
+  text-align: center;
+}
+
+.hero-section .header-text h5 {
+  margin-bottom: 10px;
+}
+
+.hero-section .header-text h3 {
+  margin-bottom: 10px;
 }
 
 .hero-section h5 {
   margin-bottom: 50px;
+  line-height: 1.35;
 }
 
 .hero-section button {
