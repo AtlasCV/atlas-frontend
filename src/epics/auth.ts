@@ -17,7 +17,7 @@ export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
       method: "GET",
       url: endpoint.me,
       headers: {
-        authorization: store.getState().auth.token || ""
+        Authorization: store.getState().auth.token || ""
       }
     })
       .map(

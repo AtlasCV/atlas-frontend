@@ -24,7 +24,7 @@ export const createPersonalityEvaluationEpic: CreatePersonalityEvaluationEpic = 
       method: "POST",
       url: endpoint.personalityEvaluations,
       headers: {
-        accept: "application/json"
+        "Content-Type": "application/json"
       },
       data: {}
     })
@@ -60,7 +60,7 @@ export const loadPersonalityEvaluationEpic: LoadPersonalityEvaluationEpic = (
         method: "GET",
         url: `${endpoint.personalityEvaluations}/${uuid}`,
         headers: {
-          accept: "application/json"
+          "Content-Type": "application/json"
         }
       })
         .map(

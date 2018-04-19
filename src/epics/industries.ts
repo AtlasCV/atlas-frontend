@@ -59,7 +59,7 @@ export const addIndustriesToApplicantEpic: AddIndustriesToApplicantEpic = (
           method: "POST",
           url: `${endpoint.applicants}/${applicantId}/industries`,
           headers: {
-            "content-type": "application/json"
+            "Content-Type": "application/json"
           },
           data: {
             industryIds

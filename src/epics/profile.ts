@@ -24,7 +24,7 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
       ajax({
         method: applicantId ? "PUT" : "POST",
         url: `${endpoint.applicants}/${applicantId ? applicantId : ""}`,
-        headers: { "content-type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         data: applicantFormProps
       })
         .concatMap(({ data: { result, token } }: AxiosResponse) => {
