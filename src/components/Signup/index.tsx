@@ -4,33 +4,51 @@ import { connect } from "react-redux";
 import { Route, match } from "react-router-dom";
 import * as questionActions from "../../actions/questions";
 import * as profileActions from "../../actions/profile";
+import * as skillActions from "../../actions/skills";
 import { getMeRequest } from "../../actions/auth";
 import * as industryActions from "../../actions/industries";
 import { AppState } from "../../reducers";
 import PageOne from "./PageOne";
 import PageTwo from "./PageTwo";
 import PageThree from "./PageThree";
+import PageFour from "./PageFour";
+import PageFive from "./PageFive";
+import PageSix from "./PageSix";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
 import { AuthState } from "../../reducers/auth";
+import { SkillState } from "../../reducers/skills";
 import "../../styles/signup.css";
-import { UpdateApplicantFormProps } from "../../types";
+import {
+  UpdateApplicantFormProps,
+  EducationExperience,
+  JobExperience
+} from "../../types";
 
 type Props = {
   match: match<{ uuid: string }>;
   profile: ProfileState;
   auth: AuthState;
   industries: IndustryState;
+  skills: SkillState;
   loadEvaluatorRequest: typeof questionActions.loadEvaluatorRequest;
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
   createApplicantRequest: typeof profileActions.createApplicantRequest;
   getMeRequest: typeof getMeRequest;
   loadIndustriesRequest: typeof industryActions.loadIndustriesRequest;
   addIndustriesToApplicantRequest: typeof industryActions.addIndustriesToApplicantRequest;
+  createEducationExperienceRequest: typeof profileActions.createEducationExperienceRequest;
+  createJobExperienceRequest: typeof profileActions.createJobExperienceRequest;
+  addSkillsToApplicantRequest: typeof skillActions.addSkillsToApplicantRequest;
+  loadSkillsRequest: typeof skillActions.loadSkillsRequest;
 };
 
 export default connect(
-  ({ profile, industries }: AppState) => ({ profile, industries }),
+  ({ profile, industries, skills }: AppState) => ({
+    profile,
+    industries,
+    skills
+  }),
   (dispatch: Dispatch<AppState>) =>
     bindActionCreators(
       {
@@ -40,7 +58,12 @@ export default connect(
         getMeRequest,
         loadIndustriesRequest: industryActions.loadIndustriesRequest,
         addIndustriesToApplicantRequest:
-          industryActions.addIndustriesToApplicantRequest
+          industryActions.addIndustriesToApplicantRequest,
+        createEducationExperienceRequest:
+          profileActions.createEducationExperienceRequest,
+        createJobExperienceRequest: profileActions.createJobExperienceRequest,
+        addSkillsToApplicantRequest: skillActions.addSkillsToApplicantRequest,
+        loadSkillsRequest: skillActions.loadSkillsRequest
       },
       dispatch
     )
@@ -72,9 +95,29 @@ export default connect(
         `/onboarding/signup/4/${this.props.match.params.uuid}`
       );
       if (industryId) {
-        console.log("hey");
         this.props.addIndustriesToApplicantRequest(applicantId, [+industryId]);
       }
+    };
+
+    submitPageFourInformation = (
+      applicantId: number,
+      educationExperience: EducationExperience
+    ) => {
+      this.props.createEducationExperienceRequest(
+        applicantId,
+        educationExperience
+      );
+    };
+
+    submitPageFiveInformation = (
+      applicantId: number,
+      jobExperience: JobExperience
+    ) => {
+      this.props.createJobExperienceRequest(applicantId, jobExperience);
+    };
+
+    submitPageSixInformation = (applicantId: number, skillIds: number[]) => {
+      this.props.addSkillsToApplicantRequest(applicantId, skillIds);
     };
 
     render() {
@@ -83,10 +126,12 @@ export default connect(
         createApplicantRequest,
         updateApplicantRequest,
         loadIndustriesRequest,
+        loadSkillsRequest,
         profile: {
           info: { id }
         },
-        industries: { list: industries }
+        industries: { list: industries },
+        skills: { list: skills }
       } = this.props;
 
       return (
@@ -120,6 +165,38 @@ export default connect(
                 applicantId={id}
                 industries={industries}
                 uuid={params.uuid}
+              />
+            )}
+          />
+          <Route
+            path={"/onboarding/signup/4/:uuid"}
+            render={() => (
+              <PageFour
+                handleSubmit={this.submitPageFourInformation}
+                applicantId={id}
+                uuid={params.uuid}
+              />
+            )}
+          />
+          <Route
+            path={"/onboarding/signup/5/:uuid"}
+            render={() => (
+              <PageFive
+                handleSubmit={this.submitPageFiveInformation}
+                applicantId={id}
+                uuid={params.uuid}
+              />
+            )}
+          />
+          <Route
+            path={"/onboarding/signup/6/:uuid"}
+            render={() => (
+              <PageSix
+                handleSubmit={this.submitPageSixInformation}
+                applicantId={id}
+                uuid={params.uuid}
+                skills={skills}
+                loadSkillsRequest={loadSkillsRequest}
               />
             )}
           />

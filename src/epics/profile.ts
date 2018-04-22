@@ -46,4 +46,61 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
         )
     );
 
-export default [createOrUpdateApplicantEpic];
+type CreateEducationExperience = Epic<AnyAction, AppState, Dependencies>;
+const createEducationExperience: CreateEducationExperience = (
+  action$,
+  store,
+  { ajax }
+) =>
+  action$
+    .ofType(actionTypes.CREATE_EDUCATION_EXPERIENCE_REQUEST)
+    .mergeMap(({ payload: { educationExperience, applicantId } }) => {
+      console.log(educationExperience, applicantId);
+      return ajax({
+        method: "POST",
+        url: `${endpoint.applicants}/${applicantId}/education`,
+        headers: { "content-type": "application/json" },
+        data: educationExperience
+      })
+        .map(response =>
+          actions.createEducationExperienceSuccess(
+            response.data.educationExperience
+          )
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            actions.profileAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        );
+    });
+
+type CreateJobExperience = Epic<AnyAction, AppState, Dependencies>;
+const createJobExperience: CreateJobExperience = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.CREATE_JOB_EXPERIENCE_REQUEST)
+    .mergeMap(({ payload: { jobExperience, applicantId } }) => {
+      return ajax({
+        method: "POST",
+        url: `${endpoint.applicants}/${applicantId}/jobExperience`,
+        headers: { "content-type": "application/json" },
+        data: jobExperience
+      })
+        .map(response =>
+          actions.createJobExperienceSuccess(response.data.jobExperience)
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            actions.profileAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        );
+    });
+
+export default [
+  createOrUpdateApplicantEpic,
+  createEducationExperience,
+  createJobExperience
+];

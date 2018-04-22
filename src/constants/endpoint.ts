@@ -7,18 +7,21 @@ const URL = {
     personalityEvaluations: `${DEV_URL}/personality-evaluations`,
     applicants: `${DEV_URL}/applicants`,
     industries: `${DEV_URL}/industries`,
+    skills: `${DEV_URL}/skills`,
     me: `${DEV_URL}/me`
   },
   staging: {
     personalityEvaluations: `${DEV_URL}/personality-evaluations`,
     applicants: `${DEV_URL}/applicants`,
     industries: `${DEV_URL}/industries`,
+    skills: `${DEV_URL}/skills`,
     me: `${DEV_URL}/me`
   },
   production: {
     personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
     applicants: `${ROOT_URL}/applicants`,
     industries: `${ROOT_URL}/industries`,
+    skills: `${ROOT_URL}/skills`,
     me: `${ROOT_URL}/me`
   }
 };

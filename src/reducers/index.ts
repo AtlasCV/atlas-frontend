@@ -5,6 +5,7 @@ import questions, { QuestionState } from "./questions";
 import profile, { ProfileState } from "./profile";
 import industries, { IndustryState } from "./industries";
 import auth, { AuthState } from "./auth";
+import skills, { SkillState } from "./skills";
 
 export type AppState = {
   questions: QuestionState;
@@ -12,6 +13,7 @@ export type AppState = {
   profile: ProfileState;
   industries: IndustryState;
   auth: AuthState;
+  skills: SkillState;
 };
 
 const reducers: redux.ReducersMapObject = {
@@ -19,7 +21,8 @@ const reducers: redux.ReducersMapObject = {
   profile,
   router: routerReducer,
   industries,
-  auth
+  auth,
+  skills
 };
 
 const rootReducer: redux.Reducer<AppState> = combineReducers(reducers);

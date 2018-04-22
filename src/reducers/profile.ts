@@ -27,6 +27,8 @@ const PROFILE_INITIAL_STATE: ProfileState = {
     applicant: {
       id: 0,
       industries: [],
+      educationExperiences: [],
+      jobExperiences: [],
       personalityEvaluation: {
         uuid: "",
         answers: [],
@@ -97,6 +99,41 @@ const addIndustriesToApplicantSuccess = (
   }
 });
 
+const createEducationExperienceSuccess = (
+  state: ProfileState,
+  {
+    payload: { educationExperience }
+  }: ReturnType<typeof profileActions.createEducationExperienceSuccess>
+) => ({
+  ...state,
+  info: {
+    ...state.info,
+    applicant: {
+      ...state.info.applicant,
+      educationExperience: [
+        ...state.info.applicant.educationExperiences,
+        educationExperience
+      ]
+    }
+  }
+});
+
+const createJobExperienceSuccess = (
+  state: ProfileState,
+  {
+    payload: { jobExperience }
+  }: ReturnType<typeof profileActions.createJobExperienceSuccess>
+) => ({
+  ...state,
+  info: {
+    ...state.info,
+    applicant: {
+      ...state.info.applicant,
+      jobExperience: [...state.info.applicant.jobExperiences, jobExperience]
+    }
+  }
+});
+
 const profileReducer: Reducer<ProfileState> = (
   state = PROFILE_INITIAL_STATE,
   action: Action
@@ -114,6 +151,10 @@ const profileReducer: Reducer<ProfileState> = (
       return getMeSuccess(state, action);
     case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_SUCCESS:
       return addIndustriesToApplicantSuccess(state, action);
+    case actionTypes.CREATE_EDUCATION_EXPERIENCE_SUCCESS:
+      return createEducationExperienceSuccess(state, action);
+    case actionTypes.CREATE_JOB_EXPERIENCE_SUCCESS:
+      return createJobExperienceSuccess(state, action);
     default:
       return state;
   }
