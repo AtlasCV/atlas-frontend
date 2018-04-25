@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Onboarding from "./containers/Onboarding";
 import LandingPage from "./containers/LandingPage";
+import Login from "./containers/Login";
 
 const init = require("./init").default;
 
@@ -14,6 +15,7 @@ const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
+        <Route path="/login" component={Login} />
         <Route path="/onboarding" component={Onboarding} />
         <Route path="/" component={LandingPage} />
       </Switch>

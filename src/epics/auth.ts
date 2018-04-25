@@ -5,7 +5,12 @@ import { Epic } from "redux-observable";
 import { AppState } from "../reducers";
 import { Dependencies } from "../init";
 import endpoint from "../constants/endpoint";
-import { getMeSuccess, authAjaxFailure } from "../actions/auth";
+import {
+  getMeSuccess,
+  loginSuccess,
+  authAjaxFailure,
+  getMeRequest
+} from "../actions/auth";
 import * as actionTypes from "../constants/actionTypes";
 import * as types from "../types";
 import { User } from "../types";
@@ -17,7 +22,7 @@ export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
       method: "GET",
       url: endpoint.me,
       headers: {
-        Authorization: store.getState().auth.token || ""
+        Authorization: store.getState().auth.token
       }
     })
       .map(
@@ -33,4 +38,34 @@ export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
       )
   );
 
-export default [getMeEpic];
+type LoginEpic = Epic<AnyAction, AppState, Dependencies>;
+export const loginEpic: LoginEpic = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.LOGIN_REQUEST)
+    .mergeMap(({ payload: { email, password } }) =>
+      ajax({
+        method: "POST",
+        url: endpoint.login,
+        data: {
+          email,
+          password
+        }
+      })
+        .concatMap(
+          ({
+            data: { result }
+          }: AxiosResponse<types.AxiosResponseData<string>>) => [
+            loginSuccess(result),
+            getMeRequest()
+          ]
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            authAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        )
+    );
+
+export default [getMeEpic, loginEpic];

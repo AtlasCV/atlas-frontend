@@ -34,6 +34,21 @@ const getMeSuccess = (
   authenticated: true
 });
 
+const loginRequest = (state: AuthState) => ({
+  ...state,
+  fetchingAuth: true
+});
+
+const loginSuccess = (
+  state: AuthState,
+  { payload: { token } }: ReturnType<typeof actions.loginSuccess>
+) => ({
+  ...state,
+  fetchingAuth: false,
+  authenticated: true,
+  token
+});
+
 const authAjaxFailure = (
   state: AuthState,
   { error }: ReturnType<typeof actions.authAjaxFailure>
@@ -53,6 +68,10 @@ const authReducer: Reducer<AuthState> = (
       return getMeRequest(state);
     case actionTypes.GET_ME_SUCCESS:
       return getMeSuccess(state, action);
+    case actionTypes.LOGIN_REQUEST:
+      return loginRequest(state);
+    case actionTypes.LOGIN_SUCCESS:
+      return loginSuccess(state, action);
     case actionTypes.AUTH_AJAX_FAILURE:
       return authAjaxFailure(state, action);
     default:

@@ -103,8 +103,6 @@ export const nextQuestionPageEpic: NextQuestionPageEpic = (
         }
       } = store.getState();
 
-      console.log(scoreSignature);
-
       return ajax({
         method: "put",
         url: `${endpoint.personalityEvaluations}/${uuid}`,
