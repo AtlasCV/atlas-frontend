@@ -23,10 +23,10 @@ const loadSkillsRequest = (state: SkillState) => ({
 
 const loadSkillsSuccess = (
   state: SkillState,
-  { payload: { industries } }: ReturnType<typeof actions.loadSkillsSuccess>
+  { payload: { skills } }: ReturnType<typeof actions.loadSkillsSuccess>
 ) => ({
   ...state,
-  list: industries,
+  list: skills,
   fetchingSkills: false
 });
 
@@ -60,15 +60,15 @@ const skillReducer: Reducer<SkillState> = (
   action: Action
 ) => {
   switch (action.type) {
-    case actionTypes.LOAD_INDUSTRIES_REQUEST:
+    case actionTypes.LOAD_SKILLS_REQUEST:
       return loadSkillsRequest(state);
-    case actionTypes.LOAD_INDUSTRIES_SUCCESS:
+    case actionTypes.LOAD_SKILLS_SUCCESS:
       return loadSkillsSuccess(state, action);
-    case actionTypes.INDUSTRY_AJAX_FAILURE:
+    case actionTypes.SKILL_AJAX_FAILURE:
       return skillAjaxFailure(state, action);
-    case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_REQUEST:
+    case actionTypes.ADD_SKILLS_TO_APPLICANT_REQUEST:
       return addSkillsToApplicantRequest(state, action);
-    case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_SUCCESS:
+    case actionTypes.ADD_SKILLS_TO_APPLICANT_SUCCESS:
       return addSkillsToApplicantSuccess(state, action);
     default:
       return state;

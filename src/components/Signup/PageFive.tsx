@@ -10,7 +10,6 @@ import TextArea from "../Shared/TextArea";
 type Props = {
   handleSubmit: (applicantId: number, jobExperience: JobExperience) => void;
   applicantId: number;
-  uuid: string;
 };
 
 class PageFive extends React.Component<Props> {

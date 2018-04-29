@@ -1,6 +1,7 @@
 import { Observable } from "rxjs/Rx";
 import { AxiosResponse, AxiosError } from "axios";
 import { AnyAction } from "redux";
+import { push } from "react-router-redux";
 import { Epic } from "redux-observable";
 import { AppState } from "../reducers";
 import { Dependencies } from "../init";
@@ -25,9 +26,19 @@ export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
         Authorization: store.getState().auth.token
       }
     })
-      .map(
-        ({ data: { result } }: AxiosResponse<types.AxiosResponseData<User>>) =>
-          getMeSuccess(result)
+      .concatMap(
+        ({
+          data: { result }
+        }: AxiosResponse<types.AxiosResponseData<User>>) => {
+          if (!result.Applicant.signupComplete) {
+            return [
+              getMeSuccess(result),
+              push(`/onboarding/signup/${result.Applicant.currentPageOfSignup}`)
+            ];
+          } else {
+            return [getMeSuccess(result)];
+          }
+        }
       )
       .catch((err: AxiosError) =>
         Observable.of(

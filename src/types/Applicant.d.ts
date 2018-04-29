@@ -11,6 +11,8 @@ export interface Applicant {
   industries: Industry[];
   educationExperiences: EducationExperience[];
   jobExperiences: JobExperience[];
+  currentPageOfSignup?: number;
+  signupComplete?: boolean;
 }
 
 export interface EducationExperience {

@@ -14,7 +14,6 @@ type Props = {
   loadIndustriesRequest: typeof loadIndustriesRequest;
   applicantId: number;
   industries: Industry[];
-  uuid: string;
 };
 
 class PageThree extends React.Component<Props> {

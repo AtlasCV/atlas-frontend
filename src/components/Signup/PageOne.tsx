@@ -22,9 +22,9 @@ export default ({ handleSubmit, uuid }: Props) => (
       confirmPassword: "",
       linkedIn: ""
     }}
-    onSubmit={values => {
-      return handleSubmit({ ...values, uuid }, `/onboarding/signup/2/${uuid}`);
-    }}
+    onSubmit={values =>
+      handleSubmit({ ...values, uuid, currentPageOfSignup: 2 })
+    }
     validate={values => {
       let errors: {
         firstName?: string;

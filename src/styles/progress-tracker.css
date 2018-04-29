@@ -2,18 +2,21 @@
   margin-bottom: 30px;
 }
 
+.progress-labels-container {
+  position: relative;
+}
+
 .progress-labels {
   display: inline-block;
-  height: 50px;
   position: absolute;
-  top: 92px;
   color: #333;
+  top: -25px;
 }
 
 .start-label {
-  left: 35px;
+  left: 0px;
 }
 
 .end-label {
-  right: 35px;
+  right: 0px;
 }

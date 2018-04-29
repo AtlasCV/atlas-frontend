@@ -13,10 +13,9 @@ type Props = {
     nextPage?: string
   ) => void;
   applicantId: number;
-  uuid: string;
 };
 
-export default ({ handleSubmit, applicantId, uuid }: Props) => (
+export default ({ handleSubmit, applicantId }: Props) => (
   <Formik
     initialValues={{
       phone: "",
@@ -25,11 +24,10 @@ export default ({ handleSubmit, applicantId, uuid }: Props) => (
       gender: ""
     }}
     onSubmit={applicantFormProps =>
-      handleSubmit(
-        applicantId,
-        applicantFormProps,
-        `/onboarding/signup/3/${uuid}`
-      )
+      handleSubmit(applicantId, {
+        ...applicantFormProps,
+        currentPageOfSignup: 3
+      })
     }
     validate={values => {
       let errors: UpdateApplicantFormProps = {};

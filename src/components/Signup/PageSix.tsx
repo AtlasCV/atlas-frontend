@@ -7,7 +7,6 @@ type Props = {
   loadSkillsRequest: () => void;
   applicantId: number;
   skills: Array<{ id: number; name: string }>;
-  uuid: string;
 };
 
 class PageSix extends React.Component<Props> {

@@ -24,7 +24,7 @@ const PROFILE_INITIAL_STATE: ProfileState = {
     email: "",
     activated: false,
     userType: "",
-    applicant: {
+    Applicant: {
       id: 0,
       industries: [],
       educationExperiences: [],
@@ -93,7 +93,7 @@ const addIndustriesToApplicantSuccess = (
   info: {
     ...state.info,
     applicant: {
-      ...state.info.applicant,
+      ...state.info.Applicant,
       industries
     }
   }
@@ -108,10 +108,10 @@ const createEducationExperienceSuccess = (
   ...state,
   info: {
     ...state.info,
-    applicant: {
-      ...state.info.applicant,
+    Applicant: {
+      ...state.info.Applicant,
       educationExperience: [
-        ...state.info.applicant.educationExperiences,
+        ...state.info.Applicant.educationExperiences,
         educationExperience
       ]
     }
@@ -127,9 +127,9 @@ const createJobExperienceSuccess = (
   ...state,
   info: {
     ...state.info,
-    applicant: {
-      ...state.info.applicant,
-      jobExperience: [...state.info.applicant.jobExperiences, jobExperience]
+    Applicant: {
+      ...state.info.Applicant,
+      jobExperience: [...state.info.Applicant.jobExperiences, jobExperience]
     }
   }
 });

@@ -9,13 +9,13 @@ type Props = {
     applicantId: number,
     educationExperience: EducationExperience
   ) => void;
+  completePage: (applicantId: number) => void;
   applicantId: number;
-  uuid: string;
 };
 
 class PageFour extends React.Component<Props> {
   render() {
-    const { handleSubmit, applicantId } = this.props;
+    const { handleSubmit, applicantId, completePage } = this.props;
 
     return (
       <Formik
@@ -88,8 +88,11 @@ class PageFour extends React.Component<Props> {
               handleBlur={handleBlur}
               error={touched.gpa && errors.gpa}
             />
-            <button type="submit">Add Another</button>
-            <button style={{ float: "right" }} type="submit">
+            <button type="submit">Add Education</button>
+            <button
+              style={{ float: "right" }}
+              onClick={() => completePage(applicantId)}
+            >
               Finished
             </button>
           </form>

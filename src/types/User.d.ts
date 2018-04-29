@@ -12,5 +12,5 @@ export interface User {
   activated: boolean;
   userType: string;
   token?: string;
-  applicant: Applicant;
+  Applicant: Applicant;
 }

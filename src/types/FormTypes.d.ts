@@ -6,6 +6,7 @@ export interface CreateApplicantFormProps {
   confirmPassword: string;
   linkedIn: string;
   uuid: string;
+  currentPageOfSignup?: number;
 }
 
 export interface UpdateApplicantFormProps {
@@ -22,6 +23,7 @@ export interface UpdateApplicantFormProps {
   gender?: string;
   birthday?: string;
   industryId?: number;
+  currentPageOfSignup?: number;
 }
 
 export interface EducationDetails {

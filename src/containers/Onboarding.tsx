@@ -56,11 +56,18 @@ export default connect(
               component={PersonalityEvaluator}
             />
             <Route
+              exact={true}
               path={this.props.match.url + "/results/:uuid"}
               component={Results}
             />
             <Route
+              exact={true}
               path={this.props.match.url + "/signup/:page/:uuid"}
+              component={Signup}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/signup/:page"}
               component={Signup}
             />
           </div>

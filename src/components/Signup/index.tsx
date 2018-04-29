@@ -14,6 +14,7 @@ import PageThree from "./PageThree";
 import PageFour from "./PageFour";
 import PageFive from "./PageFive";
 import PageSix from "./PageSix";
+import ProgressTracker from "../ProgressTracker";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
 import { AuthState } from "../../reducers/auth";
@@ -22,7 +23,8 @@ import "../../styles/signup.css";
 import {
   UpdateApplicantFormProps,
   EducationExperience,
-  JobExperience
+  JobExperience,
+  CreateApplicantFormProps
 } from "../../types";
 
 type Props = {
@@ -43,11 +45,14 @@ type Props = {
   loadSkillsRequest: typeof skillActions.loadSkillsRequest;
 };
 
+type State = { activePage: number };
+
 export default connect(
-  ({ profile, industries, skills }: AppState) => ({
+  ({ profile, industries, skills, auth }: AppState) => ({
     profile,
     industries,
-    skills
+    skills,
+    auth
   }),
   (dispatch: Dispatch<AppState>) =>
     bindActionCreators(
@@ -68,22 +73,54 @@ export default connect(
       dispatch
     )
 )(
-  class Signup extends React.Component<Props> {
+  class Signup extends React.Component<Props, State> {
+    static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+      const {
+        auth,
+        profile: {
+          info: { Applicant }
+        }
+      } = nextProps;
+      if (!Applicant) {
+        return null;
+      }
+      if (
+        auth.authenticated &&
+        prevState.activePage !== Applicant.currentPageOfSignup
+      ) {
+        return {
+          activePage: Applicant.currentPageOfSignup
+        };
+      } else {
+        return { activePage: prevState.activePage };
+      }
+    }
+
     constructor(props: Props) {
       super(props);
+      this.state = {
+        activePage: 0
+      };
     }
 
     componentDidMount() {
-      const {
-        match: {
-          params: { uuid }
-        },
-        getMeRequest,
-        loadEvaluatorRequest
-      } = this.props;
+      const { getMeRequest } = this.props;
+
       getMeRequest();
-      loadEvaluatorRequest(uuid);
     }
+
+    submitPageOneInformation = (formValues: CreateApplicantFormProps) => {
+      const { createApplicantRequest } = this.props;
+      createApplicantRequest(formValues, "/onboarding/signup/2");
+    };
+
+    submitPageTwoInformation = (
+      applicantId: number,
+      formValues: UpdateApplicantFormProps
+    ) => {
+      const { updateApplicantRequest } = this.props;
+      updateApplicantRequest(applicantId, formValues, "/onboarding/signup/3");
+    };
 
     submitPageThreeInformation = (
       applicantId: number,
@@ -91,8 +128,8 @@ export default connect(
     ) => {
       this.props.updateApplicantRequest(
         applicantId,
-        applicantFormProps,
-        `/onboarding/signup/4/${this.props.match.params.uuid}`
+        { ...applicantFormProps, currentPageOfSignup: 4 },
+        "/onboarding/signup/4/"
       );
       if (industryId) {
         this.props.addIndustriesToApplicantRequest(applicantId, [+industryId]);
@@ -106,6 +143,16 @@ export default connect(
       this.props.createEducationExperienceRequest(
         applicantId,
         educationExperience
+      );
+    };
+
+    completePageFour = (applicantId: number) => {
+      this.props.updateApplicantRequest(
+        applicantId,
+        {
+          currentPageOfSignup: 5
+        },
+        "/onboarding/signup/5/"
       );
     };
 
@@ -123,12 +170,10 @@ export default connect(
     render() {
       const {
         match: { params },
-        createApplicantRequest,
-        updateApplicantRequest,
         loadIndustriesRequest,
         loadSkillsRequest,
         profile: {
-          info: { id }
+          info: { Applicant }
         },
         industries: { list: industries },
         skills: { list: skills }
@@ -137,64 +182,61 @@ export default connect(
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about your qualifications</h2>
+          <ProgressTracker progress={this.state.activePage / 6 * 100} />
           <Route
             path={"/onboarding/signup/1/:uuid"}
             render={() => (
               <PageOne
                 uuid={params.uuid}
-                handleSubmit={createApplicantRequest}
+                handleSubmit={this.submitPageOneInformation}
               />
             )}
           />
           <Route
-            path={"/onboarding/signup/2/:uuid"}
+            path={"/onboarding/signup/2"}
             render={() => (
               <PageTwo
-                uuid={params.uuid}
-                handleSubmit={updateApplicantRequest}
-                applicantId={id}
+                handleSubmit={this.submitPageTwoInformation}
+                applicantId={Applicant && Applicant.id}
               />
             )}
           />
           <Route
-            path={"/onboarding/signup/3/:uuid"}
+            path={"/onboarding/signup/3"}
             render={() => (
               <PageThree
                 handleSubmit={this.submitPageThreeInformation}
                 loadIndustriesRequest={loadIndustriesRequest}
-                applicantId={id}
+                applicantId={Applicant && Applicant.id}
                 industries={industries}
-                uuid={params.uuid}
               />
             )}
           />
           <Route
-            path={"/onboarding/signup/4/:uuid"}
+            path={"/onboarding/signup/4"}
             render={() => (
               <PageFour
                 handleSubmit={this.submitPageFourInformation}
-                applicantId={id}
-                uuid={params.uuid}
+                completePage={this.completePageFour}
+                applicantId={Applicant && Applicant.id}
               />
             )}
           />
           <Route
-            path={"/onboarding/signup/5/:uuid"}
+            path={"/onboarding/signup/5"}
             render={() => (
               <PageFive
                 handleSubmit={this.submitPageFiveInformation}
-                applicantId={id}
-                uuid={params.uuid}
+                applicantId={Applicant && Applicant.id}
               />
             )}
           />
           <Route
-            path={"/onboarding/signup/6/:uuid"}
+            path={"/onboarding/signup/6"}
             render={() => (
               <PageSix
                 handleSubmit={this.submitPageSixInformation}
-                applicantId={id}
-                uuid={params.uuid}
+                applicantId={Applicant && Applicant.id}
                 skills={skills}
                 loadSkillsRequest={loadSkillsRequest}
               />
