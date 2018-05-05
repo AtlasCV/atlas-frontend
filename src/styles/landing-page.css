@@ -14,6 +14,11 @@
   margin-right: 30px;
 }
 
+.nav-link a {
+  color: #333;
+  text-decoration: none;
+}
+
 .navbar {
   padding-top: 20px;
 }

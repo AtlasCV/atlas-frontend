@@ -12,7 +12,7 @@ export type IndustryState = {
   error?: Error;
 };
 
-const INITIAL_INDUSTRY_STATE: IndustryState = {
+export const INITIAL_INDUSTRY_STATE: IndustryState = {
   list: [{ id: 0, name: "" }],
   fetchingIndustries: false
 };

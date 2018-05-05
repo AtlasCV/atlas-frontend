@@ -12,7 +12,7 @@ export type AuthState = {
   authenticated: boolean;
 };
 
-const INITIAL_AUTH_STATE: AuthState = {
+export const INITIAL_AUTH_STATE: AuthState = {
   token: window.localStorage.getItem("accessToken") || "",
   id: 0,
   fetchingAuth: false,

@@ -11,16 +11,19 @@ export default () => (
         </a>
         <ul>
           <li className="nav-link">
-            <a>Create an account</a>
+            <Link to="/onboarding/introduction">Create an account</Link>
           </li>
           <li className="nav-link">
-            <a>How it works</a>
+            <Link to="/login">Login</Link>
           </li>
           <li className="nav-link">
-            <a>Support</a>
+            <Link to="/#">How it works</Link>
           </li>
           <li className="nav-link">
-            <a>FAQ</a>
+            <Link to="/#">Support</Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/#">FAQ</Link>
           </li>
         </ul>
       </nav>

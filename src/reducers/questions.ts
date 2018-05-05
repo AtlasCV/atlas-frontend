@@ -18,7 +18,7 @@ export type QuestionState = {
   uuid?: string;
 };
 
-const QUESTION_INITIAL_STATE: QuestionState = {
+export const QUESTION_INITIAL_STATE: QuestionState = {
   questionList: questions,
   currentQuestionIndex: 0,
   finalScore: {

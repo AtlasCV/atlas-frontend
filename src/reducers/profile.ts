@@ -16,7 +16,7 @@ export type ProfileState = {
   error?: Error;
 };
 
-const PROFILE_INITIAL_STATE: ProfileState = {
+export const PROFILE_INITIAL_STATE: ProfileState = {
   info: {
     id: 0,
     firstName: "",

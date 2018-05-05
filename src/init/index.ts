@@ -1,4 +1,10 @@
-import { Store, createStore, applyMiddleware, Middleware } from "redux";
+import {
+  Store,
+  createStore,
+  applyMiddleware,
+  Middleware,
+  compose
+} from "redux";
 import { createEpicMiddleware } from "redux-observable";
 import { routerMiddleware } from "react-router-redux";
 import { createLogger } from "redux-logger";
@@ -8,7 +14,7 @@ import { Observable } from "rxjs";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import epics from "../epics";
-import reducers, { AppState } from "../reducers";
+import reducers, { AppState, initialState } from "../reducers";
 
 export interface Dependencies {
   ajax: (options: AxiosRequestConfig) => Observable<AxiosResponse>;
@@ -28,9 +34,14 @@ export default (): { store: Store<AppState>; history: History } => {
     routerMiddleware(history)
   ] as Middleware[];
 
-  const enhancer = applyMiddleware(...middleware);
+  const composeEnhancers =
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  const store: Store<AppState> = createStore(reducers, enhancer);
+  const store: Store<AppState> = createStore(
+    reducers,
+    initialState,
+    composeEnhancers(applyMiddleware(...middleware))
+  );
 
   return { store, history };
 };

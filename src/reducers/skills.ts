@@ -11,7 +11,7 @@ export type SkillState = {
   error?: Error;
 };
 
-const INITIAL_SKILL_STATE: SkillState = {
+export const INITIAL_SKILL_STATE: SkillState = {
   list: [{ id: 0, name: "" }],
   fetchingSkills: false
 };
