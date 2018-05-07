@@ -2,17 +2,18 @@ import { Reducer } from "redux";
 import * as actions from "../actions/skills";
 import * as actionTypes from "../constants/actionTypes";
 import { ActionUnion } from "../actions/helpers";
+import { Skill } from "../types";
 
 type Action = ActionUnion<typeof actions>;
 
 export type SkillState = {
-  list: Array<{ id: number; name: string }>;
+  list: Array<Skill>;
   fetchingSkills: boolean;
   error?: Error;
 };
 
 export const INITIAL_SKILL_STATE: SkillState = {
-  list: [{ id: 0, name: "" }],
+  list: [],
   fetchingSkills: false
 };
 

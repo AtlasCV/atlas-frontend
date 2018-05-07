@@ -63,9 +63,7 @@ const createEducationExperience: CreateEducationExperience = (
         data: educationExperience
       })
         .map(response =>
-          actions.createEducationExperienceSuccess(
-            response.data.educationExperience
-          )
+          actions.createEducationExperienceSuccess(response.data)
         )
         .catch((err: AxiosError) =>
           Observable.of(

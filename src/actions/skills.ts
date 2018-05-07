@@ -1,25 +1,23 @@
 import * as actionTypes from "../constants/actionTypes";
 import { createAction } from "./helpers";
+import { Skill } from "../types";
 
 export const loadSkillsRequest = () =>
   createAction(actionTypes.LOAD_SKILLS_REQUEST);
 
-export const loadSkillsSuccess = (
-  skills: Array<{ id: number; name: string }>
-) => createAction(actionTypes.LOAD_SKILLS_SUCCESS, { skills });
+export const loadSkillsSuccess = (skills: Skill[]) =>
+  createAction(actionTypes.LOAD_SKILLS_SUCCESS, { skills });
 
 export const addSkillsToApplicantRequest = (
   applicantId: number,
-  skillIds: number[]
+  skill: { id: number; yearsExperience: string }
 ) =>
   createAction(actionTypes.ADD_SKILLS_TO_APPLICANT_REQUEST, {
     applicantId,
-    skillIds
+    skill
   });
 
-export const addSkillsToApplicantSuccess = (
-  skills: Array<{ id: number; name: string }>
-) =>
+export const addSkillsToApplicantSuccess = (skills: Skill[]) =>
   createAction(actionTypes.ADD_SKILLS_TO_APPLICANT_SUCCESS, {
     skills
   });

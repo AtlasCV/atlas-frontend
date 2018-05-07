@@ -8,11 +8,19 @@ export interface Applicant {
   city?: string;
   user?: User;
   personalityEvaluation?: PersonalityEvaluator;
-  industries: Industry[];
-  educationExperiences: EducationExperience[];
-  jobExperiences: JobExperience[];
+  Industries: Industry[];
+  EducationExperiences: EducationExperience[];
+  JobExperiences: JobExperience[];
   currentPageOfSignup?: number;
   signupComplete?: boolean;
+  ApplicantSkills: ApplicantSkill[];
+}
+
+export interface ApplicantSkill {
+  ApplicantId: number;
+  SkillId: number;
+  yearsExperience: string;
+  Skill?: Skill;
 }
 
 export interface EducationExperience {
@@ -30,4 +38,10 @@ export interface JobExperience {
   currentlyWorkingHere?: boolean;
   description?: string;
   companyName?: string;
+}
+
+export interface Skill {
+  name: string;
+  displayName: string;
+  id: number;
 }

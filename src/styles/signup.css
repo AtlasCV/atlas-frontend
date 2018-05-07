@@ -1,6 +1,7 @@
 .signup-container {
   padding: 20px;
   background-color: #fff;
+  max-height: 800px;
 }
 
 .signup-container button {
@@ -12,7 +13,6 @@
   border-radius: 2px;
   margin-top: 50px;
   cursor: pointer;
-  float: left;
 }
 
 .signup-container h2 {

@@ -163,8 +163,21 @@ export default connect(
       this.props.createJobExperienceRequest(applicantId, jobExperience);
     };
 
-    submitPageSixInformation = (applicantId: number, skillIds: number[]) => {
-      this.props.addSkillsToApplicantRequest(applicantId, skillIds);
+    completePageFive = (applicantId: number) => {
+      this.props.updateApplicantRequest(
+        applicantId,
+        {
+          currentPageOfSignup: 6
+        },
+        "/onboarding/signup/6"
+      );
+    };
+
+    addSkillToApplicant = (
+      applicantId: number,
+      skill: { id: number; yearsExperience: string }
+    ) => {
+      this.props.addSkillsToApplicantRequest(applicantId, skill);
     };
 
     render() {
@@ -182,7 +195,7 @@ export default connect(
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about your qualifications</h2>
-          <ProgressTracker progress={this.state.activePage / 6 * 100} />
+          <ProgressTracker progress={this.state.activePage / 7 * 100} />
           <Route
             path={"/onboarding/signup/1/:uuid"}
             render={() => (
@@ -218,7 +231,7 @@ export default connect(
               <PageFour
                 handleSubmit={this.submitPageFourInformation}
                 completePage={this.completePageFour}
-                applicantId={Applicant && Applicant.id}
+                profile={this.props.profile}
               />
             )}
           />
@@ -227,7 +240,8 @@ export default connect(
             render={() => (
               <PageFive
                 handleSubmit={this.submitPageFiveInformation}
-                applicantId={Applicant && Applicant.id}
+                completePage={this.completePageFive}
+                profile={this.props.profile}
               />
             )}
           />
@@ -235,8 +249,8 @@ export default connect(
             path={"/onboarding/signup/6"}
             render={() => (
               <PageSix
-                handleSubmit={this.submitPageSixInformation}
-                applicantId={Applicant && Applicant.id}
+                selectSkillForApplicant={this.addSkillToApplicant}
+                profile={this.props.profile}
                 skills={skills}
                 loadSkillsRequest={loadSkillsRequest}
               />
