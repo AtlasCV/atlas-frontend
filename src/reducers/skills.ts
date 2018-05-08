@@ -9,12 +9,16 @@ type Action = ActionUnion<typeof actions>;
 export type SkillState = {
   list: Array<Skill>;
   fetchingSkills: boolean;
+  savingSkills: boolean;
+  savedSkills: boolean;
   error?: Error;
 };
 
 export const INITIAL_SKILL_STATE: SkillState = {
   list: [],
-  fetchingSkills: false
+  fetchingSkills: false,
+  savingSkills: false,
+  savedSkills: false
 };
 
 const loadSkillsRequest = (state: SkillState) => ({
@@ -45,7 +49,8 @@ const addSkillsToApplicantRequest = (
   action: ReturnType<typeof actions.addSkillsToApplicantRequest>
 ) => ({
   ...state,
-  fetchingSkills: true
+  savingSkills: true,
+  savedSkills: false
 });
 
 const addSkillsToApplicantSuccess = (
@@ -53,7 +58,26 @@ const addSkillsToApplicantSuccess = (
   action: ReturnType<typeof actions.addSkillsToApplicantSuccess>
 ) => ({
   ...state,
-  fetchingSkills: false
+  savingSkills: false,
+  savedSkills: true
+});
+
+const removeSkillFromApplicantRequest = (
+  state: SkillState,
+  action: ReturnType<typeof actions.removeSkillFromApplicantRequest>
+) => ({
+  ...state,
+  savingSkills: true,
+  savedSkills: false
+});
+
+const removeSkillFromApplicantSuccess = (
+  state: SkillState,
+  action: ReturnType<typeof actions.removeSkillFromApplicantSuccess>
+) => ({
+  ...state,
+  savingSkills: false,
+  savedSkills: true
 });
 
 const skillReducer: Reducer<SkillState> = (
@@ -71,6 +95,10 @@ const skillReducer: Reducer<SkillState> = (
       return addSkillsToApplicantRequest(state, action);
     case actionTypes.ADD_SKILLS_TO_APPLICANT_SUCCESS:
       return addSkillsToApplicantSuccess(state, action);
+    case actionTypes.REMOVE_SKILL_FROM_APPLICANT_REQUEST:
+      return removeSkillFromApplicantRequest(state, action);
+    case actionTypes.REMOVE_SKILL_FROM_APPLICANT_SUCCESS:
+      return removeSkillFromApplicantSuccess(state, action);
     default:
       return state;
   }

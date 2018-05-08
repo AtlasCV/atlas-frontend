@@ -22,6 +22,20 @@ export const addSkillsToApplicantSuccess = (skills: Skill[]) =>
     skills
   });
 
+export const removeSkillFromApplicantRequest = (
+  applicantId: number,
+  skillId: number
+) =>
+  createAction(actionTypes.REMOVE_SKILL_FROM_APPLICANT_REQUEST, {
+    applicantId,
+    skillId
+  });
+
+export const removeSkillFromApplicantSuccess = (skillId: number) =>
+  createAction(actionTypes.REMOVE_SKILL_FROM_APPLICANT_SUCCESS, {
+    skillId
+  });
+
 export const skillAjaxFailure = (reason: string) =>
   createAction(
     actionTypes.SKILL_AJAX_FAILURE,

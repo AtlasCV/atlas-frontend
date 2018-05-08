@@ -2,17 +2,18 @@ import * as React from "react";
 import { style } from "typestyle";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
-import { Skill } from "../../types";
 import { ProfileState } from "../../reducers/profile";
+import { SkillState } from "../../reducers/skills";
 
 type Props = {
-  loadSkillsRequest: () => void;
   profile: ProfileState;
-  skills: Skill[];
+  skills: SkillState;
+  loadSkillsRequest: () => void;
   selectSkillForApplicant: (
     applicantId: number,
     skill: { id: number; yearsExperience: string }
   ) => void;
+  removeSkillFromApplicant: (applicantId: number, skillId: number) => void;
 };
 
 type State = {
@@ -31,6 +32,14 @@ class PageSix extends React.Component<Props, State> {
     this.props.loadSkillsRequest();
   }
 
+  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+    if (!nextProps.skills.savedSkills) {
+      return { selectedSkill: 0 };
+    } else {
+      return null;
+    }
+  }
+
   selectSkill = (skillId: number) => {
     this.setState({ selectedSkill: skillId });
   };
@@ -42,13 +51,14 @@ class PageSix extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <div className={style({ overflow: "scroll", maxHeight: "500px" })}>
-          {this.props.skills.map(skill => {
+          {this.props.skills.list.map(skill => {
             const hasSkill = applicantSkills.indexOf(skill.id) > -1;
             return (
               <SkillToken
                 key={skill.id}
                 skill={skill}
                 selectSkillForApplicant={this.props.selectSkillForApplicant}
+                removeSkillFromApplicant={this.props.removeSkillFromApplicant}
                 applicantId={this.props.profile.info.Applicant.id}
                 selected={this.state.selectedSkill === skill.id}
                 selectSkill={this.selectSkill}

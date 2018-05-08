@@ -10,11 +10,14 @@ import {
   loadSkillsSuccess,
   skillAjaxFailure,
   addSkillsToApplicantRequest,
-  addSkillsToApplicantSuccess
+  addSkillsToApplicantSuccess,
+  removeSkillFromApplicantRequest,
+  removeSkillFromApplicantSuccess
 } from "../actions/skills";
 import * as actionTypes from "../constants/actionTypes";
 import * as types from "../types";
 import { Skill } from "../types";
+import { getMeRequest } from "../actions/auth";
 
 type LoadSkillsEpic = Epic<AnyAction, AppState, Dependencies>;
 export const loadSkillsEpic: LoadSkillsEpic = (action$, store, { ajax }) =>
@@ -62,11 +65,13 @@ export const addSkillsToApplicantEpic: AddSkillsToApplicantEpic = (
             skill
           }
         })
-          .map(
+          .mergeMap(
             ({
               data: { result }
-            }: AxiosResponse<types.AxiosResponseData<Skill[]>>) =>
-              addSkillsToApplicantSuccess(result)
+            }: AxiosResponse<types.AxiosResponseData<Skill[]>>) => [
+              addSkillsToApplicantSuccess(result),
+              getMeRequest()
+            ]
           )
           .catch((err: AxiosError) =>
             Observable.of(
@@ -77,4 +82,43 @@ export const addSkillsToApplicantEpic: AddSkillsToApplicantEpic = (
           )
     );
 
-export default [loadSkillsEpic, addSkillsToApplicantEpic];
+type RemoveSkillFromApplicantEpic = Epic<AnyAction, AppState, Dependencies>;
+export const removeSkillFromApplicantEpic: RemoveSkillFromApplicantEpic = (
+  action$,
+  store,
+  { ajax }
+) =>
+  action$
+    .ofType(actionTypes.REMOVE_SKILL_FROM_APPLICANT_REQUEST)
+    .mergeMap(
+      ({
+        payload: { skillId, applicantId }
+      }: ReturnType<typeof removeSkillFromApplicantRequest>) =>
+        ajax({
+          method: "DELETE",
+          url: `${endpoint.applicants}/${applicantId}/skills`,
+          headers: {
+            "content-type": "application/json"
+          },
+          data: {
+            skillId
+          }
+        })
+          .mergeMap((res: AxiosResponse<types.AxiosResponseData<{}>>) => [
+            removeSkillFromApplicantSuccess(skillId),
+            getMeRequest()
+          ])
+          .catch((err: AxiosError) =>
+            Observable.of(
+              skillAjaxFailure(
+                !err.response ? err.message : err.response.data.message
+              )
+            )
+          )
+    );
+
+export default [
+  loadSkillsEpic,
+  addSkillsToApplicantEpic,
+  removeSkillFromApplicantEpic
+];

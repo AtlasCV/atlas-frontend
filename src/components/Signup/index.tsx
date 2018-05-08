@@ -42,6 +42,7 @@ type Props = {
   createEducationExperienceRequest: typeof profileActions.createEducationExperienceRequest;
   createJobExperienceRequest: typeof profileActions.createJobExperienceRequest;
   addSkillsToApplicantRequest: typeof skillActions.addSkillsToApplicantRequest;
+  removeSkillFromApplicantRequest: typeof skillActions.removeSkillFromApplicantRequest;
   loadSkillsRequest: typeof skillActions.loadSkillsRequest;
 };
 
@@ -68,6 +69,8 @@ export default connect(
           profileActions.createEducationExperienceRequest,
         createJobExperienceRequest: profileActions.createJobExperienceRequest,
         addSkillsToApplicantRequest: skillActions.addSkillsToApplicantRequest,
+        removeSkillFromApplicantRequest:
+          skillActions.removeSkillFromApplicantRequest,
         loadSkillsRequest: skillActions.loadSkillsRequest
       },
       dispatch
@@ -180,6 +183,10 @@ export default connect(
       this.props.addSkillsToApplicantRequest(applicantId, skill);
     };
 
+    removeSkillFromApplicant = (applicantId: number, skillId: number) => {
+      this.props.removeSkillFromApplicantRequest(applicantId, skillId);
+    };
+
     render() {
       const {
         match: { params },
@@ -189,7 +196,7 @@ export default connect(
           info: { Applicant }
         },
         industries: { list: industries },
-        skills: { list: skills }
+        skills
       } = this.props;
 
       return (
@@ -250,6 +257,7 @@ export default connect(
             render={() => (
               <PageSix
                 selectSkillForApplicant={this.addSkillToApplicant}
+                removeSkillFromApplicant={this.removeSkillFromApplicant}
                 profile={this.props.profile}
                 skills={skills}
                 loadSkillsRequest={loadSkillsRequest}
