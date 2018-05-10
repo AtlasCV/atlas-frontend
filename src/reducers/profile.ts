@@ -26,10 +26,11 @@ export const PROFILE_INITIAL_STATE: ProfileState = {
     userType: "",
     Applicant: {
       id: 0,
-      Industries: [],
+      Industries: [{ id: 0, name: "" }],
       EducationExperiences: [],
       JobExperiences: [],
       ApplicantSkills: [],
+      ApplicantIndustrySectors: [],
       personalityEvaluation: {
         uuid: "",
         answers: [],
@@ -111,7 +112,7 @@ const createEducationExperienceSuccess = (
     ...state.info,
     Applicant: {
       ...state.info.Applicant,
-      educationExperience: [
+      EducationExperiences: [
         ...state.info.Applicant.EducationExperiences,
         educationExperience
       ]
@@ -130,7 +131,7 @@ const createJobExperienceSuccess = (
     ...state.info,
     Applicant: {
       ...state.info.Applicant,
-      jobExperience: [...state.info.Applicant.JobExperiences, jobExperience]
+      JobExperiences: [...state.info.Applicant.JobExperiences, jobExperience]
     }
   }
 });

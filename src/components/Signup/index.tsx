@@ -5,6 +5,7 @@ import { Route, match } from "react-router-dom";
 import * as questionActions from "../../actions/questions";
 import * as profileActions from "../../actions/profile";
 import * as skillActions from "../../actions/skills";
+import * as industrySectorActions from "../../actions/industrySectors";
 import { getMeRequest } from "../../actions/auth";
 import * as industryActions from "../../actions/industries";
 import { AppState } from "../../reducers";
@@ -14,11 +15,13 @@ import PageThree from "./PageThree";
 import PageFour from "./PageFour";
 import PageFive from "./PageFive";
 import PageSix from "./PageSix";
+import PageSeven from "./PageSeven";
 import ProgressTracker from "../ProgressTracker";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
 import { AuthState } from "../../reducers/auth";
 import { SkillState } from "../../reducers/skills";
+import { IndustrySectorState } from "../../reducers/industrySectors";
 import "../../styles/signup.css";
 import {
   UpdateApplicantFormProps,
@@ -33,6 +36,7 @@ type Props = {
   auth: AuthState;
   industries: IndustryState;
   skills: SkillState;
+  industrySectors: IndustrySectorState;
   loadEvaluatorRequest: typeof questionActions.loadEvaluatorRequest;
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
   createApplicantRequest: typeof profileActions.createApplicantRequest;
@@ -44,16 +48,20 @@ type Props = {
   addSkillsToApplicantRequest: typeof skillActions.addSkillsToApplicantRequest;
   removeSkillFromApplicantRequest: typeof skillActions.removeSkillFromApplicantRequest;
   loadSkillsRequest: typeof skillActions.loadSkillsRequest;
+  addIndustrySectorsToApplicantRequest: typeof industrySectorActions.addIndustrySectorsToApplicantRequest;
+  removeIndustrySectorFromApplicantRequest: typeof industrySectorActions.removeIndustrySectorFromApplicantRequest;
+  loadIndustrySectorsRequest: typeof industrySectorActions.loadIndustrySectorsRequest;
 };
 
 type State = { activePage: number };
 
 export default connect(
-  ({ profile, industries, skills, auth }: AppState) => ({
+  ({ profile, industries, skills, auth, industrySectors }: AppState) => ({
     profile,
     industries,
     skills,
-    auth
+    auth,
+    industrySectors
   }),
   (dispatch: Dispatch<AppState>) =>
     bindActionCreators(
@@ -71,7 +79,13 @@ export default connect(
         addSkillsToApplicantRequest: skillActions.addSkillsToApplicantRequest,
         removeSkillFromApplicantRequest:
           skillActions.removeSkillFromApplicantRequest,
-        loadSkillsRequest: skillActions.loadSkillsRequest
+        loadSkillsRequest: skillActions.loadSkillsRequest,
+        addIndustrySectorsToApplicantRequest:
+          industrySectorActions.addIndustrySectorsToApplicantRequest,
+        removeIndustrySectorFromApplicantRequest:
+          industrySectorActions.removeIndustrySectorFromApplicantRequest,
+        loadIndustrySectorsRequest:
+          industrySectorActions.loadIndustrySectorsRequest
       },
       dispatch
     )
@@ -129,6 +143,7 @@ export default connect(
       applicantId: number,
       { industryId, ...applicantFormProps }: UpdateApplicantFormProps
     ) => {
+      console.log(applicantId);
       this.props.updateApplicantRequest(
         applicantId,
         { ...applicantFormProps, currentPageOfSignup: 4 },
@@ -176,6 +191,16 @@ export default connect(
       );
     };
 
+    completePageSix = (applicantId: number) => {
+      this.props.updateApplicantRequest(
+        applicantId,
+        {
+          currentPageOfSignup: 7
+        },
+        "/onboarding/signup/7"
+      );
+    };
+
     addSkillToApplicant = (
       applicantId: number,
       skill: { id: number; yearsExperience: string }
@@ -187,22 +212,38 @@ export default connect(
       this.props.removeSkillFromApplicantRequest(applicantId, skillId);
     };
 
+    addIndustrySectorToApplicant = (
+      applicantId: number,
+      skill: { id: number; yearsExperience: string }
+    ) => {
+      this.props.addIndustrySectorsToApplicantRequest(applicantId, skill);
+    };
+
+    removeIndustrySectorFromApplicant = (
+      applicantId: number,
+      skillId: number
+    ) => {
+      this.props.removeIndustrySectorFromApplicantRequest(applicantId, skillId);
+    };
+
     render() {
       const {
         match: { params },
         loadIndustriesRequest,
         loadSkillsRequest,
+        loadIndustrySectorsRequest,
         profile: {
           info: { Applicant }
         },
         industries: { list: industries },
-        skills
+        skills,
+        industrySectors
       } = this.props;
 
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about your qualifications</h2>
-          <ProgressTracker progress={this.state.activePage / 7 * 100} />
+          <ProgressTracker progress={this.state.activePage / 8 * 100} />
           <Route
             path={"/onboarding/signup/1/:uuid"}
             render={() => (
@@ -261,6 +302,23 @@ export default connect(
                 profile={this.props.profile}
                 skills={skills}
                 loadSkillsRequest={loadSkillsRequest}
+                completePageSix={this.completePageSix}
+              />
+            )}
+          />
+          <Route
+            path={"/onboarding/signup/7"}
+            render={() => (
+              <PageSeven
+                selectIndustrySectorForApplicant={
+                  this.addIndustrySectorToApplicant
+                }
+                removeIndustrySectorFromApplicant={
+                  this.removeIndustrySectorFromApplicant
+                }
+                profile={this.props.profile}
+                industrySectors={industrySectors}
+                loadIndustrySectorsRequest={loadIndustrySectorsRequest}
               />
             )}
           />

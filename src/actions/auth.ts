@@ -10,8 +10,8 @@ export const getMeSuccess = (user: User) =>
 export const loginRequest = (email: string, password: string) =>
   createAction(actionTypes.LOGIN_REQUEST, { email, password });
 
-export const loginSuccess = (token: string) =>
-  createAction(actionTypes.LOGIN_SUCCESS, { token });
+export const loginSuccess = ({ token, user }: { token: string; user: User }) =>
+  createAction(actionTypes.LOGIN_SUCCESS, { token, user });
 
 export const authAjaxFailure = (reason: string) =>
   createAction(actionTypes.AUTH_AJAX_FAILURE, { reason }, true);

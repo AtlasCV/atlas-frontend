@@ -14,6 +14,7 @@ type Props = {
     skill: { id: number; yearsExperience: string }
   ) => void;
   removeSkillFromApplicant: (applicantId: number, skillId: number) => void;
+  completePageSix: (applicantId: number) => void;
 };
 
 type State = {
@@ -67,7 +68,14 @@ class PageSix extends React.Component<Props, State> {
             );
           })}
         </div>
-        <Button styles={{ float: "right" }}>NEXT</Button>
+        <Button
+          onClick={() =>
+            this.props.completePageSix(this.props.profile.info.Applicant.id)
+          }
+          styles={{ float: "right" }}
+        >
+          NEXT
+        </Button>
       </React.Fragment>
     );
   }

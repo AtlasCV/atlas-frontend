@@ -10,7 +10,7 @@
   display: inline-block;
   position: absolute;
   color: #333;
-  top: -25px;
+  top: 25px;
 }
 
 .start-label {

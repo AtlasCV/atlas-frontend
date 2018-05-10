@@ -14,6 +14,7 @@ export interface Applicant {
   currentPageOfSignup?: number;
   signupComplete?: boolean;
   ApplicantSkills: ApplicantSkill[];
+  ApplicantIndustrySectors: ApplicantIndustrySector[];
 }
 
 export interface ApplicantSkill {
@@ -21,6 +22,13 @@ export interface ApplicantSkill {
   SkillId: number;
   yearsExperience: string;
   Skill?: Skill;
+}
+
+export interface ApplicantIndustrySectors {
+  ApplicantId: number;
+  IndustrySectorId: number;
+  yearsExperience: string;
+  IndustrySector?: IndustrySector;
 }
 
 export interface EducationExperience {
@@ -44,4 +52,9 @@ export interface Skill {
   name: string;
   displayName: string;
   id: number;
+}
+
+export interface IndustrySector {
+  id: number;
+  name: string;
 }

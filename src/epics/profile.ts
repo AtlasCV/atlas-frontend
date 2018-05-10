@@ -63,7 +63,7 @@ const createEducationExperience: CreateEducationExperience = (
         data: educationExperience
       })
         .map(response =>
-          actions.createEducationExperienceSuccess(response.data)
+          actions.createEducationExperienceSuccess(response.data.result)
         )
         .catch((err: AxiosError) =>
           Observable.of(
@@ -86,7 +86,7 @@ const createJobExperience: CreateJobExperience = (action$, store, { ajax }) =>
         data: jobExperience
       })
         .map(response =>
-          actions.createJobExperienceSuccess(response.data.jobExperience)
+          actions.createJobExperienceSuccess(response.data.result)
         )
         .catch((err: AxiosError) =>
           Observable.of(

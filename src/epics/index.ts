@@ -4,11 +4,13 @@ import profile from "./profile";
 import industries from "./industries";
 import auth from "./auth";
 import skills from "./skills";
+import industrySectors from "./industrySectors";
 
 export default combineEpics(
   ...personalityEvaluations,
   ...profile,
   ...industries,
   ...auth,
-  ...skills
+  ...skills,
+  ...industrySectors
 );

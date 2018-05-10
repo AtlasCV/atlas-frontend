@@ -65,10 +65,9 @@ export const loginEpic: LoginEpic = (action$, store, { ajax }) =>
         .concatMap(
           ({
             data: { result }
-          }: AxiosResponse<types.AxiosResponseData<string>>) => [
-            loginSuccess(result),
-            getMeRequest()
-          ]
+          }: AxiosResponse<
+            types.AxiosResponseData<{ token: string; user: User }>
+          >) => [loginSuccess(result), getMeRequest()]
         )
         .catch((err: AxiosError) =>
           Observable.of(

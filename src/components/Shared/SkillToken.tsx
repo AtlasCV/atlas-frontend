@@ -1,6 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
-import { Skill } from "../../types";
+import { Skill, IndustrySector } from "../../types";
 
 const tokenContainer = style({
   display: "inline-block",
@@ -39,7 +39,7 @@ const yearsOption = style({
 });
 
 interface Props {
-  skill: Skill;
+  skill: Skill | IndustrySector;
   applicantId: number;
   selected: boolean;
   selectSkillForApplicant: (
@@ -118,15 +118,20 @@ class SkillToken extends React.Component<Props> {
               className={token(hasSkill)}
               onClick={() => selectSkill(skill.id)}
             >
-              {skill.displayName
-                .split(" ")
+              {skill.name
+                .split("_")
                 .map(word => word[0])
                 .join("")
                 .toUpperCase()}
             </div>
           </React.Fragment>
         )}
-        <h6>{skill.displayName}</h6>
+        <h6>
+          {skill.name
+            .split("_")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")}
+        </h6>
       </div>
     );
   }

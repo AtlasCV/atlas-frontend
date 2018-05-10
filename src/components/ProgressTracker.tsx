@@ -21,7 +21,8 @@ export default ({ progress }: Props) => {
           border: "solid 2px #aaa",
           borderRadius: "4px",
           background: "Transparent",
-          zIndex: 2
+          zIndex: 2,
+          marginTop: "75px"
         }}
       >
         <div
