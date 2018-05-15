@@ -27,10 +27,11 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
         headers: { "Content-Type": "application/json" },
         data: applicantFormProps
       })
-        .concatMap(({ data: { result, token } }: AxiosResponse) => {
+        .concatMap(({ data: { result } }: AxiosResponse) => {
+          console.log(result);
           if (nextPage) {
-            if (token) {
-              localStorage.setItem("accessToken", token);
+            if (result.token) {
+              localStorage.setItem("accessToken", result.token);
             }
             return [actions.loadApplicantSuccess(result), push(nextPage)];
           } else {
@@ -55,7 +56,6 @@ const createEducationExperience: CreateEducationExperience = (
   action$
     .ofType(actionTypes.CREATE_EDUCATION_EXPERIENCE_REQUEST)
     .mergeMap(({ payload: { educationExperience, applicantId } }) => {
-      console.log(educationExperience, applicantId);
       return ajax({
         method: "POST",
         url: `${endpoint.applicants}/${applicantId}/education`,

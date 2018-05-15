@@ -8,6 +8,7 @@ import * as actions from "../actions/questions";
 import { QuestionState } from "../reducers/questions";
 import { AppState } from "../reducers/index";
 import "../styles/personality-evaluator.css";
+import Button from "./Shared/Button";
 
 type Props = {
   answerQuestion: (
@@ -114,28 +115,24 @@ export default connect(
                   </p>
                 </React.Fragment>
               )}
-              <button
+              <Button
                 disabled={currentQuestionIndex === 0}
                 onClick={previousQuestionSet}
-                className="prev-btn"
               >
                 Previous
-              </button>
+              </Button>
 
               {currentQuestionIndex < 39 && (
-                <button
+                <Button
                   disabled={currentQuestionIndex > 39 || disableNext}
                   onClick={nextQuestionSet}
-                  className="next-btn"
                 >
                   Next
-                </button>
+                </Button>
               )}
               {currentQuestionIndex > 39 && (
                 <Link to={`/onboarding/results/${uuid}`}>
-                  <button className="next-btn" onClick={calculateResults}>
-                    Finish
-                  </button>
+                  <Button onClick={calculateResults}>Finish</Button>
                 </Link>
               )}
             </div>

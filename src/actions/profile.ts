@@ -23,8 +23,13 @@ export const updateApplicantRequest = (
     false
   );
 
-export const loadApplicantSuccess = ({ user }: { user: types.User }) =>
-  createAction(actionTypes.LOAD_APPLICANT_SUCCESS, { user }, false);
+export const loadApplicantSuccess = ({
+  user,
+  token
+}: {
+  user: types.User;
+  token: string;
+}) => createAction(actionTypes.LOAD_APPLICANT_SUCCESS, { user, token }, false);
 
 export const createEducationExperienceRequest = (
   applicantId: number,

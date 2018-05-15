@@ -3,6 +3,7 @@ import { style } from "typestyle";
 
 interface Props {
   styles?: Object;
+  disabled?: boolean;
   children: string;
   type?: string;
   onClick?(): void;
@@ -22,9 +23,14 @@ const buttonStyle = (styles?: Object) =>
     styles
   );
 
-export default ({ children, type, onClick, styles }: Props) => {
+export default ({ children, type, onClick, styles, disabled }: Props) => {
   return (
-    <button onClick={onClick} type={type} className={buttonStyle(styles)}>
+    <button
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+      className={buttonStyle(styles)}
+    >
       {children}
     </button>
   );

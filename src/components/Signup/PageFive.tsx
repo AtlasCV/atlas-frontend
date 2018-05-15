@@ -7,6 +7,7 @@ import "../../styles/input.css";
 import Select from "../Shared/Select";
 import TextArea from "../Shared/TextArea";
 import { ProfileState } from "../../reducers/profile";
+import Button from "../Shared/Button";
 
 type Props = {
   handleSubmit: (applicantId: number, jobExperience: JobExperience) => void;
@@ -131,14 +132,14 @@ class PageFive extends React.Component<Props> {
                 handleBlur={handleBlur}
                 error={touched.description && errors.description}
               />
-              <button type="submit">Add Job</button>
-              <button
-                style={{ float: "right" }}
+              <Button type="submit">Add Job</Button>
+              <Button
+                styles={{ float: "right" }}
                 type="button"
                 onClick={() => completePage(id)}
               >
                 Finished
-              </button>
+              </Button>
             </form>
           )}
         />

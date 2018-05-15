@@ -1,9 +1,10 @@
 import { Reducer } from "redux";
-import * as actions from "../actions/auth";
+import * as authActions from "../actions/auth";
+import * as profileActions from "../actions/profile";
 import * as actionTypes from "../constants/actionTypes";
 import { ActionUnion } from "../actions/helpers";
 
-type Action = ActionUnion<typeof actions>;
+type Action = ActionUnion<typeof authActions & typeof profileActions>;
 
 export type AuthState = {
   token: string;
@@ -26,7 +27,7 @@ const getMeRequest = (state: AuthState) => ({
 
 const getMeSuccess = (
   state: AuthState,
-  { payload: { user } }: ReturnType<typeof actions.getMeSuccess>
+  { payload: { user } }: ReturnType<typeof authActions.getMeSuccess>
 ) => ({
   ...state,
   id: user.id,
@@ -41,17 +42,21 @@ const loginRequest = (state: AuthState) => ({
 
 const loginSuccess = (
   state: AuthState,
-  { payload: { token } }: ReturnType<typeof actions.loginSuccess>
+  {
+    payload: { token }
+  }:
+    | ReturnType<typeof authActions.loginSuccess>
+    | ReturnType<typeof profileActions.loadApplicantSuccess>
 ) => ({
   ...state,
   fetchingAuth: false,
   authenticated: true,
-  token
+  token: token || state.token
 });
 
 const authAjaxFailure = (
   state: AuthState,
-  { error }: ReturnType<typeof actions.authAjaxFailure>
+  { error }: ReturnType<typeof authActions.authAjaxFailure>
 ) => ({
   ...state,
   error,
@@ -74,6 +79,9 @@ const authReducer: Reducer<AuthState> = (
       return loginSuccess(state, action);
     case actionTypes.AUTH_AJAX_FAILURE:
       return authAjaxFailure(state, action);
+    case actionTypes.LOAD_APPLICANT_SUCCESS:
+      return loginSuccess(state, action);
+
     default:
       return state;
   }

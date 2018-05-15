@@ -5,6 +5,7 @@ import Select from "../Shared/Select";
 import { loadIndustriesRequest } from "../../actions/industries";
 import { UpdateApplicantFormProps, Industry } from "../../types";
 import "../../styles/input.css";
+import Button from "../Shared/Button";
 
 type Props = {
   handleSubmit: (
@@ -84,7 +85,7 @@ class PageThree extends React.Component<Props> {
               <option value="partTime">Part Time</option>
               <option value="internship">Internship</option>
             </Select>
-            <button type="submit">Next</button>
+            <Button type="submit">Next</Button>
           </form>
         )}
       />

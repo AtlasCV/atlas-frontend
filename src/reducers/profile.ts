@@ -91,14 +91,7 @@ const addIndustriesToApplicantSuccess = (
     payload: { industries }
   }: ReturnType<typeof industryActions.addIndustriesToApplicantSuccess>
 ) => ({
-  ...state,
-  info: {
-    ...state.info,
-    applicant: {
-      ...state.info.Applicant,
-      industries
-    }
-  }
+  ...state
 });
 
 const createEducationExperienceSuccess = (

@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import Input from "../Shared/Input";
 import { CreateApplicantFormProps } from "../../types";
 import "../../styles/input.css";
+import Button from "../Shared/Button";
 
 type Props = {
   handleSubmit: (
@@ -111,9 +112,9 @@ export default ({ handleSubmit, uuid }: Props) => (
             handleBlur={handleBlur}
             error={touched.confirmPassword && errors.confirmPassword}
           />
-          <button disabled={isSubmitting} type="submit">
+          <Button disabled={isSubmitting} type="submit">
             Next
-          </button>
+          </Button>
         </form>
       );
     }}

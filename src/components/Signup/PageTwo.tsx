@@ -5,6 +5,7 @@ import Select from "../Shared/Select";
 import { UpdateApplicantFormProps } from "../../types";
 import validatePhone from "../../utils/validatePhone";
 import "../../styles/input.css";
+import Button from "../Shared/Button";
 
 type Props = {
   handleSubmit: (
@@ -91,7 +92,7 @@ export default ({ handleSubmit, applicantId }: Props) => (
           <option value="M">Male</option>
           <option value="F">Female</option>
         </Select>
-        <button type="submit">Next</button>
+        <Button type="submit">Next</Button>
       </form>
     )}
   />

@@ -11,7 +11,14 @@ export default connect(
   ({  }: AppState) => ({}),
   (dispatch: Dispatch<AppState>) => bindActionCreators({}, dispatch)
 )(
-  class DistinguishYourself extends React.Component<Props> {
+  class DistinguishYourself extends React.Component<
+    Props,
+    { distinguishYourself: string }
+  > {
+    constructor(props: Props) {
+      super(props);
+      this.state = { distinguishYourself: "" };
+    }
     render() {
       return (
         <div className="signup-container col-sm-9">
@@ -35,9 +42,11 @@ export default connect(
             label="Distinguish Yourself"
             name="distinguishYourself"
             type="text"
-            value=""
+            value={this.state.distinguishYourself}
             error=""
-            handleChange={() => ({})}
+            handleChange={e =>
+              this.setState({ distinguishYourself: e.currentTarget.value })
+            }
             handleBlur={() => ({})}
             height="300px"
           />

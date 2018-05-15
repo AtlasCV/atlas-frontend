@@ -4,6 +4,7 @@ import Input from "../Shared/Input";
 import { EducationExperience } from "../../types";
 import "../../styles/input.css";
 import { ProfileState } from "../../reducers/profile";
+import Button from "../Shared/Button";
 
 type Props = {
   handleSubmit: (
@@ -105,14 +106,14 @@ class PageFour extends React.Component<Props> {
                 handleBlur={handleBlur}
                 error={touched.gpa && errors.gpa}
               />
-              <button type="submit">Add Education</button>
-              <button
+              <Button type="submit">Add Education</Button>
+              <Button
                 type="button"
-                style={{ float: "right" }}
+                styles={{ float: "right" }}
                 onClick={() => completePage(id)}
               >
                 Finished
-              </button>
+              </Button>
             </form>
           )}
         />
