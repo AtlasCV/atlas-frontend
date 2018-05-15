@@ -1,5 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
+import { Link } from "react-router-dom";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
@@ -79,7 +80,9 @@ class PageSeven extends React.Component<Props, State> {
             );
           })}
         </div>
-        <Button styles={{ float: "right" }}>NEXT</Button>
+        <Link to="/onboarding/distinguish-yourself">
+          <Button styles={{ float: "right" }}>NEXT</Button>
+        </Link>
       </React.Fragment>
     );
   }

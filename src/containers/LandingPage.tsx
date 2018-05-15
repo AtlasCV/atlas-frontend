@@ -88,6 +88,9 @@ export default () => (
             No more overqualified candidates. Let us find the needle in your
             haystack of resumes.
           </h5>
+          <Link to="/employer-onboarding/introduction">
+            <button>Get started as an employer</button>
+          </Link>
         </div>
         <div className="col-md-6">
           <img src="/assets/EmployerListings.png" alt="EmployerListings.png" />

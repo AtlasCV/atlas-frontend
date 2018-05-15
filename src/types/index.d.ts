@@ -6,3 +6,4 @@ export * from "./FormTypes";
 export * from "./Applicant";
 export * from "./User";
 export * from "./Industry";
+export * from "./Employer";

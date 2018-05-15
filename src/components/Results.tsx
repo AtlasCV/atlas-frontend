@@ -8,6 +8,7 @@ import * as actions from "../actions/questions";
 import results from "../constants/results";
 import "../styles/results.css";
 import { QuestionState } from "../reducers/questions";
+import Button from "./Shared/Button";
 
 type ResultsProps = {
   questions: QuestionState;
@@ -100,7 +101,7 @@ export default connect(
             </p>
           </div>
           <Link to={`/onboarding/signup/1/${uuid}`}>
-            <button>Next</button>
+            <Button>Next</Button>
           </Link>
         </div>
       );

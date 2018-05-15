@@ -9,6 +9,7 @@ type InputProps = {
   error: boolean | string;
   handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleBlur: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void;
+  height?: string;
 };
 
 export default ({
@@ -18,7 +19,8 @@ export default ({
   value,
   handleChange,
   handleBlur,
-  error
+  error,
+  height
 }: InputProps) => (
   <div className="text-box-container">
     <label htmlFor={name} className="text-box-label">
@@ -30,6 +32,7 @@ export default ({
       value={value}
       name={name}
       className="text-box"
+      style={{ height, paddingTop: "25px" }}
     />
   </div>
 );

@@ -7,6 +7,7 @@ import OnboardingIntro from "../components/OnboardingIntro";
 import PersonalityEvaluator from "../components/PersonalityEvaluator";
 import Results from "../components/Results";
 import Signup from "../components/Signup";
+import DistinguishYourself from "../components/DistinguishYourself";
 import * as actions from "../actions/questions";
 import { AppState } from "../reducers/index";
 import "../styles/onboarding.css";
@@ -69,6 +70,11 @@ export default connect(
               exact={true}
               path={this.props.match.url + "/signup/:page"}
               component={Signup}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/distinguish-yourself"}
+              component={DistinguishYourself}
             />
           </div>
         </div>

@@ -136,6 +136,15 @@
   color: white;
 }
 
+.employer-info-text button {
+  border: solid 1px black;
+  background-color: Transparent;
+  border-radius: 2%;
+  height: 55px;
+  width: 300px;
+  cursor: pointer;
+}
+
 .footer {
   background-color: #2a2a2a;
   text-align: center;

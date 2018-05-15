@@ -6,36 +6,31 @@ import Button from "./Shared/Button";
 export default ({ uuid }: { uuid?: string }) => (
   <div className="introduction col-sm-9">
     <h2>Welcome to AtlasCV</h2>
-    <p>
-      There are just three easy steps to joining the only job hunting site you
-      will ever need...
-    </p>
+    <p>There are just three easy steps to finding the perfect candidates...</p>
     <div className="row">
       <div className="col-md-4 step-explanation">
         <h1>1</h1>
-        <h5>Personality Evaluator</h5>
+        <h5>Create or Join A Company</h5>
         <p>
-          Through a quick evaluation, we will determine your ideal work culture.
+          If you're new to the service, create your company's information. You
+          can also join an existing company.
         </p>
       </div>
       <div className="col-md-4 step-explanation">
         <h1>2</h1>
-        <h5>Qualifications</h5>
+        <h5>Create Your Profile</h5>
         <p>
-          What have you done in your professional and educational life? This is
-          the resume section.
+          Create your profile information including your name and contact
+          information.
         </p>
       </div>
       <div className="col-md-4 step-explanation">
         <h1>3</h1>
-        <h5>Distinguishing Criteria</h5>
-        <p>
-          What sets you apart from other applicants? This is the cover letter
-          section.
-        </p>
+        <h5>Post Jobs</h5>
+        <p>Post your open positions and match with the perfect applicant.</p>
       </div>
     </div>
-    <Link to="/onboarding/personality-evaluator">
+    <Link to="/employer-onboarding/company-signup/1">
       <Button>Get Started</Button>
     </Link>
   </div>

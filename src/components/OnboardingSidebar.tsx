@@ -26,11 +26,9 @@ export default ({ location: { pathname } }: Props) => {
           Qualifications
         </li>
         <li
-          className={
-            pathname.includes("distinguishing-criteria") ? "active" : ""
-          }
+          className={pathname.includes("distinguish-yourself") ? "active" : ""}
         >
-          Distinguishing Criteria
+          Distinguish Yourself
         </li>
       </ul>
     </div>
