@@ -15,10 +15,12 @@ type Props = {
 
 export default ({ employerId, handleSubmit }: Props) => (
   <Fragment>
-    <h6>
-      Tell us a summary of what your company does and why it's an attractive
-      place to work
-    </h6>
+    <p>
+      This section will be presented to applicants as your company bio. Here you
+      can describe the typical operations of your office, the culture of your
+      work environment, and indicate to potential employees why your company is
+      an attractive place to work.
+    </p>
     <Formik
       initialValues={{
         companyDescription: ""

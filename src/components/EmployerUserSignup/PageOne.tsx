@@ -52,6 +52,11 @@ export default ({ employerId, handleSubmit }: Props) => (
       isSubmitting
     }) => (
       <form onSubmit={handleSubmit}>
+        <p>
+          This profile will establish your company on our site to post jobs, as
+          well as setting up user permissions. You can always add additional
+          admins later.
+        </p>
         <Input
           label="FIRST NAME"
           name="firstName"

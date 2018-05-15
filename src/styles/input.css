@@ -6,7 +6,7 @@
   color: #333;
   background-color: #fff;
   border-radius: 0;
-  border: 1px solid #cfd2d2;
+  border: 1px solid #919191;
 }
 
 select.text-box {
@@ -23,7 +23,7 @@ select.text-box {
   top: 10px;
   left: 10px;
   font-size: 14px;
-  color: #cfd2d2;
+  color: #919191;
   font-weight: 600;
 }
 
