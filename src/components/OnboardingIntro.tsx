@@ -13,9 +13,10 @@ export default ({ uuid }: { uuid?: string }) => (
     <div className="row">
       <div className="col-md-4 step-explanation">
         <h1>1</h1>
-        <h5>Personality Evaluator</h5>
+        <h5>Culture Fit</h5>
         <p>
-          Through a quick evaluation, we will determine your ideal work culture.
+          Through a quick evaluation, we'll identify the ideal culture and
+          position to suit your strengths and preferences.
         </p>
       </div>
       <div className="col-md-4 step-explanation">
@@ -28,10 +29,10 @@ export default ({ uuid }: { uuid?: string }) => (
       </div>
       <div className="col-md-4 step-explanation">
         <h1>3</h1>
-        <h5>Distinguishing Criteria</h5>
+        <h5>Distinguish Yourself</h5>
         <p>
-          What sets you apart from other applicants? This is the cover letter
-          section.
+          Say goodbye to the days of writing repetitive cover letters. Let
+          employers know just how unique you are once and for all!
         </p>
       </div>
     </div>

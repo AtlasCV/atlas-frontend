@@ -20,7 +20,7 @@ export default ({ location: { pathname } }: Props) => {
               : ""
           }
         >
-          Personality Evaluator
+          Culture Fit
         </li>
         <li className={pathname.includes("signup") ? "active" : ""}>
           Qualifications
