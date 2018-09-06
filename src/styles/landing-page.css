@@ -1,162 +1,226 @@
-.logo {
-  height: 60px;
-  width: 60px;
-  margin-left: 100px;
-}
-
-.right-aligned {
-  float: right;
-}
-
-.nav-link {
-  display: inline-block;
-  cursor: pointer;
-  margin-right: 30px;
-}
-
-.nav-link a {
-  color: #333;
-  text-decoration: none;
-}
-
 .navbar {
-  padding-top: 20px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.header-section {
-  background: linear-gradient(45deg, #fbea78, #fcdd35);
+.navbar img {
+  height: 164px;
+  width: auto;
+  padding: 0px 50px;
+}
+
+.nav-links a {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #343434;
+  text-decoration: none;
+  margin-right: 80px;
+  font-size: 20px;
 }
 
 .hero-section {
-  padding: 50px 200px 0px 200px;
-}
-
-.hero-section .header-text {
-  margin-bottom: 50px;
-  text-align: center;
-}
-
-.hero-section .header-text h5 {
-  margin-bottom: 10px;
-}
-
-.hero-section .header-text h3 {
-  margin-bottom: 10px;
-}
-
-.hero-section h5 {
-  margin-bottom: 50px;
-  line-height: 1.35;
-}
-
-.hero-section button {
-  border: solid 1px black;
-  background-color: Transparent;
-  border-radius: 2%;
-  height: 55px;
-  width: 150px;
-  cursor: pointer;
-}
-
-.intro-text {
-  margin-top: 100px;
-}
-
-.application-section {
-  height: 500px;
-  padding: 50px 200px 100px 200px;
+  display: flex;
+  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
   background-color: #fff;
-  text-align: center;
 }
 
-.application-section h3 {
-  text-align: center;
+.hero-section h1 {
+  font-family: "Butler";
+  font-size: 100px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: 0.5px;
+  text-align: right;
+  color: #343434;
+  margin-right: 50px;
 }
 
-.application-section h5 {
-  text-align: center;
+.explainer-section {
+  background-color: #ecd252;
+  padding: 88px 0px 0px 50px;
+  display: flex;
 }
 
-.application-section p {
-  text-align: center;
-  margin-top: 50px;
+.explainer-section h3 {
+  font-family: Butler;
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: 0.3px;
 }
 
-.application-section img {
-  max-width: 50%;
-  height: auto;
+.explainer-section p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 29px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #2e2e2e;
 }
 
-.employer-section {
-  background-color: #f8f8f8;
-  height: 500px;
-}
-
-.employer-info-text {
-  padding: 100px 50px 0 150px;
-}
-
-.employer-section h3 {
-  margin-bottom: 30px;
-}
-
-.employer-section h5 {
-  margin-bottom: 30px;
-}
-
-.yellow-column {
-  background-color: #fae28c;
-  width: 200px;
-  height: 500px;
-  position: absolute;
-  margin-left: 205px;
-}
-
-.find-out-more-section {
-  height: 300px;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.find-out-more-section input {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border: none;
-  height: 60px;
-  width: 300px;
-  padding: 30px;
-  margin-top: 30px;
-  margin-right: 20px;
-}
-
-.find-out-more-section button {
-  background: linear-gradient(45deg, #fbea78, #fcdd35);
-  border: none;
-  height: 60px;
-  width: 130px;
-  color: white;
-}
-
-.employer-info-text button {
-  border: solid 1px black;
-  background-color: Transparent;
-  border-radius: 2%;
-  height: 55px;
-  width: 300px;
+.get-started-button {
+  background-color: transparent;
+  border: #fff 3px solid;
+  color: #fff;
+  border-radius: 10px;
+  height: 86px;
+  padding: 0px 30px;
+  font-size: 38px;
   cursor: pointer;
+  margin-left: 30px;
 }
 
-.footer {
-  background-color: #2a2a2a;
-  text-align: center;
+.boring-resume-section {
+  background-color: #fff;
   padding: 50px;
 }
 
-.footer img {
-  height: 60px;
-  width: 60px;
+.boring-resume-section h2 {
+  font-family: Butler;
+  font-size: 67px;
+  font-weight: 500;
+  color: #343434;
 }
 
-.footer p {
-  color: #c8c8c8;
+.boring-resume-section h3 {
+  font-family: Butler;
+  font-size: 42px;
+  line-height: 1.19;
+  letter-spacing: 0.2px;
+  color: #343434;
+  font-weight: normal;
+  max-width: 1099px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 93px 173px;
+}
+
+.step {
+  text-align: center;
+}
+
+.step img {
+  height: 255px;
+  width: auto;
+}
+
+.step h4 {
+  font-size: 38px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.76;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: #2e2e2e;
+  margin: 20px auto;
+}
+
+.step h5 {
+  font-family: Butler;
+  font-size: 25px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.16;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: #2e2e2e;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.boring-resume-footer {
+  height: 100%;
+}
+
+.boring-resume-footer h3,
+.boring-resume-footer h2 {
+  text-align: right;
+  margin: 20px 0px;
+  max-width: initial;
+}
+
+.employer-section {
+  background-color: #24729b;
+  padding: 100px 125px;
+}
+
+.employer-section h2,
+.employer-section p {
+  color: #fcfcfc;
+}
+
+.employer-section h2 {
+  text-align: right;
+  font-family: Butler;
+  font-size: 67px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #fcfcfc;
+}
+
+.employer-section p {
+  font-size: 33px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.employer-section-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employer-section-footer button {
+  background-color: transparent;
+  border: #fff 3px solid;
+  color: #fff;
+  border-radius: 10px;
+  height: 86px;
+  padding: 0px 30px;
+  font-size: 38px;
+  cursor: pointer;
   margin-top: 30px;
+}
+
+.footer {
+  background-color: #fff;
+  padding: 67px 72px;
+}
+
+.social-icons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.copyright-and-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright-and-links a,
+.copyright-and-links p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #343434;
+  text-decoration: none;
+  margin-right: 80px;
+  font-size: 20px;
 }

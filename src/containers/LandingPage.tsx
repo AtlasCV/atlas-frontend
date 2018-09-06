@@ -4,111 +4,112 @@ import { Link } from "react-router-dom";
 
 export default () => (
   <div>
-    <div className="header-section">
-      <nav className="navbar">
-        <a className="navbar-brand" href="#">
-          <img className="logo" src="/assets/logo.png" />
-        </a>
-        <ul>
-          <li className="nav-link">
-            <Link to="/onboarding/introduction">Create an account</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/login">Login</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/#">How it works</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/#">Support</Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/#">FAQ</Link>
-          </li>
-        </ul>
-      </nav>
-      <div className="hero-section">
-        <div className="row">
-          <div className="col-md-6 intro-text">
-            <div className="header-text">
-              <h3>ONE APPLICATION</h3>
-              <h5>To End</h5>
-              <h3>ALL APPLICATIONS</h3>
-            </div>
-            <h5>
-              Consider us your 'Common App' for the job hunt. We build one
-              profile to showcase your qualifications, talents & preferences,
-              and allow you to apply & match with jobs that you are compatible
-              with. No repeating applications, no wasting time.{" "}
-            </h5>
-            <Link to="/onboarding/introduction">
-              <button>Get started</button>
-            </Link>
-          </div>
-          <div className="col-md-6 image">
-            <img src="/assets/EmployeeMatchedJobs.png" alt="mobile-with-hand" />
-          </div>
-        </div>
+    <div className="navbar">
+      <img src="/assets/logo.png" alt="logo" />
+      <div className="nav-links">
+        <Link to="/onboarding/introduction">create an account</Link>
+        <Link to="/login">login</Link>
+        <Link to="/#how-it-works">how it works</Link>
+        <Link to="/faq">FAQ</Link>
+        <Link to="/support">support</Link>
       </div>
     </div>
-    <div className="application-section">
-      <h3>We're revolutionizing the way you apply for jobs</h3>
-      <div className="row">
-        <div className="col-md-4">
-          <img src="/assets/writing.png" alt="writing.png" />
-          <h5>Sign Up</h5>
+    <div className="hero-section">
+      <h1>
+        One application <br /> to end all applications.
+      </h1>
+    </div>
+    <div className="explainer-section">
+      <div>
+        <h3>Consider us your 'Common App' for the job hunt.</h3>
+        <p>
+          We build one detailed profile to showcase all of your talents,
+          qualifications, and professional culture preferences.
+        </p>
+        <p>
+          Our ‘Culture Fit’ questionnaire identifies your professional strengths
+          based on your personality & desired work environment.
+        </p>
+        <p>
+          Using your results & credentials, your 'Showcase' can be shared with
+          compatible companies, who can see which type of role you may be best
+          suited for.
+        </p>
+        <Link to="/onboarding/introduction">
+          <button className="get-started-button">GET STARTED</button>
+        </Link>
+      </div>
+      <img src="/assets/EmployeeMatchedJobs.png" alt="" />
+    </div>
+    <div className="boring-resume-section">
+      <h2>Say goodbye to boring resumes.</h2>
+      <h3>
+        We believe that being fitted to the right role in the right company is
+        just as important as getting in the door.
+      </h3>
+      <div className="steps-container">
+        <div className="step">
+          <img src="/assets/writing.png" alt="writing" />
+          <h4>EVALUATE</h4>
+          <h5>your personality honestly to find the best roles for you.</h5>
         </div>
-        <div className="col-md-4">
-          <img src="/assets/documents.png" alt="documents.png" />
-          <h5>Curate your details</h5>
+        <div className="step">
+          <img src="/assets/documents.png" alt="documents" />
+          <h4>CURATE</h4>
+          <h5>your details & professional attributes</h5>
         </div>
-        <div className="col-md-4">
-          <img src="/assets/checkmark.png" alt="checkmark.png" />
-          <h5>Match with jobs</h5>
+        <div className="step">
+          <img src="/assets/checkmark.png" alt="checkmark" />
+          <h4>SHARE</h4>
+          <h5>your ‘Showcase’ results & never write another resume again</h5>
         </div>
       </div>
-      <p>
-        Create one Profile to serve as your application for all jobs. Once
-        complete,<br /> we algorithmically pair you directly with the perfect
-        job.
-      </p>
+      <div className="boring-resume-footer">
+        <h3>
+          We are changing the traditional process of cover letters & boring
+          resumes. Share your eye-catching showcase profile anywhere to get
+          noticed.
+        </h3>
+        <h2>Best of all, it’s free.</h2>
+      </div>
     </div>
-    <div className="yellow-column" />
     <div className="employer-section">
-      <div className="row">
-        <div className="col-md-6 employer-info-text">
-          <h3>Better quality candidates for employers</h3>
-          <h5>
-            As a company, you'll only be matched with applicants who meet the
-            minimum requirements you need. Our curated matchmaking algorithm
-            lets you filter by over 50 skills, certifications and experience
-            tags.
-          </h5>
-          <h5>
-            No more overqualified candidates. Let us find the needle in your
-            haystack of resumes.
-          </h5>
-          <Link to="/employer-onboarding/introduction">
-            <button>Get started as an employer</button>
-          </Link>
-        </div>
-        <div className="col-md-6">
-          <img src="/assets/EmployerListings.png" alt="EmployerListings.png" />
-        </div>
-      </div>
-    </div>
-    <div className="find-out-more-section">
-      <h2>Find out more</h2>
+      <h2>More insight for employers</h2>
       <p>
-        Join us along the way of becoming great! We will send you <br /> emails
-        containing information of how you can help us. We don't spam.
+        Culture fit is just as important as credentials in today’s job markets.
+        Now you can not only see the qualifications & attributes of your
+        candidate, but you can see the person behind the numbers. Our culture
+        fit evaluator will make sure that you know the personality and
+        tendencies of an applicant, in order to place them in the best roles.
       </p>
-      <input type="text" placeholder="Your email address" />
-      <button>JOIN US</button>
+      <p>
+        Looking for back office staff? We've got you covered. Looking for
+        outgoing, client-facing reps in the field? We can point out the ideal
+        candidates for you.
+      </p>
+      <p>
+         Our detailed questionnaire will give an honest insight into your
+        potential new hire, so that you can determine if they may be the right
+        fit before taking an interview. We separate our applicants into
+        different personality types, and explain them to you in detail so that
+        you can gauge whether they will gel into your organization.
+      </p>
+      <div className="employer-section-footer">
+        <button>GET STARTED AS AN EMPLOYER</button>
+        <img src="/assets/EmployerListings.png" alt="employer-listings" />
+      </div>
     </div>
     <div className="footer">
-      <img src="/assets/logo-white.png" alt="logo-white.png" />
-      <p>Copyright 2018 AtlasCV. All Rights Reserved.</p>
+      <div className="social-icons">social icons go here</div>
+      <div className="copyright-and-links">
+        <p>c 2018 Showcase. All rights reserved.</p>
+        <div>
+          <Link to="/terms-and-conditions">terms & conditions</Link>
+          <Link to="/contact-us">contact us</Link>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/support">support</Link>
+        </div>
+      </div>
     </div>
   </div>
 );
