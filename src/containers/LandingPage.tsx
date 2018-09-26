@@ -1,19 +1,12 @@
 import * as React from "react";
 import "../styles/landing-page.css";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default () => (
   <div>
-    <div className="navbar">
-      <img src="/assets/logo.png" alt="logo" />
-      <div className="nav-links">
-        <Link to="/onboarding/introduction">create an account</Link>
-        <Link to="/login">login</Link>
-        <Link to="/#how-it-works">how it works</Link>
-        <Link to="/faq">FAQ</Link>
-        <Link to="/support">support</Link>
-      </div>
-    </div>
+    <Navbar />
     <div className="hero-section">
       <h1>
         One application <br /> to end all applications.
@@ -99,17 +92,6 @@ export default () => (
         <img src="/assets/EmployerListings.png" alt="employer-listings" />
       </div>
     </div>
-    <div className="footer">
-      <div className="social-icons">social icons go here</div>
-      <div className="copyright-and-links">
-        <p>c 2018 Showcase. All rights reserved.</p>
-        <div>
-          <Link to="/terms-and-conditions">terms & conditions</Link>
-          <Link to="/contact-us">contact us</Link>
-          <Link to="/faq">FAQ</Link>
-          <Link to="/support">support</Link>
-        </div>
-      </div>
-    </div>
+    <Footer />
   </div>
 );

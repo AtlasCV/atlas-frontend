@@ -4,31 +4,39 @@ import "../styles/onboarding-intro.css";
 import Button from "./Shared/Button";
 
 export default ({ uuid }: { uuid?: string }) => (
-  <div className="introduction col-sm-9">
-    <h2>Welcome to AtlasCV</h2>
-    <p>
-      There are just three easy steps to joining the only job hunting site you
-      will ever need...
-    </p>
-    <div className="row">
-      <div className="col-md-4 step-explanation">
-        <h1>1</h1>
+  <div className="introduction">
+    <div className="introduction-header">
+      <h2>Welcome to Showcase</h2>
+      <h3>
+        There are just three easy steps to joining the only job hunting site you
+        will ever need
+      </h3>
+    </div>
+    <div className="onboarding-steps-container">
+      <div className="step-explanation">
+        <div className="step-number">
+          <h3>1</h3>
+        </div>
         <h5>Culture Fit</h5>
         <p>
           Through a quick evaluation, we'll identify the ideal culture and
           position to suit your strengths and preferences.
         </p>
       </div>
-      <div className="col-md-4 step-explanation">
-        <h1>2</h1>
+      <div className="step-explanation">
+        <div className="step-number">
+          <h3>2</h3>
+        </div>
         <h5>Qualifications</h5>
         <p>
           What have you done in your professional and educational life? This is
           the resume section.
         </p>
       </div>
-      <div className="col-md-4 step-explanation">
-        <h1>3</h1>
+      <div className="step-explanation">
+        <div className="step-number">
+          <h3>3</h3>
+        </div>
         <h5>Distinguish Yourself</h5>
         <p>
           Say goodbye to the days of writing repetitive cover letters. Let
@@ -36,8 +44,10 @@ export default ({ uuid }: { uuid?: string }) => (
         </p>
       </div>
     </div>
-    <Link to="/onboarding/personality-evaluator">
-      <Button>Get Started</Button>
-    </Link>
+    <div className="button-container">
+      <Link to="/onboarding/personality-evaluator">
+        <Button>LET'S GET STARTED</Button>
+      </Link>
+    </div>
   </div>
 );

@@ -2,7 +2,6 @@ import * as React from "react";
 import { bindActionCreators } from "redux";
 import { connect, Dispatch } from "react-redux";
 import { Route, match } from "react-router-dom";
-import OnboardingSidebar from "../components/OnboardingSidebar";
 import OnboardingIntro from "../components/OnboardingIntro";
 import PersonalityEvaluator from "../components/PersonalityEvaluator";
 import Results from "../components/Results";
@@ -12,6 +11,8 @@ import * as actions from "../actions/questions";
 import { AppState } from "../reducers/index";
 import "../styles/onboarding.css";
 import { QuestionState } from "../reducers/questions";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 type Props = {
   startEvaluatorRequest: () => ReturnType<typeof actions.startEvaluatorRequest>;
@@ -38,8 +39,8 @@ export default connect(
     render() {
       return (
         <div className="container onboarding">
-          <div className="row">
-            <OnboardingSidebar location={this.props.location} />
+          <Navbar />
+          <div>
             <Route
               path={this.props.match.url + "/introduction"}
               component={() => (
@@ -77,6 +78,7 @@ export default connect(
               component={DistinguishYourself}
             />
           </div>
+          <Footer />
         </div>
       );
     }
