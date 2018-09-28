@@ -1,0 +1,9 @@
+.onboarding-container {
+  display: flex;
+}
+
+.onboarding-sections {
+  width: 66.66%;
+  margin: 0 auto;
+  max-width: 800px;
+}

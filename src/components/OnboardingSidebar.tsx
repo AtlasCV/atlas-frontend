@@ -7,10 +7,7 @@ type Props = {
 
 export default ({ location: { pathname } }: Props) => {
   return (
-    <div className="col-sm-3 navigation no-padding">
-      <div className="profile-picture-container">
-        <img src="/assets/logo-white.png" alt="logo-white" />
-      </div>
+    <div className="navigation">
       <ul className="navigation-steps">
         <li
           className={
@@ -20,14 +17,23 @@ export default ({ location: { pathname } }: Props) => {
               : ""
           }
         >
+          <div className="sidebar-step-number">
+            <h4>1</h4>
+          </div>
           Culture Fit
         </li>
         <li className={pathname.includes("signup") ? "active" : ""}>
+          <div className="sidebar-step-number">
+            <h4>2</h4>
+          </div>
           Qualifications
         </li>
         <li
           className={pathname.includes("distinguish-yourself") ? "active" : ""}
         >
+          <div className="sidebar-step-number">
+            <h4>3</h4>
+          </div>
           Distinguish Yourself
         </li>
       </ul>

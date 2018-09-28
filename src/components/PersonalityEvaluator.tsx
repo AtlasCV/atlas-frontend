@@ -73,22 +73,20 @@ export default connect(
         .some(question => !question.userResponse);
 
       return (
-        <div className="col-sm-9 no-padding question-container">
-          <h3>Personality Evalulator</h3>
-          {currentQuestionIndex === 0 ? (
-            <React.Fragment>
-              <h6>Lets start by gauging your personality & preferences.</h6>
-              <h6>
-                Answer the following questions honestly and accurately. They
-                will help to identify your strengths & preferences, so that we
-                can find you the jobs you are best suited for.
-              </h6>
-            </React.Fragment>
-          ) : (
-            <ProgressTracker
-              progress={currentQuestionIndex / questionList.length * 100}
-            />
-          )}
+        <div className="question-container">
+          <div className="question-container-header">
+            <h1>Personality Evalulator</h1>
+            <h3>Lets start by gauging your personality & preferences.</h3>
+            <h3>
+              Answer the following questions honestly and accurately. They will
+              help to identify your strengths & preferences, so that we can find
+              you the jobs you are best suited for.
+            </h3>
+          </div>
+
+          <ProgressTracker
+            progress={(currentQuestionIndex / questionList.length) * 100}
+          />
 
           <React.Fragment>
             {questionList

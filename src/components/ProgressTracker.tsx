@@ -8,10 +8,6 @@ type Props = {
 export default ({ progress }: Props) => {
   return (
     <React.Fragment>
-      <div className="progress-labels-container">
-        <p className="progress-labels start-label">0%</p>
-        <p className="progress-labels end-label">100%</p>
-      </div>
       <div
         style={{
           width: "100%",
@@ -22,7 +18,7 @@ export default ({ progress }: Props) => {
           borderRadius: "4px",
           background: "Transparent",
           zIndex: 2,
-          marginTop: "75px"
+          marginTop: "30px"
         }}
       >
         <div

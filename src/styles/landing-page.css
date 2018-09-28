@@ -6,7 +6,7 @@
 }
 
 .navbar img {
-  height: 164px;
+  height: 123px;
   width: auto;
   padding: 0px 50px;
 }
@@ -17,7 +17,7 @@
   color: #343434;
   text-decoration: none;
   margin-right: 80px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .hero-section {
@@ -222,5 +222,5 @@
   color: #343434;
   text-decoration: none;
   margin-right: 80px;
-  font-size: 20px;
+  font-size: 16px;
 }

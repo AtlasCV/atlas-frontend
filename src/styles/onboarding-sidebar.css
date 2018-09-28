@@ -1,6 +1,11 @@
 .navigation-steps {
   color: white;
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  -webkit-justify-content: space-evenly;
+  height: 100%;
 }
 
 .navigation-steps li {
@@ -8,28 +13,38 @@
   margin-right: 20px;
   font-size: 16px;
   padding: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: flex;
+  align-items: center;
 }
 
 .navigation-steps .active {
-  border: #d2ba3b solid 2px;
-  border-radius: 5px;
 }
 
-.profile-picture-container img {
-  height: 100px;
-  width: 100px;
+.sidebar-step-number {
+  height: 33px;
+  width: 33px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
 }
 
-.profile-picture-container {
-  background-color: #17171a;
-  height: 150px;
-  text-align: center;
-  padding-top: 25px;
+.sidebar-step-number h4 {
+  color: red;
+  font-family: Butler;
+  padding-top: 3px;
 }
 
 .navigation {
-  background-color: #505155;
-  min-height: 600px;
+  background-color: #28719d;
   box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.19);
   z-index: 2;
+  max-width: 33.33%;
+  height: 456px;
+  border-radius: 0px 5px 5px 0px;
+  margin-top: 50px;
 }

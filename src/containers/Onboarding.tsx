@@ -13,6 +13,7 @@ import "../styles/onboarding.css";
 import { QuestionState } from "../reducers/questions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import OnboardingSidebar from "../components/OnboardingSidebar";
 
 type Props = {
   startEvaluatorRequest: () => ReturnType<typeof actions.startEvaluatorRequest>;
@@ -37,46 +38,52 @@ export default connect(
     }
 
     render() {
+      console.log(location);
       return (
-        <div className="container onboarding">
+        <div>
           <Navbar />
-          <div>
-            <Route
-              path={this.props.match.url + "/introduction"}
-              component={() => (
-                <OnboardingIntro uuid={this.props.questions.uuid} />
-              )}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/personality-evaluator/:uuid"}
-              component={PersonalityEvaluator}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/personality-evaluator"}
-              component={PersonalityEvaluator}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/results/:uuid"}
-              component={Results}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/signup/:page/:uuid"}
-              component={Signup}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/signup/:page"}
-              component={Signup}
-            />
-            <Route
-              exact={true}
-              path={this.props.match.url + "/distinguish-yourself"}
-              component={DistinguishYourself}
-            />
+          <div className="onboarding-container">
+            {!location.pathname.includes("introduction") && (
+              <OnboardingSidebar location={location} />
+            )}
+            <div className="onboarding-sections">
+              <Route
+                path={this.props.match.url + "/introduction"}
+                component={() => (
+                  <OnboardingIntro uuid={this.props.questions.uuid} />
+                )}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/personality-evaluator/:uuid"}
+                component={PersonalityEvaluator}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/personality-evaluator"}
+                component={PersonalityEvaluator}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/results/:uuid"}
+                component={Results}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/signup/:page/:uuid"}
+                component={Signup}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/signup/:page"}
+                component={Signup}
+              />
+              <Route
+                exact={true}
+                path={this.props.match.url + "/distinguish-yourself"}
+                component={DistinguishYourself}
+              />
+            </div>
           </div>
           <Footer />
         </div>
