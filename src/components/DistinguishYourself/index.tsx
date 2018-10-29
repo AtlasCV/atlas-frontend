@@ -21,7 +21,7 @@ export default connect(
     }
     render() {
       return (
-        <div className="signup-container col-sm-9">
+        <div className="signup-container">
           <h2>Distinguish Yourself</h2>
           <p>
             Now that we've identified your credentials, this is your chance to

@@ -120,12 +120,6 @@ export default connect(
       };
     }
 
-    componentDidMount() {
-      const { getMeRequest } = this.props;
-
-      getMeRequest();
-    }
-
     submitPageOneInformation = (formValues: CreateApplicantFormProps) => {
       const { createApplicantRequest } = this.props;
       createApplicantRequest(formValues, "/onboarding/signup/2");
@@ -143,7 +137,6 @@ export default connect(
       applicantId: number,
       { industryId, ...applicantFormProps }: UpdateApplicantFormProps
     ) => {
-      console.log(applicantId);
       this.props.updateApplicantRequest(
         applicantId,
         { ...applicantFormProps, currentPageOfSignup: 4 },
@@ -241,11 +234,11 @@ export default connect(
       } = this.props;
 
       return (
-        <div className="signup-container col-sm-9">
+        <div className="signup-container">
           <h2>Tell us about your qualifications</h2>
-          <ProgressTracker progress={this.state.activePage / 8 * 100} />
+          <ProgressTracker progress={(this.state.activePage / 8) * 100} />
           <Route
-            path={"/onboarding/signup/1/:uuid"}
+            path={"/onboarding/signup/1"}
             render={() => (
               <PageOne
                 uuid={params.uuid}

@@ -1,93 +1,109 @@
 import * as React from "react";
-import { bindActionCreators } from "redux";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Route, match } from "react-router-dom";
+import { push } from "react-router-redux";
 import OnboardingIntro from "../components/OnboardingIntro";
 import PersonalityEvaluator from "../components/PersonalityEvaluator";
 import Results from "../components/Results";
 import Signup from "../components/Signup";
 import DistinguishYourself from "../components/DistinguishYourself";
-import * as actions from "../actions/questions";
+import { startEvaluatorRequest } from "../actions/questions";
+import { getMeRequest } from "../actions/auth";
 import { AppState } from "../reducers/index";
 import "../styles/onboarding.css";
 import { QuestionState } from "../reducers/questions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import OnboardingSidebar from "../components/OnboardingSidebar";
+import { AuthState } from "../reducers/auth";
+import { ProfileState } from "../reducers/profile";
 
 type Props = {
-  startEvaluatorRequest: () => ReturnType<typeof actions.startEvaluatorRequest>;
+  startEvaluatorRequest: typeof startEvaluatorRequest;
+  getMeRequest: typeof getMeRequest;
+  push: typeof push;
   match: match<{ uuid: string }>;
   questions: QuestionState;
+  auth: AuthState;
   location: Location;
+  profile: ProfileState;
 };
 
-export default connect(
-  ({ questions }: AppState) => ({ questions }),
-  (dispatch: Dispatch<AppState>) =>
-    bindActionCreators(
-      {
-        startEvaluatorRequest: actions.startEvaluatorRequest
-      },
-      dispatch
-    )
-)(
-  class Onboarding extends React.Component<Props> {
-    constructor(props: Props) {
-      super(props);
-    }
-
-    render() {
-      console.log(location);
-      return (
-        <div>
-          <Navbar />
-          <div className="onboarding-container">
-            {!location.pathname.includes("introduction") && (
-              <OnboardingSidebar location={location} />
-            )}
-            <div className="onboarding-sections">
-              <Route
-                path={this.props.match.url + "/introduction"}
-                component={() => (
-                  <OnboardingIntro uuid={this.props.questions.uuid} />
-                )}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/personality-evaluator/:uuid"}
-                component={PersonalityEvaluator}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/personality-evaluator"}
-                component={PersonalityEvaluator}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/results/:uuid"}
-                component={Results}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/signup/:page/:uuid"}
-                component={Signup}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/signup/:page"}
-                component={Signup}
-              />
-              <Route
-                exact={true}
-                path={this.props.match.url + "/distinguish-yourself"}
-                component={DistinguishYourself}
-              />
-            </div>
-          </div>
-          <Footer />
-        </div>
-      );
+class Onboarding extends React.Component<Props> {
+  componentDidMount() {
+    const { getMeRequest, auth, push, profile } = this.props;
+    if (auth.authenticated && !profile.info.Applicant.signupComplete) {
+      push(`/onboarding/signup/${profile.info.Applicant.currentPageOfSignup}`);
+    } else if (auth.authenticated) {
+      getMeRequest();
     }
   }
-);
+
+  componentDidUpdate() {
+    const { auth, push, profile } = this.props;
+    if (auth.authenticated && profile.info.Applicant.signupComplete) {
+      push("/");
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <div className="onboarding-container">
+          {!location.pathname.includes("introduction") && (
+            <OnboardingSidebar location={location} />
+          )}
+          <div className="onboarding-sections">
+            <Route
+              path={this.props.match.url + "/introduction"}
+              component={() => (
+                <OnboardingIntro uuid={this.props.questions.uuid} />
+              )}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/personality-evaluator/:uuid"}
+              component={PersonalityEvaluator}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/personality-evaluator"}
+              component={PersonalityEvaluator}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/results/:uuid"}
+              component={Results}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/signup/:page/:uuid"}
+              component={Signup}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/signup/:page"}
+              component={Signup}
+            />
+            <Route
+              exact={true}
+              path={this.props.match.url + "/distinguish-yourself"}
+              component={DistinguishYourself}
+            />
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+}
+
+export default connect(
+  ({ questions, auth, profile }: AppState) => ({ questions, auth, profile }),
+  {
+    startEvaluatorRequest,
+    getMeRequest,
+    push
+  }
+)(Onboarding);

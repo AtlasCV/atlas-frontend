@@ -48,6 +48,8 @@ export const GET_ME_REQUEST = "GET_ME_REQUEST";
 export const GET_ME_SUCCESS = "GET_ME_SUCCESS";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const AUTH_AJAX_FAILURE = "AUTH_AJAX_FAILURE";
 
 // industrySectors

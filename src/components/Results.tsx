@@ -63,13 +63,12 @@ export default connect(
         improvisor
       } = finalScore;
       return (
-        <div className="col-sm-9 results-container">
+        <div className="results-container">
           <h2>
             You are{" "}
             <b>
-              {results[scoreSignature] && results[scoreSignature].name} ({
-                scoreSignature
-              })
+              {results[scoreSignature] && results[scoreSignature].name} (
+              {scoreSignature})
             </b>
           </h2>
           <ul className="results-list">

@@ -74,15 +74,28 @@ export default connect(
 
       return (
         <div className="question-container">
-          <div className="question-container-header">
-            <h1>Personality Evalulator</h1>
-            <h3>Lets start by gauging your personality & preferences.</h3>
-            <h3>
-              Answer the following questions honestly and accurately. They will
-              help to identify your strengths & preferences, so that we can find
-              you the jobs you are best suited for.
-            </h3>
-          </div>
+          {currentQuestionIndex < 5 && (
+            <div className="question-container-header">
+              <h1>Personality Evalulator</h1>
+              <h3>Lets start by gauging your personality & preferences.</h3>
+              <h3>
+                Answer the following questions honestly and accurately. They
+                will help to identify your strengths & preferences, so that we
+                can find you the jobs you are best suited for.
+              </h3>
+            </div>
+          )}
+
+          {currentQuestionIndex > 39 && (
+            <div className="question-container-header">
+              <h1>You're all done!</h1>
+              <h3>
+                You can go back and review and change your answers. When you're
+                comfortable with your choices, click "Finish" to complete the
+                evaluator and get your results
+              </h3>
+            </div>
+          )}
 
           <ProgressTracker
             progress={(currentQuestionIndex / questionList.length) * 100}
@@ -102,17 +115,7 @@ export default connect(
               ))}
           </React.Fragment>
           {!evaluatorCompleted && (
-            <div>
-              {currentQuestionIndex > 39 && (
-                <React.Fragment>
-                  <p>You're all done!</p>
-                  <p>
-                    You can go back and review and change your answers. When
-                    you're comfortable with your choices, click "Finish" to
-                    complete the evaluator and get your results
-                  </p>
-                </React.Fragment>
-              )}
+            <div className="evaulator-button-container">
               <Button
                 disabled={currentQuestionIndex === 0}
                 onClick={previousQuestionSet}

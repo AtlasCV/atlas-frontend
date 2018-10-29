@@ -3,7 +3,9 @@
 }
 
 .question-container {
-  margin-top: 50px;
+  padding: 16px;
+  padding-left: 33%;
+  max-width: 800px;
 }
 
 .question-container-header {
@@ -22,8 +24,13 @@
   font-size: 24px;
 }
 
+.evaulator-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .question-container button {
-  background-color: #1db0ed;
+  background-color: #28719d;
   border: none;
   color: white;
   width: 150px;

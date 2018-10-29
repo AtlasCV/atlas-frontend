@@ -48,6 +48,8 @@
     "deploy": "aws s3 sync build/ s3://new-atlas-frontend"
   },
   "devDependencies": {
+    "mocha": "^5.2.0",
+    "sinon": "^7.0.0",
     "tslint-config-prettier": "^1.9.0"
   }
 }

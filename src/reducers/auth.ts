@@ -64,6 +64,18 @@ const authAjaxFailure = (
   fetchingAuth: false
 });
 
+const logoutRequest = (state: AuthState) => ({
+  ...state,
+  fetchingAuth: true,
+});
+
+const logoutSuccess = (state: AuthState) => ({
+  ...state,
+  authenticated: false,
+  token: '',
+  fetchingAuth: false
+});
+
 const authReducer: Reducer<AuthState> = (
   state = INITIAL_AUTH_STATE,
   action: Action
@@ -81,7 +93,10 @@ const authReducer: Reducer<AuthState> = (
       return authAjaxFailure(state, action);
     case actionTypes.LOAD_APPLICANT_SUCCESS:
       return loginSuccess(state, action);
-
+    case actionTypes.LOGOUT_REQUEST:
+      return logoutRequest(state);
+    case actionTypes.LOGOUT_SUCCESS:
+      return logoutSuccess(state);
     default:
       return state;
   }

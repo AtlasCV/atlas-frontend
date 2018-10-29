@@ -1,7 +1,6 @@
 import { Observable } from "rxjs/Rx";
 import { AxiosResponse, AxiosError } from "axios";
 import { AnyAction } from "redux";
-import { push } from "react-router-redux";
 import { Epic } from "redux-observable";
 import { AppState } from "../reducers";
 import { Dependencies } from "../init";
@@ -10,11 +9,13 @@ import {
   getMeSuccess,
   loginSuccess,
   authAjaxFailure,
-  getMeRequest
+  getMeRequest,
+  logoutSuccess
 } from "../actions/auth";
 import * as actionTypes from "../constants/actionTypes";
 import * as types from "../types";
 import { User } from "../types";
+import { push } from "react-router-redux";
 
 type GetMeEpic = Epic<AnyAction, AppState, Dependencies>;
 export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
@@ -30,14 +31,9 @@ export const getMeEpic: GetMeEpic = (action$, store, { ajax }) =>
         ({
           data: { result }
         }: AxiosResponse<types.AxiosResponseData<User>>) => {
-          if (!result.Applicant.signupComplete) {
             return [
               getMeSuccess(result),
-              push(`/onboarding/signup/${result.Applicant.currentPageOfSignup}`)
             ];
-          } else {
-            return [getMeSuccess(result)];
-          }
         }
       )
       .catch((err: AxiosError) =>
@@ -78,4 +74,13 @@ export const loginEpic: LoginEpic = (action$, store, { ajax }) =>
         )
     );
 
-export default [getMeEpic, loginEpic];
+type LogoutEpic = Epic<AnyAction, AppState, Dependencies>;
+export const logoutEpic: LogoutEpic = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.LOGOUT_REQUEST)
+    .mergeMap(() => {
+      window.localStorage.clear();
+      return [logoutSuccess(), push('/')];
+    });
+
+export default [getMeEpic, loginEpic, logoutEpic];

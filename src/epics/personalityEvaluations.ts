@@ -115,9 +115,10 @@ export const nextQuestionPageEpic: NextQuestionPageEpic = (
             .slice(currentQuestionIndex - 5, currentQuestionIndex)
         }
       })
-        .map(({ data: { result } }: AxiosResponse) =>
-          loadEvaluatorSuccess(result)
-        )
+        .map(({ data: { result } }: AxiosResponse) => {
+          window.scrollTo(0, 0);
+          return loadEvaluatorSuccess(result);
+        })
         .catch((err: AxiosError) =>
           Observable.of(
             questionAjaxFailure(

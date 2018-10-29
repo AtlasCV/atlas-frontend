@@ -13,5 +13,11 @@ export const loginRequest = (email: string, password: string) =>
 export const loginSuccess = ({ token, user }: { token: string; user: User }) =>
   createAction(actionTypes.LOGIN_SUCCESS, { token, user });
 
+export const logoutRequest = () =>
+  createAction(actionTypes.LOGOUT_REQUEST, {});
+
+export const logoutSuccess = () =>
+  createAction(actionTypes.LOGOUT_SUCCESS, {});
+
 export const authAjaxFailure = (reason: string) =>
   createAction(actionTypes.AUTH_AJAX_FAILURE, { reason }, true);
