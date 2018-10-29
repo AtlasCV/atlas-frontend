@@ -34,7 +34,7 @@ class Onboarding extends React.Component<Props> {
     const { getMeRequest, auth, push, profile } = this.props;
     if (auth.authenticated && !profile.info.Applicant.signupComplete) {
       push(`/onboarding/signup/${profile.info.Applicant.currentPageOfSignup}`);
-    } else if (auth.authenticated) {
+    } else if (auth.token) {
       getMeRequest();
     }
   }

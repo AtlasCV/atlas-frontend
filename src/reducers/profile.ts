@@ -129,6 +129,13 @@ const createJobExperienceSuccess = (
   }
 });
 
+const loginSuccess = (
+  state: ProfileState, 
+  action: ReturnType<typeof authActions.loginSuccess>) => ({
+  ...state,
+  info: action.payload.user,
+});
+
 const profileReducer: Reducer<ProfileState> = (
   state = PROFILE_INITIAL_STATE,
   action: Action
@@ -150,6 +157,8 @@ const profileReducer: Reducer<ProfileState> = (
       return createEducationExperienceSuccess(state, action);
     case actionTypes.CREATE_JOB_EXPERIENCE_SUCCESS:
       return createJobExperienceSuccess(state, action);
+    case actionTypes.LOGIN_SUCCESS:
+      return loginSuccess(state, action);
     default:
       return state;
   }

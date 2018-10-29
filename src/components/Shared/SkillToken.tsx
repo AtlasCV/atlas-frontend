@@ -14,14 +14,15 @@ const token = (hasSkill: boolean) =>
     height: "70px",
     margin: "20px auto",
     border: "1px solid #333",
-    textAlign: "center",
     fontSize: "26px",
-    paddingTop: "15px",
     borderRadius: "50%",
     cursor: "pointer",
     width: "70px",
     backgroundColor: hasSkill ? "#505155" : "#fff",
-    color: hasSkill ? "#fff" : "#505155"
+    color: hasSkill ? "#fff" : "#505155",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   });
 
 const years = style({
@@ -121,6 +122,7 @@ class SkillToken extends React.Component<Props> {
               {skill.name
                 .split("_")
                 .map(word => word[0])
+                .slice(0, 2)
                 .join("")
                 .toUpperCase()}
             </div>

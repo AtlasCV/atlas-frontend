@@ -63,7 +63,17 @@ export const loginEpic: LoginEpic = (action$, store, { ajax }) =>
             data: { result }
           }: AxiosResponse<
             types.AxiosResponseData<{ token: string; user: User }>
-          >) => [loginSuccess(result), getMeRequest()]
+          >) => {
+            localStorage.setItem('accessToken', result.token);
+            return [
+            loginSuccess(result), 
+            getMeRequest(), 
+            push(
+              result.user.Applicant.signupComplete 
+              ? '/profile' 
+              : `/onboarding/signup/${result.user.Applicant.currentPageOfSignup}`
+            )];
+          }
         )
         .catch((err: AxiosError) =>
           Observable.of(
@@ -79,7 +89,7 @@ export const logoutEpic: LogoutEpic = (action$, store, { ajax }) =>
   action$
     .ofType(actionTypes.LOGOUT_REQUEST)
     .mergeMap(() => {
-      window.localStorage.clear();
+      localStorage.clear();
       return [logoutSuccess(), push('/')];
     });
 

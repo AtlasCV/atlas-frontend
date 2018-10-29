@@ -1,5 +1,4 @@
 import * as React from "react";
-import { style } from "typestyle";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
@@ -51,7 +50,7 @@ class PageSix extends React.Component<Props, State> {
     );
     return (
       <React.Fragment>
-        <div className={style({ overflow: "scroll", maxHeight: "500px" })}>
+        <div>
           {this.props.skills.list.map(skill => {
             const hasSkill = applicantSkills.indexOf(skill.id) > -1;
             return (

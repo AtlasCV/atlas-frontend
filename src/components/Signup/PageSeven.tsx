@@ -1,5 +1,4 @@
 import * as React from "react";
-import { style } from "typestyle";
 import { Link } from "react-router-dom";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
@@ -56,7 +55,7 @@ class PageSeven extends React.Component<Props, State> {
     );
     return (
       <React.Fragment>
-        <div className={style({ overflow: "scroll", maxHeight: "500px" })}>
+        <div>
           {this.props.industrySectors.list.map(industrySector => {
             const hasIndustrySector =
               applicantIndustrySectors.indexOf(industrySector.id) > -1;
