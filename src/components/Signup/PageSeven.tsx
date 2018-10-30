@@ -79,8 +79,20 @@ class PageSeven extends React.Component<Props, State> {
             );
           })}
         </div>
+        <Link to="/onboarding/signup/6">
+          <Button styles={{ float: "left", marginTop: "40px" }}>
+            PREVIOUS
+          </Button>
+        </Link>
         <Link to="/onboarding/distinguish-yourself">
-          <Button styles={{ float: "right" }}>NEXT</Button>
+          <Button
+            styles={{
+              float: "right",
+              marginTop: "40px"
+            }}
+          >
+            NEXT
+          </Button>
         </Link>
       </React.Fragment>
     );

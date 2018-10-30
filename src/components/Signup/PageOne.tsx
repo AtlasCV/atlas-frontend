@@ -4,6 +4,7 @@ import Input from "../Shared/Input";
 import { CreateApplicantFormProps } from "../../types";
 import "../../styles/input.css";
 import Button from "../Shared/Button";
+import { ProfileState } from "../../reducers/profile";
 
 type Props = {
   handleSubmit: (
@@ -11,17 +12,18 @@ type Props = {
     nextPage?: string
   ) => void;
   uuid: string;
+  profile: ProfileState;
 };
 
-export default ({ handleSubmit, uuid }: Props) => (
+export default ({ handleSubmit, uuid, profile }: Props) => (
   <Formik
     initialValues={{
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: profile.info.firstName || "",
+      lastName: profile.info.lastName || "",
+      email: profile.info.email || "",
       password: "",
       confirmPassword: "",
-      linkedIn: ""
+      linkedIn: profile.info.Applicant.linkedIn || ""
     }}
     onSubmit={values =>
       handleSubmit({ ...values, uuid, currentPageOfSignup: 2 })
@@ -112,8 +114,12 @@ export default ({ handleSubmit, uuid }: Props) => (
             handleBlur={handleBlur}
             error={touched.confirmPassword && errors.confirmPassword}
           />
-          <Button disabled={isSubmitting} type="submit">
-            Next
+          <Button
+            styles={{ float: "right" }}
+            disabled={isSubmitting}
+            type="submit"
+          >
+            NEXT
           </Button>
         </form>
       );

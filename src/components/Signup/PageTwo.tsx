@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as moment from "moment";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import Select from "../Shared/Select";
@@ -6,6 +7,8 @@ import { UpdateApplicantFormProps } from "../../types";
 import validatePhone from "../../utils/validatePhone";
 import "../../styles/input.css";
 import Button from "../Shared/Button";
+import { ProfileState } from "../../reducers/profile";
+import { Link } from "react-router-dom";
 
 type Props = {
   handleSubmit: (
@@ -14,15 +17,18 @@ type Props = {
     nextPage?: string
   ) => void;
   applicantId: number;
+  profile: ProfileState;
 };
 
-export default ({ handleSubmit, applicantId }: Props) => (
+export default ({ handleSubmit, applicantId, profile }: Props) => (
   <Formik
     initialValues={{
-      phone: "",
-      profileImgUrl: "",
-      birthday: "",
-      gender: ""
+      phone: profile.info.phone || "",
+      profileImgUrl: profile.info.profileImgUrl || "",
+      birthday: profile.info.birthday
+        ? moment(profile.info.birthday).format("MM/DD/YYYY")
+        : "",
+      gender: profile.info.gender || ""
     }}
     onSubmit={applicantFormProps =>
       handleSubmit(applicantId, {
@@ -92,7 +98,12 @@ export default ({ handleSubmit, applicantId }: Props) => (
           <option value="M">Male</option>
           <option value="F">Female</option>
         </Select>
-        <Button type="submit">Next</Button>
+        <Link to="/onboarding/signup/1">
+          <Button styles={{ float: "left" }}>PREVIOUS</Button>
+        </Link>
+        <Button styles={{ float: "right" }} type="submit">
+          NEXT
+        </Button>
       </form>
     )}
   />

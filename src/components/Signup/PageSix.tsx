@@ -3,6 +3,7 @@ import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
 import { SkillState } from "../../reducers/skills";
+import { Link } from "react-router-dom";
 
 type Props = {
   profile: ProfileState;
@@ -67,11 +68,16 @@ class PageSix extends React.Component<Props, State> {
             );
           })}
         </div>
+        <Link to="/onboarding/signup/5">
+          <Button styles={{ float: "left", marginTop: "40px" }}>
+            PREVIOUS
+          </Button>
+        </Link>
         <Button
           onClick={() =>
             this.props.completePageSix(this.props.profile.info.Applicant.id)
           }
-          styles={{ float: "right" }}
+          styles={{ float: "right", marginTop: "40px" }}
         >
           NEXT
         </Button>

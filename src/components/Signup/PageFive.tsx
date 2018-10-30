@@ -8,6 +8,7 @@ import Select from "../Shared/Select";
 import TextArea from "../Shared/TextArea";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   handleSubmit: (applicantId: number, jobExperience: JobExperience) => void;
@@ -31,7 +32,7 @@ class PageFive extends React.Component<Props> {
       <React.Fragment>
         {JobExperiences.length > 0 &&
           JobExperiences.map(job => (
-            <div>
+            <div key={`${job.name} -${job.companyName}`}>
               {job.name} - {job.companyName}
             </div>
           ))}
@@ -132,14 +133,17 @@ class PageFive extends React.Component<Props> {
                 handleBlur={handleBlur}
                 error={touched.description && errors.description}
               />
-              <Button type="submit">Add Job</Button>
-              <Button
-                styles={{ float: "right" }}
-                type="button"
-                onClick={() => completePage(id)}
-              >
-                Finished
-              </Button>
+              <Link to="/onboarding/signup/4">
+                <Button styles={{ float: "left" }}>PREVIOUS</Button>
+              </Link>
+              <div style={{ float: "right" }}>
+                <Button styles={{ marginRight: "20px" }} type="submit">
+                  ADD JOB
+                </Button>
+                <Button type="button" onClick={() => completePage(id)}>
+                  FINISHED
+                </Button>
+              </div>
             </form>
           )}
         />

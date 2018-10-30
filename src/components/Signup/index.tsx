@@ -1,5 +1,4 @@
 import * as React from "react";
-import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { Route, match } from "react-router-dom";
 import * as questionActions from "../../actions/questions";
@@ -63,32 +62,28 @@ export default connect(
     auth,
     industrySectors
   }),
-  (dispatch: Dispatch<AppState>) =>
-    bindActionCreators(
-      {
-        loadEvaluatorRequest: questionActions.loadEvaluatorRequest,
-        createApplicantRequest: profileActions.createApplicantRequest,
-        updateApplicantRequest: profileActions.updateApplicantRequest,
-        getMeRequest,
-        loadIndustriesRequest: industryActions.loadIndustriesRequest,
-        addIndustriesToApplicantRequest:
-          industryActions.addIndustriesToApplicantRequest,
-        createEducationExperienceRequest:
-          profileActions.createEducationExperienceRequest,
-        createJobExperienceRequest: profileActions.createJobExperienceRequest,
-        addSkillsToApplicantRequest: skillActions.addSkillsToApplicantRequest,
-        removeSkillFromApplicantRequest:
-          skillActions.removeSkillFromApplicantRequest,
-        loadSkillsRequest: skillActions.loadSkillsRequest,
-        addIndustrySectorsToApplicantRequest:
-          industrySectorActions.addIndustrySectorsToApplicantRequest,
-        removeIndustrySectorFromApplicantRequest:
-          industrySectorActions.removeIndustrySectorFromApplicantRequest,
-        loadIndustrySectorsRequest:
-          industrySectorActions.loadIndustrySectorsRequest
-      },
-      dispatch
-    )
+
+  {
+    loadEvaluatorRequest: questionActions.loadEvaluatorRequest,
+    createApplicantRequest: profileActions.createApplicantRequest,
+    updateApplicantRequest: profileActions.updateApplicantRequest,
+    getMeRequest,
+    loadIndustriesRequest: industryActions.loadIndustriesRequest,
+    addIndustriesToApplicantRequest:
+      industryActions.addIndustriesToApplicantRequest,
+    createEducationExperienceRequest:
+      profileActions.createEducationExperienceRequest,
+    createJobExperienceRequest: profileActions.createJobExperienceRequest,
+    addSkillsToApplicantRequest: skillActions.addSkillsToApplicantRequest,
+    removeSkillFromApplicantRequest:
+      skillActions.removeSkillFromApplicantRequest,
+    loadSkillsRequest: skillActions.loadSkillsRequest,
+    addIndustrySectorsToApplicantRequest:
+      industrySectorActions.addIndustrySectorsToApplicantRequest,
+    removeIndustrySectorFromApplicantRequest:
+      industrySectorActions.removeIndustrySectorFromApplicantRequest,
+    loadIndustrySectorsRequest: industrySectorActions.loadIndustrySectorsRequest
+  }
 )(
   class Signup extends React.Component<Props, State> {
     static getDerivedStateFromProps(nextProps: Props, prevState: State) {
@@ -121,7 +116,14 @@ export default connect(
     }
 
     submitPageOneInformation = (formValues: CreateApplicantFormProps) => {
-      const { createApplicantRequest } = this.props;
+      const { createApplicantRequest, updateApplicantRequest } = this.props;
+      if (this.props.profile.info.Applicant.id) {
+        updateApplicantRequest(
+          this.props.profile.info.Applicant.id,
+          formValues,
+          "/onboarding/signup/2"
+        );
+      }
       createApplicantRequest(formValues, "/onboarding/signup/2");
     };
 
@@ -226,7 +228,8 @@ export default connect(
         loadSkillsRequest,
         loadIndustrySectorsRequest,
         profile: {
-          info: { Applicant }
+          info: { Applicant },
+          fetchingApplicant
         },
         industries: { list: industries },
         skills,
@@ -237,84 +240,91 @@ export default connect(
         <div className="signup-container">
           <h2>Tell us about your qualifications</h2>
           <ProgressTracker progress={(this.state.activePage / 8) * 100} />
-          <Route
-            path={"/onboarding/signup/1"}
-            render={() => (
-              <PageOne
-                uuid={params.uuid}
-                handleSubmit={this.submitPageOneInformation}
+          {fetchingApplicant ? null : (
+            <>
+              <Route
+                path={"/onboarding/signup/1"}
+                render={() => (
+                  <PageOne
+                    uuid={params.uuid}
+                    handleSubmit={this.submitPageOneInformation}
+                    profile={this.props.profile}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/2"}
-            render={() => (
-              <PageTwo
-                handleSubmit={this.submitPageTwoInformation}
-                applicantId={Applicant && Applicant.id}
+              <Route
+                path={"/onboarding/signup/2"}
+                render={() => (
+                  <PageTwo
+                    handleSubmit={this.submitPageTwoInformation}
+                    applicantId={Applicant && Applicant.id}
+                    profile={this.props.profile}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/3"}
-            render={() => (
-              <PageThree
-                handleSubmit={this.submitPageThreeInformation}
-                loadIndustriesRequest={loadIndustriesRequest}
-                applicantId={Applicant && Applicant.id}
-                industries={industries}
+              <Route
+                path={"/onboarding/signup/3"}
+                render={() => (
+                  <PageThree
+                    handleSubmit={this.submitPageThreeInformation}
+                    loadIndustriesRequest={loadIndustriesRequest}
+                    applicantId={Applicant && Applicant.id}
+                    industries={industries}
+                    profile={this.props.profile}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/4"}
-            render={() => (
-              <PageFour
-                handleSubmit={this.submitPageFourInformation}
-                completePage={this.completePageFour}
-                profile={this.props.profile}
+              <Route
+                path={"/onboarding/signup/4"}
+                render={() => (
+                  <PageFour
+                    handleSubmit={this.submitPageFourInformation}
+                    completePage={this.completePageFour}
+                    profile={this.props.profile}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/5"}
-            render={() => (
-              <PageFive
-                handleSubmit={this.submitPageFiveInformation}
-                completePage={this.completePageFive}
-                profile={this.props.profile}
+              <Route
+                path={"/onboarding/signup/5"}
+                render={() => (
+                  <PageFive
+                    handleSubmit={this.submitPageFiveInformation}
+                    completePage={this.completePageFive}
+                    profile={this.props.profile}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/6"}
-            render={() => (
-              <PageSix
-                selectSkillForApplicant={this.addSkillToApplicant}
-                removeSkillFromApplicant={this.removeSkillFromApplicant}
-                profile={this.props.profile}
-                skills={skills}
-                loadSkillsRequest={loadSkillsRequest}
-                completePageSix={this.completePageSix}
+              <Route
+                path={"/onboarding/signup/6"}
+                render={() => (
+                  <PageSix
+                    selectSkillForApplicant={this.addSkillToApplicant}
+                    removeSkillFromApplicant={this.removeSkillFromApplicant}
+                    profile={this.props.profile}
+                    skills={skills}
+                    loadSkillsRequest={loadSkillsRequest}
+                    completePageSix={this.completePageSix}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path={"/onboarding/signup/7"}
-            render={() => (
-              <PageSeven
-                selectIndustrySectorForApplicant={
-                  this.addIndustrySectorToApplicant
-                }
-                removeIndustrySectorFromApplicant={
-                  this.removeIndustrySectorFromApplicant
-                }
-                profile={this.props.profile}
-                industrySectors={industrySectors}
-                loadIndustrySectorsRequest={loadIndustrySectorsRequest}
+              <Route
+                path={"/onboarding/signup/7"}
+                render={() => (
+                  <PageSeven
+                    selectIndustrySectorForApplicant={
+                      this.addIndustrySectorToApplicant
+                    }
+                    removeIndustrySectorFromApplicant={
+                      this.removeIndustrySectorFromApplicant
+                    }
+                    profile={this.props.profile}
+                    industrySectors={industrySectors}
+                    loadIndustrySectorsRequest={loadIndustrySectorsRequest}
+                  />
+                )}
               />
-            )}
-          />
+            </>
+          )}
         </div>
       );
     }

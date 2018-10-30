@@ -77,12 +77,18 @@ const profileAjaxFailure = (
   fetchingApplicant: false
 });
 
+const getMeRequest = (state: ProfileState) => ({
+  ...state,
+  fetchingApplicant: true,
+});
+
 const getMeSuccess = (
   state: ProfileState,
   { payload: { user } }: ReturnType<typeof authActions.getMeSuccess>
 ) => ({
   ...state,
-  info: user
+  info: user,
+  fetchingApplicant: false,
 });
 
 const addIndustriesToApplicantSuccess = (
@@ -149,6 +155,8 @@ const profileReducer: Reducer<ProfileState> = (
       return loadApplicantSuccess(state, action);
     case actionTypes.PROFILE_AJAX_FAILURE:
       return profileAjaxFailure(state, action);
+    case actionTypes.GET_ME_REQUEST:
+      return getMeRequest(state);
     case actionTypes.GET_ME_SUCCESS:
       return getMeSuccess(state, action);
     case actionTypes.ADD_INDUSTRIES_TO_APPLICANT_SUCCESS:

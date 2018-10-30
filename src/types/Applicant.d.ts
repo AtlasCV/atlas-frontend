@@ -13,6 +13,7 @@ export interface Applicant {
   JobExperiences: JobExperience[];
   currentPageOfSignup?: number;
   signupComplete?: boolean;
+  jobType?: string;
   ApplicantSkills: ApplicantSkill[];
   ApplicantIndustrySectors: ApplicantIndustrySector[];
 }

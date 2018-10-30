@@ -5,6 +5,7 @@
   margin-left: 10px;
   border: none;
   width: 90%;
+  background-color: #fff;
 }
 
 select.text-box {
@@ -30,8 +31,9 @@ select.text-box {
   position: relative;
   margin: 20px 0px;
   width: 100%;
-  height: 30px;
+  height: 100%;
   padding-top: 40px;
+  padding-bottom: 20px;
   margin-right: -10px;
   color: #333;
   background-color: #fff;

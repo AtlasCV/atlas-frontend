@@ -6,6 +6,8 @@ import { loadIndustriesRequest } from "../../actions/industries";
 import { UpdateApplicantFormProps, Industry } from "../../types";
 import "../../styles/input.css";
 import Button from "../Shared/Button";
+import { Link } from "react-router-dom";
+import { ProfileState } from "../../reducers/profile";
 
 type Props = {
   handleSubmit: (
@@ -15,6 +17,7 @@ type Props = {
   loadIndustriesRequest: typeof loadIndustriesRequest;
   applicantId: number;
   industries: Industry[];
+  profile: ProfileState;
 };
 
 class PageThree extends React.Component<Props> {
@@ -23,14 +26,14 @@ class PageThree extends React.Component<Props> {
   }
 
   render() {
-    const { handleSubmit, applicantId, industries } = this.props;
+    const { handleSubmit, applicantId, industries, profile } = this.props;
 
     return (
       <Formik
         initialValues={{
-          industryId: 0,
-          city: "",
-          jobType: ""
+          industryId: profile.info.Applicant.Industries[0].id || 0,
+          city: profile.info.Applicant.city || "",
+          jobType: profile.info.Applicant.jobType || ""
         }}
         onSubmit={applicantFormProps =>
           handleSubmit(applicantId, applicantFormProps)
@@ -85,7 +88,12 @@ class PageThree extends React.Component<Props> {
               <option value="partTime">Part Time</option>
               <option value="internship">Internship</option>
             </Select>
-            <Button type="submit">Next</Button>
+            <Link to="/onboarding/signup/2">
+              <Button styles={{ float: "left" }}>PREVIOUS</Button>
+            </Link>
+            <Button styles={{ float: "right" }} type="submit">
+              NEXT
+            </Button>
           </form>
         )}
       />

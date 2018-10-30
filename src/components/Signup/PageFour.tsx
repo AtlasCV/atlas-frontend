@@ -5,6 +5,7 @@ import { EducationExperience } from "../../types";
 import "../../styles/input.css";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   handleSubmit: (
@@ -31,7 +32,7 @@ class PageFour extends React.Component<Props> {
       <React.Fragment>
         {EducationExperiences.length > 0 &&
           EducationExperiences.map(education => (
-            <div>
+            <div key={education.id}>
               {education.university} - {education.educationLevel}{" "}
               {education.areaOfStudy} {education.graduationYear}{" "}
             </div>
@@ -106,14 +107,17 @@ class PageFour extends React.Component<Props> {
                 handleBlur={handleBlur}
                 error={touched.gpa && errors.gpa}
               />
-              <Button type="submit">Add Education</Button>
-              <Button
-                type="button"
-                styles={{ float: "right" }}
-                onClick={() => completePage(id)}
-              >
-                Finished
-              </Button>
+              <Link to="/onboarding/signup/3">
+                <Button styles={{ float: "left" }}>PREVIOUS</Button>
+              </Link>
+              <div style={{ float: "right" }}>
+                <Button styles={{ marginRight: "20px" }} type="submit">
+                  ADD EDUCATION
+                </Button>
+                <Button type="button" onClick={() => completePage(id)}>
+                  FINISHED
+                </Button>
+              </div>
             </form>
           )}
         />
