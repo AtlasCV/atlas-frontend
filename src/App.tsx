@@ -7,6 +7,7 @@ import Onboarding from "./containers/Onboarding";
 import EmployerOnboarding from "./containers/EmployerOnboarding";
 import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
+import MyProfile from "./containers/MyProfile";
 
 const init = require("./init").default;
 
@@ -19,6 +20,7 @@ const App = () => (
         <Route path="/login" component={Login} />
         <Route path="/onboarding" component={Onboarding} />
         <Route path="/employer-onboarding" component={EmployerOnboarding} />
+        <Route path="/my-profile" component={MyProfile} />
         <Route path="/" component={LandingPage} />
       </Switch>
     </ConnectedRouter>

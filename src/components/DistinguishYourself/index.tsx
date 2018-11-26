@@ -1,15 +1,19 @@
 import * as React from "react";
-import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { AppState } from "../../reducers";
 import "../../styles/distingish-yourself.css";
 import Button from "../Shared/Button";
+import * as profileActions from "../../actions/profile";
+import { ProfileState } from "src/reducers/profile";
 
-type Props = {};
+type Props = {
+  updateApplicantRequest: typeof profileActions.updateApplicantRequest;
+  profile: ProfileState;
+};
 
 export default connect(
-  ({  }: AppState) => ({}),
-  (dispatch: Dispatch<AppState>) => bindActionCreators({}, dispatch)
+  ({ profile }: AppState) => ({ profile }),
+  { updateApplicantRequest: profileActions.updateApplicantRequest }
 )(
   class DistinguishYourself extends React.Component<
     Props,
@@ -20,6 +24,8 @@ export default connect(
       this.state = { distinguishYourself: "" };
     }
     render() {
+      const { updateApplicantRequest, profile } = this.props;
+      const { distinguishYourself } = this.state;
       return (
         <div className="distinguish-yourself">
           <h1>Think of this as your cover letter.</h1>
@@ -35,11 +41,18 @@ export default connect(
               onBlur={() => ({})}
             />
             <Button
+              disabled={distinguishYourself.length < 1}
               styles={{
                 position: "absolute",
                 right: 120,
                 bottom: 125
               }}
+              onClick={() =>
+                updateApplicantRequest(profile.info.Applicant.id, {
+                  aboutMe: distinguishYourself,
+                  signupComplete: true
+                })
+              }
             >
               Submit
             </Button>

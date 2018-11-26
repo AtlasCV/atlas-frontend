@@ -28,6 +28,7 @@
   justify-content: flex-end;
   -webkit-justify-content: flex-end;
   background-color: #fff;
+  padding-top: 80px;
 }
 
 .hero-section h1 {

@@ -20,9 +20,12 @@ const Navbar = ({ auth, logout }: ComponentProps) => (
       <Link to="/faq">FAQ</Link>
       <Link to="/support">support</Link>
       {auth.authenticated ? (
-        <Link to="/" onClick={logout}>
-          logout
-        </Link>
+        <>
+          <Link to="/my-profile">view my profile</Link>
+          <Link to="/" onClick={logout}>
+            logout
+          </Link>
+        </>
       ) : (
         <>
           <Link to="/login">login</Link>
