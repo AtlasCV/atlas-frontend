@@ -52,6 +52,7 @@ class PageSix extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <div>
+          <h1>Tell us about your skills...</h1>
           {this.props.skills.list.map(skill => {
             const hasSkill = applicantSkills.indexOf(skill.id) > -1;
             return (

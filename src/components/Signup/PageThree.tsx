@@ -31,7 +31,10 @@ class PageThree extends React.Component<Props> {
     return (
       <Formik
         initialValues={{
-          industryId: profile.info.Applicant.Industries[0].id || 0,
+          industryId:
+            (profile.info.Applicant.Industries[0] &&
+              profile.info.Applicant.Industries[0].id) ||
+            0,
           city: profile.info.Applicant.city || "",
           jobType: profile.info.Applicant.jobType || ""
         }}

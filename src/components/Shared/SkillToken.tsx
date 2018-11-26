@@ -9,26 +9,12 @@ const tokenContainer = style({
   height: "100px"
 });
 
-const token = (hasSkill: boolean) =>
-  style({
-    height: "70px",
-    margin: "20px auto",
-    border: "1px solid #333",
-    fontSize: "26px",
-    borderRadius: "50%",
-    cursor: "pointer",
-    width: "70px",
-    backgroundColor: hasSkill ? "#505155" : "#fff",
-    color: hasSkill ? "#fff" : "#505155",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  });
-
 const years = style({
   height: "70px",
   margin: "20px auto",
-  cursor: "pointer"
+  cursor: "pointer",
+  fontFamily:
+    ' -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
 });
 
 const yearsOption = style({
@@ -37,6 +23,14 @@ const yearsOption = style({
       fontWeight: 600
     }
   }
+});
+
+const tokenLabel = style({
+  fontFamily:
+    ' -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+  fontSize: "12px",
+  fontWeight: 200,
+  margin: "0px"
 });
 
 interface Props {
@@ -62,6 +56,22 @@ class SkillToken extends React.Component<Props> {
       hasSkill,
       removeSkillFromApplicant
     } = this.props;
+
+    const tokenStyle = style({
+      height: "70px",
+      margin: "20px auto",
+      fontSize: "26px",
+      borderRadius: "50%",
+      cursor: "pointer",
+      width: "70px",
+      backgroundColor: hasSkill ? "rgb(236, 210, 82)" : "rgb(183, 183, 183)",
+      color: "#fff",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontFamily:
+        ' -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
+    });
 
     return (
       <div className={tokenContainer}>
@@ -115,10 +125,7 @@ class SkillToken extends React.Component<Props> {
           )
         ) : (
           <React.Fragment>
-            <div
-              className={token(hasSkill)}
-              onClick={() => selectSkill(skill.id)}
-            >
+            <div className={tokenStyle} onClick={() => selectSkill(skill.id)}>
               {skill.name
                 .split("_")
                 .map(word => word[0])
@@ -128,7 +135,7 @@ class SkillToken extends React.Component<Props> {
             </div>
           </React.Fragment>
         )}
-        <h6>
+        <h6 className={tokenLabel}>
           {skill.name
             .split("_")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))

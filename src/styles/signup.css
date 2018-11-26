@@ -1,6 +1,10 @@
 .signup-container {
   padding: 20px;
   background-color: #fff;
-  padding-left: 33%;
-  max-width: 800px;
+  margin-left: 350px;
+  width: 800px;
+}
+
+.signup-container h1 {
+  font-weight: normal;
 }

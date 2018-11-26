@@ -32,7 +32,7 @@ export default ({
       value={value}
       name={name}
       className="text-box"
-      style={{ height, paddingTop: "25px" }}
+      style={{ height }}
     />
   </div>
 );

@@ -43,9 +43,9 @@
   background-color: #28719d;
   box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.19);
   z-index: 2;
-  max-width: 33.33%;
+  width: 275px;
   height: 456px;
   border-radius: 0px 5px 5px 0px;
-  margin-top: 50px;
+  margin-top: 150px;
   position: fixed;
 }

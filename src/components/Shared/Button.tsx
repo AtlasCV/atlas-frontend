@@ -12,12 +12,12 @@ interface Props {
 const buttonStyle = (styles?: Object) =>
   style(
     {
-      backgroundColor: "#28719d",
-      border: "none",
-      color: "white",
+      backgroundColor: "#fff",
+      border: "1px solid #28719d",
+      color: "#28719d",
       width: "150px",
       height: "40px",
-      borderRadius: "2px",
+      borderRadius: "5px",
       cursor: "pointer",
       fontSize: "16px"
     },

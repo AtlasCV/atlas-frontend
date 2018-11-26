@@ -30,7 +30,7 @@ import {
 } from "../../types";
 
 type Props = {
-  match: match<{ uuid: string }>;
+  match: match<{ uuid: string; page: string }>;
   profile: ProfileState;
   auth: AuthState;
   industries: IndustryState;
@@ -236,9 +236,11 @@ export default connect(
         industrySectors
       } = this.props;
 
+      console.log(this.props.match);
+
       return (
         <div className="signup-container">
-          <h2>Tell us about your qualifications</h2>
+          <h1>Sign Up (Page {params.page} of 7)</h1>
           <ProgressTracker progress={(this.state.activePage / 8) * 100} />
           {fetchingApplicant ? null : (
             <>

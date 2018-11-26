@@ -4,8 +4,9 @@
 
 .question-container {
   padding: 16px;
-  padding-left: 33%;
-  max-width: 800px;
+  margin-left: 350px;
+  width: 800px;
+  margin-top: 0px;
 }
 
 .question-container-header {
@@ -30,12 +31,7 @@
 }
 
 .question-container button {
-  background-color: #28719d;
-  border: none;
-  color: white;
   width: 150px;
-  height: 40px;
-  border-radius: 2px;
   margin-top: 50px;
   cursor: pointer;
 }

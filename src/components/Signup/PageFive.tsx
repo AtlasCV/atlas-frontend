@@ -52,15 +52,16 @@ class PageFive extends React.Component<Props> {
             name,
             companyName,
             description
-          }) =>
-            handleSubmit(id, {
+          }) => {
+            console.log(to, from);
+            return handleSubmit(id, {
               name,
               companyName,
               description,
               currentlyWorkingHere: currentlyWorkingHere === "yes",
               numOfYears: moment(to).year() - moment(from).year()
-            })
-          }
+            });
+          }}
           validate={values => {
             let errors: JobExperience = {};
             return errors;
