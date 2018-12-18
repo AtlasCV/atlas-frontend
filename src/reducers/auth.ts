@@ -11,6 +11,7 @@ export type AuthState = {
   id: number;
   fetchingAuth: boolean;
   authenticated: boolean;
+  error?: boolean;
 };
 
 export const INITIAL_AUTH_STATE: AuthState = {

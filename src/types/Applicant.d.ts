@@ -7,7 +7,7 @@ export interface Applicant {
   transcript?: string;
   city?: string;
   user?: User;
-  personalityEvaluation?: PersonalityEvaluator;
+  PersonalityEvaluation?: PersonalityEvaluator;
   Industries: Industry[];
   EducationExperiences: EducationExperience[];
   JobExperiences: JobExperience[];
@@ -25,7 +25,7 @@ export interface ApplicantSkill {
   Skill?: Skill;
 }
 
-export interface ApplicantIndustrySectors {
+export interface ApplicantIndustrySector {
   ApplicantId: number;
   IndustrySectorId: number;
   yearsExperience: string;

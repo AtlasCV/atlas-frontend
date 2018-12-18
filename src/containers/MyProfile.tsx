@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { AppState } from "../reducers";
 import { ProfileState } from "..//reducers/profile";
 import { getMeRequest } from "../actions/auth";
+import Navbar from "../components/Navbar";
+import "../styles/my-profile.css";
+import Header from "../components/MyProfile/Header";
+import ProfileBody from "../components/MyProfile/ProfileBody";
 
 interface Props {
   profile: ProfileState;
@@ -15,7 +19,15 @@ class MyProfile extends React.Component<Props> {
   }
 
   render() {
-    return <div>{JSON.stringify(this.props.profile)}</div>;
+    return (
+      <div>
+        <Navbar />
+        <div className="my-profile">
+          <Header />
+          <ProfileBody />
+        </div>
+      </div>
+    );
   }
 }
 

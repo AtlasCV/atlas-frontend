@@ -1,0 +1,149 @@
+.my-profile {
+  padding-top: 130px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 1280px;
+  margin: 40px auto;
+}
+
+.image-placeholder {
+  height: 250px;
+  width: 250px;
+  background-color: red;
+  border-radius: 50%;
+  margin-right: 50px;
+}
+
+.name-and-photo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.personality-evaluator {
+  font-size: 58px;
+  font-weight: 500;
+  color: rgba(56, 56, 56, 0.34);
+  margin-right: 160px;
+}
+
+.profile-body {
+  background-color: rgb(236, 210, 82);
+  width: 100%;
+}
+
+.profile-body-inner-section {
+  width: 1280px;
+  background-color: rgb(236, 210, 82);
+  margin: 0 auto;
+  padding: 100px;
+}
+
+.large-white-rectangle {
+  width: 510px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 50px;
+}
+
+.large-white-rectangle h3 {
+  font-size: 28px;
+  margin: 0px;
+}
+
+.large-white-rectangle p {
+  font-size: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-me-button {
+  background-color: rgb(36, 114, 155);
+  color: #fff;
+  width: 430px;
+}
+
+.profile-body button {
+  height: 114px;
+  font-size: 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-body button:focus {
+  outline: none;
+}
+
+.contact-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-buttons {
+  color: rgb(36, 114, 155);
+  background-color: #fff;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.small-white-rectangle {
+  width: 389px;
+  min-height: 141px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.small-white-rectangle p {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.small-white-rectangle p img {
+  margin-right: 15px;
+}
+
+.medium-white-rectangle {
+  min-height: 141px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin: 50px 0px;
+  text-align: center;
+  height: 330px;
+  width: 380px;
+}
+
+.medium-white-rectangle p {
+  margin: 0px;
+}
+
+.medium-white-rectangle h2 {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.center-content {
+  text-align: center;
+}
+
+.skill-name {
+  margin-bottom: 0px !important;
+}
+
+.skill-experience {
+  font-size: 16px !important;
+  margin: 0px !important;
+}

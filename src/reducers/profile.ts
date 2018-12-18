@@ -31,7 +31,7 @@ export const PROFILE_INITIAL_STATE: ProfileState = {
       JobExperiences: [],
       ApplicantSkills: [],
       ApplicantIndustrySectors: [],
-      personalityEvaluation: {
+      PersonalityEvaluation: {
         uuid: "",
         answers: [],
         currentQuestionIndex: 0,
