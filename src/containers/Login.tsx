@@ -59,7 +59,7 @@ export default connect(
               value={values.email}
               handleChange={handleChange}
               handleBlur={handleBlur}
-              error={touched.email && errors.email}
+              error={(touched.email && errors.email) || ""}
             />
 
             <Input
@@ -69,7 +69,7 @@ export default connect(
               value={values.password}
               handleChange={handleChange}
               handleBlur={handleBlur}
-              error={touched.password && errors.password}
+              error={(touched.password && errors.password) || ""}
             />
             <Button type="submit">LOGIN</Button>
           </form>
