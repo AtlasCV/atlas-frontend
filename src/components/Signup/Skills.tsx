@@ -14,7 +14,7 @@ type Props = {
     skill: { id: number; yearsExperience: string }
   ) => void;
   removeSkillFromApplicant: (applicantId: number, skillId: number) => void;
-  completePageSix: (applicantId: number) => void;
+  completeSkills: (applicantId: number) => void;
 };
 
 type State = {
@@ -76,7 +76,7 @@ class PageSix extends React.Component<Props, State> {
         </Link>
         <Button
           onClick={() =>
-            this.props.completePageSix(this.props.profile.info.Applicant.id)
+            this.props.completeSkills(this.props.profile.info.Applicant.id)
           }
           styles={{ float: "right", marginTop: "40px" }}
         >

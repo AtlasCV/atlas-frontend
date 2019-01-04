@@ -13,6 +13,7 @@ import industrySectors, {
   IndustrySectorState,
   INITIAL_INDUSTRY_SECTOR_STATE
 } from "./industrySectors";
+import certifications, { CertificationState, INITIAL_CERTIFICATION_STATE } from "./certifications";
 
 export type AppState = {
   questions: QuestionState;
@@ -22,6 +23,7 @@ export type AppState = {
   auth: AuthState;
   skills: SkillState;
   industrySectors: IndustrySectorState;
+  certifications: CertificationState;
 };
 
 export const initialState = {
@@ -31,6 +33,7 @@ export const initialState = {
   auth: INITIAL_AUTH_STATE,
   skills: INITIAL_SKILL_STATE,
   industrySectors: INITIAL_INDUSTRY_SECTOR_STATE,
+  certifications: INITIAL_CERTIFICATION_STATE,
   router: { location: null }
 };
 
@@ -41,7 +44,8 @@ export const reducers: redux.ReducersMapObject = {
   industries,
   auth,
   skills,
-  industrySectors
+  industrySectors,
+  certifications,
 };
 
 const rootReducer: redux.Reducer<AppState> = combineReducers(reducers);

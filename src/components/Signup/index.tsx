@@ -8,13 +8,14 @@ import * as industrySectorActions from "../../actions/industrySectors";
 import { getMeRequest } from "../../actions/auth";
 import * as industryActions from "../../actions/industries";
 import { AppState } from "../../reducers";
-import PageOne from "./PageOne";
-import PageTwo from "./PageTwo";
-import PageThree from "./PageThree";
-import PageFour from "./PageFour";
-import PageFive from "./PageFive";
-import PageSix from "./PageSix";
-import PageSeven from "./PageSeven";
+import PersonalInformation from "./PersonalInformation";
+import PersonalInformationContinued from "./PersonalInformationContinued";
+import PreferredIndustry from "./PreferredIndustryAndCity";
+import Education from "./Education";
+import JobExperiences from "./JobExperiences";
+import Skills from "./Skills";
+import IndustrySectors from "./IndustrySectors";
+import Certifications from "./Certifications";
 import ProgressTracker from "../ProgressTracker";
 import { ProfileState } from "../../reducers/profile";
 import { IndustryState } from "../../reducers/industries";
@@ -115,7 +116,9 @@ export default connect(
       };
     }
 
-    submitPageOneInformation = (formValues: CreateApplicantFormProps) => {
+    submitPersonalInformationInformation = (
+      formValues: CreateApplicantFormProps
+    ) => {
       const { createApplicantRequest, updateApplicantRequest } = this.props;
       if (this.props.profile.info.Applicant.id) {
         updateApplicantRequest(
@@ -127,7 +130,7 @@ export default connect(
       createApplicantRequest(formValues, "/onboarding/signup/2");
     };
 
-    submitPageTwoInformation = (
+    submitPersonalInformationContinuedInformation = (
       applicantId: number,
       formValues: UpdateApplicantFormProps
     ) => {
@@ -135,7 +138,7 @@ export default connect(
       updateApplicantRequest(applicantId, formValues, "/onboarding/signup/3");
     };
 
-    submitPageThreeInformation = (
+    submitPreferredIndustryInformation = (
       applicantId: number,
       { industryId, ...applicantFormProps }: UpdateApplicantFormProps
     ) => {
@@ -149,7 +152,7 @@ export default connect(
       }
     };
 
-    submitPageFourInformation = (
+    submitEducationInformation = (
       applicantId: number,
       educationExperience: EducationExperience
     ) => {
@@ -159,7 +162,7 @@ export default connect(
       );
     };
 
-    completePageFour = (applicantId: number) => {
+    completeEducation = (applicantId: number) => {
       this.props.updateApplicantRequest(
         applicantId,
         {
@@ -169,14 +172,14 @@ export default connect(
       );
     };
 
-    submitPageFiveInformation = (
+    submitJobExperienceInformation = (
       applicantId: number,
       jobExperience: JobExperience
     ) => {
       this.props.createJobExperienceRequest(applicantId, jobExperience);
     };
 
-    completePageFive = (applicantId: number) => {
+    completeJobExperience = (applicantId: number) => {
       this.props.updateApplicantRequest(
         applicantId,
         {
@@ -186,7 +189,7 @@ export default connect(
       );
     };
 
-    completePageSix = (applicantId: number) => {
+    completeSkills = (applicantId: number) => {
       this.props.updateApplicantRequest(
         applicantId,
         {
@@ -247,9 +250,9 @@ export default connect(
               <Route
                 path={"/onboarding/signup/1"}
                 render={() => (
-                  <PageOne
+                  <PersonalInformation
                     uuid={params.uuid}
-                    handleSubmit={this.submitPageOneInformation}
+                    handleSubmit={this.submitPersonalInformationInformation}
                     profile={this.props.profile}
                   />
                 )}
@@ -257,8 +260,10 @@ export default connect(
               <Route
                 path={"/onboarding/signup/2"}
                 render={() => (
-                  <PageTwo
-                    handleSubmit={this.submitPageTwoInformation}
+                  <PersonalInformationContinued
+                    handleSubmit={
+                      this.submitPersonalInformationContinuedInformation
+                    }
                     applicantId={Applicant && Applicant.id}
                     profile={this.props.profile}
                   />
@@ -267,8 +272,8 @@ export default connect(
               <Route
                 path={"/onboarding/signup/3"}
                 render={() => (
-                  <PageThree
-                    handleSubmit={this.submitPageThreeInformation}
+                  <PreferredIndustry
+                    handleSubmit={this.submitPreferredIndustryInformation}
                     loadIndustriesRequest={loadIndustriesRequest}
                     applicantId={Applicant && Applicant.id}
                     industries={industries}
@@ -279,9 +284,9 @@ export default connect(
               <Route
                 path={"/onboarding/signup/4"}
                 render={() => (
-                  <PageFour
-                    handleSubmit={this.submitPageFourInformation}
-                    completePage={this.completePageFour}
+                  <Education
+                    handleSubmit={this.submitEducationInformation}
+                    completePage={this.completeEducation}
                     profile={this.props.profile}
                   />
                 )}
@@ -289,9 +294,9 @@ export default connect(
               <Route
                 path={"/onboarding/signup/5"}
                 render={() => (
-                  <PageFive
-                    handleSubmit={this.submitPageFiveInformation}
-                    completePage={this.completePageFive}
+                  <JobExperiences
+                    handleSubmit={this.submitJobExperienceInformation}
+                    completePage={this.completeJobExperience}
                     profile={this.props.profile}
                   />
                 )}
@@ -299,20 +304,20 @@ export default connect(
               <Route
                 path={"/onboarding/signup/6"}
                 render={() => (
-                  <PageSix
+                  <Skills
                     selectSkillForApplicant={this.addSkillToApplicant}
                     removeSkillFromApplicant={this.removeSkillFromApplicant}
                     profile={this.props.profile}
                     skills={skills}
                     loadSkillsRequest={loadSkillsRequest}
-                    completePageSix={this.completePageSix}
+                    completeSkills={this.completeSkills}
                   />
                 )}
               />
               <Route
                 path={"/onboarding/signup/7"}
                 render={() => (
-                  <PageSeven
+                  <IndustrySectors
                     selectIndustrySectorForApplicant={
                       this.addIndustrySectorToApplicant
                     }
@@ -324,6 +329,10 @@ export default connect(
                     loadIndustrySectorsRequest={loadIndustrySectorsRequest}
                   />
                 )}
+              />
+              <Route
+                path={"/onboarding/signup/8"}
+                render={() => <Certifications />}
               />
             </>
           )}

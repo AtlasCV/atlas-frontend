@@ -8,6 +8,7 @@ const URL = {
     applicants: `${DEV_URL}/applicants`,
     industries: `${DEV_URL}/industries`,
     skills: `${DEV_URL}/skills`,
+    certifications: `${DEV_URL}/certifications`,
     industrySectors: `${DEV_URL}/industrySectors`,
     me: `${DEV_URL}/me`,
     login: `${DEV_URL}/login`
@@ -17,6 +18,7 @@ const URL = {
     applicants: `${DEV_URL}/applicants`,
     industries: `${DEV_URL}/industries`,
     skills: `${DEV_URL}/skills`,
+    certifications: `${DEV_URL}/certifications`,
     industrySectors: `${DEV_URL}/industrySectors`,
     me: `${DEV_URL}/me`,
     login: `${DEV_URL}/login`
@@ -26,6 +28,7 @@ const URL = {
     applicants: `${ROOT_URL}/applicants`,
     industries: `${ROOT_URL}/industries`,
     skills: `${ROOT_URL}/skills`,
+    certifications: `${ROOT_URL}/certifications`,
     industrySectors: `${ROOT_URL}/industrySectors`,
     me: `${ROOT_URL}/me`,
     login: `${ROOT_URL}/login`

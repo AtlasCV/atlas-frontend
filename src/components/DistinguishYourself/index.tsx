@@ -17,15 +17,16 @@ export default connect(
 )(
   class DistinguishYourself extends React.Component<
     Props,
-    { distinguishYourself: string }
+    { distinguishYourself?: string }
   > {
     constructor(props: Props) {
       super(props);
-      this.state = { distinguishYourself: "" };
+      this.state = { distinguishYourself: undefined };
     }
     render() {
       const { updateApplicantRequest, profile } = this.props;
       const { distinguishYourself } = this.state;
+      console.log(this.props.profile.info.Applicant.aboutMe);
       return (
         <div className="distinguish-yourself">
           <h1>Think of this as your cover letter.</h1>
@@ -35,13 +36,16 @@ export default connect(
               placeholder="Distinguish yourself..."
               name="distinguishYourself"
               value={this.state.distinguishYourself}
+              defaultValue={this.props.profile.info.Applicant.aboutMe}
               onChange={e =>
                 this.setState({ distinguishYourself: e.currentTarget.value })
               }
               onBlur={() => ({})}
             />
             <Button
-              disabled={distinguishYourself.length < 1}
+              disabled={
+                !!(distinguishYourself && distinguishYourself.length < 1)
+              }
               styles={{
                 position: "absolute",
                 right: 120,

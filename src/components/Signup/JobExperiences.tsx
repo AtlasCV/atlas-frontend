@@ -52,7 +52,7 @@ class PageFive extends React.Component<Props> {
             name,
             companyName,
             description
-          }) => {
+          }: any) => {
             console.log(to, from);
             return handleSubmit(id, {
               name,
@@ -74,7 +74,7 @@ class PageFive extends React.Component<Props> {
             handleChange,
             handleSubmit,
             isSubmitting
-          }) => (
+          }: any) => (
             <form onSubmit={handleSubmit}>
               <Input
                 label="COMPANY NAME"
