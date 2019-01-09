@@ -16,7 +16,7 @@ export interface Applicant {
   jobType?: string;
   ApplicantSkills: ApplicantSkill[];
   ApplicantIndustrySectors: ApplicantIndustrySector[];
-  ApplicantCertifications: ApplicantCertification[];
+  Certifications: Certification[];
 }
 
 export interface ApplicantSkill {
@@ -33,7 +33,7 @@ export interface ApplicantIndustrySector {
   IndustrySector?: IndustrySector;
 }
 
-export interface ApplicantCertification {
+export interface Certification {
   ApplicantId: number;
   CertificationId: number;
   IndustrySector?: IndustrySector;

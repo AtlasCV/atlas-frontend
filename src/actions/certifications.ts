@@ -10,7 +10,7 @@ export const loadCertificationsSuccess = (certifications: Certification[]) =>
 
 export const addCertificationsToApplicantRequest = (
   applicantId: number,
-  certification: { id: number; yearsExperience: string }
+  certification: { id: number }
 ) =>
   createAction(actionTypes.ADD_CERTIFICATIONS_TO_APPLICANT_REQUEST, {
     applicantId,

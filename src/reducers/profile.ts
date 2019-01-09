@@ -28,7 +28,7 @@ export const PROFILE_INITIAL_STATE: ProfileState = {
       id: 0,
       Industries: [{ id: 0, name: "" }],
       EducationExperiences: [],
-      ApplicantCertifications: [],
+      Certifications: [],
       JobExperiences: [],
       ApplicantSkills: [],
       ApplicantIndustrySectors: [],

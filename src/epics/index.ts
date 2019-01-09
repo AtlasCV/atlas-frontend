@@ -5,6 +5,7 @@ import industries from "./industries";
 import auth from "./auth";
 import skills from "./skills";
 import industrySectors from "./industrySectors";
+import certifications from './certifications';
 
 export default combineEpics(
   ...personalityEvaluations,
@@ -12,5 +13,6 @@ export default combineEpics(
   ...industries,
   ...auth,
   ...skills,
-  ...industrySectors
+  ...industrySectors,
+  ...certifications
 );

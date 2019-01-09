@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import SkillToken from "../Shared/SkillToken";
+import CertificationToken from "../Shared/CertificationToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
 import { CertificationState } from "../../reducers/certifications";
@@ -47,35 +47,35 @@ class Certifications extends React.Component<Props, State> {
   };
 
   render() {
-    const applicantCertifications = this.props.profile.info.Applicant.ApplicantCertifications.map(
-      appCertification => appCertification.CertificationId
+    const applicantCertifications = this.props.profile.info.Applicant.Certifications.map(
+      appCertification => appCertification.id
     );
     return (
       <React.Fragment>
         <div>
-          <h1>Tell us about your certifications...</h1>
+          <h1>Do you hold any of the following certifications?</h1>
           {this.props.certifications.list.map(certification => {
             const hasCertification =
               applicantCertifications.indexOf(certification.id) > -1;
             return (
-              <SkillToken
+              <CertificationToken
                 key={certification.id}
-                skill={certification}
-                selectSkillForApplicant={
+                certification={certification}
+                selectCertificationForApplicant={
                   this.props.selectCertificationForApplicant
                 }
-                removeSkillFromApplicant={
+                removeCertificationFromApplicant={
                   this.props.removeCertificationFromApplicant
                 }
                 applicantId={this.props.profile.info.Applicant.id}
                 selected={this.state.selectedCertification === certification.id}
-                selectSkill={this.selectCertification}
-                hasSkill={hasCertification}
+                selectCertification={this.selectCertification}
+                hasCertification={hasCertification}
               />
             );
           })}
         </div>
-        <Link to="/onboarding/signup/5">
+        <Link to="/onboarding/signup/7">
           <Button styles={{ float: "left", marginTop: "40px" }}>
             PREVIOUS
           </Button>
@@ -85,7 +85,7 @@ class Certifications extends React.Component<Props, State> {
             this.props.updateApplicantRequest(
               this.props.profile.info.Applicant.id,
               { currentPageOfSignup: 8 },
-              "/onboarding/signup/8"
+              "/onboarding/distinguish-yourself"
             )
           }
           styles={{ float: "right", marginTop: "40px" }}

@@ -243,7 +243,7 @@ export default connect(
 
       return (
         <div className="signup-container">
-          <h1>Sign Up (Page {params.page} of 7)</h1>
+          <h1>Sign Up (Page {params.page} of 8)</h1>
           <ProgressTracker progress={(this.state.activePage / 8) * 100} />
           {fetchingApplicant ? null : (
             <>

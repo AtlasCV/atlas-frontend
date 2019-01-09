@@ -85,7 +85,7 @@ class PageSeven extends React.Component<Props, State> {
             PREVIOUS
           </Button>
         </Link>
-        <Link to="/onboarding/distinguish-yourself">
+        <Link to="/onboarding/signup/8">
           <Button
             styles={{
               float: "right",
