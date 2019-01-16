@@ -47,6 +47,19 @@ export const createEducationExperienceSuccess = (
     educationExperience
   });
 
+export const deleteEducationExperienceRequest = (
+  educationId: number,
+  applicantId: number,
+) =>
+  createAction(actionTypes.DELETE_EDUCATION_EXPERIENCE_REQUEST, {
+    educationId,
+    applicantId
+  });
+
+export const deleteEducationExperienceSuccess = (
+  educationId: number
+) => createAction(actionTypes.DELETE_EDUCATION_EXPERIENCE_SUCCESS, { educationId });
+
 export const createJobExperienceRequest = (
   applicantId: number,
   jobExperience: types.JobExperience
@@ -60,9 +73,23 @@ export const createJobExperienceSuccess = (
   jobExperience: types.JobExperience
 ) => createAction(actionTypes.CREATE_JOB_EXPERIENCE_SUCCESS, { jobExperience });
 
+export const deleteJobExperienceRequest = (
+  jobExperienceId: number,
+  applicantId: number,
+) =>
+  createAction(actionTypes.DELETE_JOB_EXPERIENCE_REQUEST, {
+    jobExperienceId,
+    applicantId
+  });
+
+export const deleteJobExperienceSuccess = (
+  jobExperienceId: number
+) => createAction(actionTypes.DELETE_JOB_EXPERIENCE_SUCCESS, { jobExperienceId });
+
 export const profileAjaxFailure = (reason: string) =>
   createAction(
     actionTypes.PROFILE_AJAX_FAILURE,
     { error: new Error(reason) },
     true
   );
+  

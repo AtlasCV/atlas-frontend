@@ -1,24 +1,33 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import Select from "../Shared/Select";
-import { loadIndustriesRequest } from "../../actions/industries";
-import { UpdateApplicantFormProps, Industry } from "../../types";
+import {
+  loadIndustriesRequest,
+  addIndustriesToApplicantRequest
+} from "../../actions/industries";
+import { UpdateApplicantFormProps } from "../../types";
 import "../../styles/input.css";
 import Button from "../Shared/Button";
 import { Link } from "react-router-dom";
 import { ProfileState } from "../../reducers/profile";
+import { AppState } from "src/reducers";
+import { updateApplicantRequest } from "src/actions/profile";
+import { IndustryState } from "src/reducers/industries";
 
-type Props = {
-  handleSubmit: (
-    applicantId: number,
-    applicantFormProps: UpdateApplicantFormProps
-  ) => void;
-  loadIndustriesRequest: typeof loadIndustriesRequest;
-  applicantId: number;
-  industries: Industry[];
+type MapStateProps = {
+  industries: IndustryState;
   profile: ProfileState;
 };
+
+type MapDispatchProps = {
+  loadIndustriesRequest: typeof loadIndustriesRequest;
+  updateApplicantRequest: typeof updateApplicantRequest;
+  addIndustriesToApplicantRequest: typeof addIndustriesToApplicantRequest;
+};
+
+type Props = MapStateProps & MapDispatchProps;
 
 class PageThree extends React.Component<Props> {
   componentDidMount() {
@@ -26,8 +35,17 @@ class PageThree extends React.Component<Props> {
   }
 
   render() {
-    const { handleSubmit, applicantId, industries, profile } = this.props;
-
+    const {
+      updateApplicantRequest,
+      addIndustriesToApplicantRequest,
+      industries: { list: industries },
+      profile
+    } = this.props;
+    const {
+      info: {
+        Applicant: { id: applicantId }
+      }
+    } = profile;
     return (
       <Formik
         initialValues={{
@@ -38,9 +56,18 @@ class PageThree extends React.Component<Props> {
           city: profile.info.Applicant.city || "",
           jobType: profile.info.Applicant.jobType || ""
         }}
-        onSubmit={applicantFormProps =>
-          handleSubmit(applicantId, applicantFormProps)
-        }
+        onSubmit={(applicantFormProps: UpdateApplicantFormProps) => {
+          updateApplicantRequest(
+            applicantId,
+            { ...applicantFormProps, currentPageOfSignup: 4 },
+            "/onboarding/signup/4/"
+          );
+          if (applicantFormProps.industryId) {
+            addIndustriesToApplicantRequest(applicantId, [
+              +applicantFormProps.industryId
+            ]);
+          }
+        }}
         validate={values => {
           let errors: UpdateApplicantFormProps = {};
           return errors;
@@ -51,9 +78,8 @@ class PageThree extends React.Component<Props> {
           touched,
           handleBlur,
           handleChange,
-          handleSubmit,
-          isSubmitting
-        }) => (
+          handleSubmit
+        }: any) => (
           <form onSubmit={handleSubmit}>
             <Select
               label="INDUSTRY"
@@ -104,4 +130,18 @@ class PageThree extends React.Component<Props> {
   }
 }
 
-export default PageThree;
+const mapState = ({ profile, industries }: AppState) => ({
+  profile,
+  industries
+});
+
+const mapDispatch = {
+  updateApplicantRequest,
+  addIndustriesToApplicantRequest,
+  loadIndustriesRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(PageThree);

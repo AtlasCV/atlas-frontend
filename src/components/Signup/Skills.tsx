@@ -1,21 +1,28 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
 import { SkillState } from "../../reducers/skills";
 import { Link } from "react-router-dom";
+import {
+  addSkillsToApplicantRequest,
+  removeSkillFromApplicantRequest,
+  loadSkillsRequest
+} from "../../actions/skills";
+import { updateApplicantRequest } from "../../actions/profile";
+import { AppState } from "../../reducers";
 
-type Props = {
-  profile: ProfileState;
-  skills: SkillState;
-  loadSkillsRequest: () => void;
-  selectSkillForApplicant: (
-    applicantId: number,
-    skill: { id: number; yearsExperience: string }
-  ) => void;
-  removeSkillFromApplicant: (applicantId: number, skillId: number) => void;
-  completeSkills: (applicantId: number) => void;
+type MapStateProps = { profile: ProfileState; skills: SkillState };
+
+type MapDispatchProps = {
+  loadSkillsRequest: typeof loadSkillsRequest;
+  selectSkillForApplicant: typeof addSkillsToApplicantRequest;
+  removeSkillFromApplicant: typeof removeSkillFromApplicantRequest;
+  completeSkills: typeof updateApplicantRequest;
 };
+
+type Props = MapStateProps & MapDispatchProps;
 
 type State = {
   selectedSkill: number;
@@ -52,7 +59,7 @@ class PageSix extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <div>
-          <h1>Tell us about your skills...</h1>
+          <h1 className="profile-header">Tell us about your skills...</h1>
           {this.props.skills.list.map(skill => {
             const hasSkill = applicantSkills.indexOf(skill.id) > -1;
             return (
@@ -76,7 +83,13 @@ class PageSix extends React.Component<Props, State> {
         </Link>
         <Button
           onClick={() =>
-            this.props.completeSkills(this.props.profile.info.Applicant.id)
+            this.props.completeSkills(
+              this.props.profile.info.Applicant.id,
+              {
+                currentPageOfSignup: 7
+              },
+              "/onboarding/signup/7"
+            )
           }
           styles={{ float: "right", marginTop: "40px" }}
         >
@@ -87,4 +100,16 @@ class PageSix extends React.Component<Props, State> {
   }
 }
 
-export default PageSix;
+const mapState = ({ profile, skills }: AppState) => ({ profile, skills });
+
+const mapDispatch = {
+  selectSkillForApplicant: addSkillsToApplicantRequest,
+  removeSkillFromApplicant: removeSkillFromApplicantRequest,
+  loadSkillsRequest,
+  completeSkills: updateApplicantRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(PageSix);

@@ -136,6 +136,36 @@ const createJobExperienceSuccess = (
   }
 });
 
+const deleteJobExperienceSuccess = (
+  state: ProfileState, 
+  { 
+    payload: { jobExperienceId }
+  }: ReturnType<typeof profileActions.deleteJobExperienceSuccess>) => ({
+    ...state,
+    info: {
+      ...state.info,
+      Applicant: {
+        ...state.info.Applicant,
+        JobExperiences: state.info.Applicant.JobExperiences.filter(je => je.id !== jobExperienceId),
+      }
+    }
+  });
+
+const deleteEducationExperienceSuccess = (
+  state: ProfileState, 
+  { 
+    payload: { educationId }
+  }: ReturnType<typeof profileActions.deleteEducationExperienceSuccess>) => ({
+    ...state,
+    info: {
+      ...state.info,
+      Applicant: {
+        ...state.info.Applicant,
+        EducationExperiences: state.info.Applicant.EducationExperiences.filter(ee => ee.id !== educationId),
+      }
+    }
+  });
+
 const loginSuccess = (
   state: ProfileState, 
   action: ReturnType<typeof authActions.loginSuccess>) => ({
@@ -166,6 +196,10 @@ const profileReducer: Reducer<ProfileState> = (
       return createEducationExperienceSuccess(state, action);
     case actionTypes.CREATE_JOB_EXPERIENCE_SUCCESS:
       return createJobExperienceSuccess(state, action);
+    case actionTypes.DELETE_JOB_EXPERIENCE_SUCCESS:
+      return deleteJobExperienceSuccess(state, action);
+    case actionTypes.DELETE_EDUCATION_EXPERIENCE_SUCCESS:
+      return deleteEducationExperienceSuccess(state, action);
     case actionTypes.LOGIN_SUCCESS:
       return loginSuccess(state, action);
     default:

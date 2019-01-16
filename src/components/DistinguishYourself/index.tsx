@@ -9,6 +9,7 @@ import { ProfileState } from "src/reducers/profile";
 type Props = {
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
   profile: ProfileState;
+  noMarginLeft?: boolean;
 };
 
 export default connect(
@@ -24,11 +25,15 @@ export default connect(
       this.state = { distinguishYourself: undefined };
     }
     render() {
-      const { updateApplicantRequest, profile } = this.props;
+      const { updateApplicantRequest, profile, noMarginLeft } = this.props;
       const { distinguishYourself } = this.state;
       console.log(this.props.profile.info.Applicant.aboutMe);
       return (
-        <div className="distinguish-yourself">
+        <div
+          className={`distinguish-yourself ${
+            noMarginLeft ? "no-margin-left" : ""
+          }`}
+        >
           <h1>Think of this as your cover letter.</h1>
           <div className="distinguish-yourself-inner-section">
             <h2>What makes you the ideal candidate?</h2>

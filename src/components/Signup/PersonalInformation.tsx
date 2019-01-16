@@ -1,21 +1,35 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
-import { CreateApplicantFormProps } from "../../types";
 import "../../styles/input.css";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
+import {
+  updateApplicantRequest,
+  createApplicantRequest
+} from "../../actions/profile";
+import { AppState } from "src/reducers";
 
-type Props = {
-  handleSubmit: (
-    applicantFormProps: CreateApplicantFormProps,
-    nextPage?: string
-  ) => void;
-  uuid: string;
-  profile: ProfileState;
+type MapStateProps = { profile: ProfileState };
+
+type MapDispatchProps = {
+  updateApplicantRequest: typeof updateApplicantRequest;
+  createApplicantRequest: typeof createApplicantRequest;
 };
 
-export default ({ handleSubmit, uuid, profile }: Props) => (
+type OtherProps = {
+  uuid?: string;
+};
+
+type Props = MapStateProps & MapDispatchProps & OtherProps;
+
+const PersonalInformation = ({
+  updateApplicantRequest,
+  createApplicantRequest,
+  uuid,
+  profile
+}: Props) => (
   <Formik
     initialValues={{
       firstName: profile.info.firstName || "",
@@ -25,10 +39,21 @@ export default ({ handleSubmit, uuid, profile }: Props) => (
       confirmPassword: "",
       linkedIn: profile.info.Applicant.linkedIn || ""
     }}
-    onSubmit={values =>
-      handleSubmit({ ...values, uuid, currentPageOfSignup: 2 })
-    }
-    validate={values => {
+    onSubmit={(values: any) => {
+      if (profile.info.Applicant.id) {
+        updateApplicantRequest(
+          profile.info.Applicant.id,
+          { ...values, uuid, currentPageOfSignup: 2 },
+          "/onboarding/signup/2"
+        );
+      } else {
+        createApplicantRequest(
+          { ...values, uuid, currentPageOfSignup: 2 },
+          "/onboarding/signup/2"
+        );
+      }
+    }}
+    validate={(values: any) => {
       let errors: {
         firstName?: string;
         lastName?: string;
@@ -56,7 +81,7 @@ export default ({ handleSubmit, uuid, profile }: Props) => (
       handleChange,
       handleSubmit,
       isSubmitting
-    }) => {
+    }: any) => {
       return (
         <form onSubmit={handleSubmit}>
           <Input
@@ -126,3 +151,15 @@ export default ({ handleSubmit, uuid, profile }: Props) => (
     }}
   />
 );
+
+const mapState = ({ profile }: AppState) => ({ profile });
+
+const mapDispatch = {
+  createApplicantRequest,
+  updateApplicantRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, { uuid?: string }>(
+  mapState,
+  mapDispatch
+)(PersonalInformation);

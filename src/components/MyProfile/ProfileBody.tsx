@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
+import { Link } from "react-router-dom";
 
 interface Props {
   profile: ProfileState;
@@ -16,6 +17,7 @@ const ProfileBody = ({ profile }: Props) => {
         ApplicantIndustrySectors,
         EducationExperiences,
         JobExperiences,
+        Certifications,
         city
       },
       phone,
@@ -37,9 +39,14 @@ const ProfileBody = ({ profile }: Props) => {
     <div className="profile-body">
       <div className="profile-body-inner-section">
         <div className="profile-row">
-          <div className="large-white-rectangle">
+          <div className="large-white-rectangle about-me">
             <h3>Biography</h3>
             <p>{aboutMe}</p>
+            <p className="view-more">
+              <Link className="view-more" to="/my-profile/distinguish-yourself">
+                + More
+              </Link>
+            </p>
           </div>
           <div>
             <button className="message-me-button">Message</button>
@@ -61,33 +68,46 @@ const ProfileBody = ({ profile }: Props) => {
           <div className="medium-white-rectangle">
             <h2>Education</h2>
             {EducationExperiences.map(education => (
-              <div>
+              <div key={education.id} className="list-item">
                 <p>{education.educationLevel}</p>
                 <p>
                   {education.university} {education.graduationYear}
                 </p>
               </div>
             ))}
+            <Link className="view-more" to="/my-profile/education">
+              <p>+ More</p>
+            </Link>
           </div>
           <div className="medium-white-rectangle">
             <h2>Experience</h2>
             {JobExperiences.map(job => (
-              <div>
+              <div key={job.id} className="list-item">
                 <p>{job.name}</p>
                 <p>{job.numOfYears} years</p>
               </div>
             ))}
+            <Link className="view-more" to="/my-profile/job-experiences">
+              <p>+ More</p>
+            </Link>
           </div>
           <div className="medium-white-rectangle">
             <h2>Certifications</h2>
-            <p>This needs to be added to the backend/signup flow</p>
+            {Certifications.map(cert => (
+              <div key={cert.id} className="list-item">
+                <p>{cert.name}</p>
+              </div>
+            ))}
+            <Link className="view-more" to="/my-profile/certifications">
+              <p>+ More</p>
+            </Link>
           </div>
         </div>
         <div className="profile-row">
           <div className="large-white-rectangle center-content">
             <h3>Skills</h3>
             {ApplicantSkills.map(skill => (
-              <div>
+              <div key={skill.SkillId}>
                 <p className="skill-name">
                   {skill.Skill ? skill.Skill.displayName : ""}
                 </p>
@@ -97,7 +117,7 @@ const ProfileBody = ({ profile }: Props) => {
               </div>
             ))}
             {ApplicantIndustrySectors.map(industrySector => (
-              <div>
+              <div key={industrySector.IndustrySectorId}>
                 <p className="skill-name">
                   {formatIndustrySector(
                     (industrySector.IndustrySector &&
@@ -111,6 +131,9 @@ const ProfileBody = ({ profile }: Props) => {
                 </p>
               </div>
             ))}
+            <Link className="view-more" to="/my-profile/skills">
+              <p>+ More</p>
+            </Link>
           </div>
           <div className="large-white-rectangle center-content">
             <h3>Looking for work in...</h3>

@@ -1,23 +1,29 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import SkillToken from "../Shared/SkillToken";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
 import { IndustrySectorState } from "../../reducers/industrySectors";
+import {
+  addIndustrySectorsToApplicantRequest,
+  removeIndustrySectorFromApplicantRequest,
+  loadIndustrySectorsRequest
+} from "../../actions/industrySectors";
+import { AppState } from "../../reducers";
 
-type Props = {
+type MapStateProps = {
   profile: ProfileState;
   industrySectors: IndustrySectorState;
-  loadIndustrySectorsRequest: (industryId: number) => void;
-  selectIndustrySectorForApplicant: (
-    applicantId: number,
-    industrySector: { id: number; yearsExperience: string }
-  ) => void;
-  removeIndustrySectorFromApplicant: (
-    applicantId: number,
-    industrySectorId: number
-  ) => void;
 };
+
+type MapDispatchProps = {
+  loadIndustrySectorsRequest: typeof loadIndustrySectorsRequest;
+  addIndustrySectorToApplicant: typeof addIndustrySectorsToApplicantRequest;
+  removeIndustrySectorFromApplicant: typeof removeIndustrySectorFromApplicantRequest;
+};
+
+type Props = MapStateProps & MapDispatchProps;
 
 type State = {
   selectedIndustrySector: number;
@@ -54,7 +60,7 @@ class PageSeven extends React.Component<Props, State> {
       appIndustrySector => appIndustrySector.IndustrySectorId
     );
     return (
-      <React.Fragment>
+      <>
         <div>
           <h1>Tell us about your skills...</h1>
           {this.props.industrySectors.list.map(industrySector => {
@@ -65,7 +71,7 @@ class PageSeven extends React.Component<Props, State> {
                 key={industrySector.id}
                 skill={industrySector}
                 selectSkillForApplicant={
-                  this.props.selectIndustrySectorForApplicant
+                  this.props.addIndustrySectorToApplicant
                 }
                 removeSkillFromApplicant={
                   this.props.removeIndustrySectorFromApplicant
@@ -95,9 +101,23 @@ class PageSeven extends React.Component<Props, State> {
             NEXT
           </Button>
         </Link>
-      </React.Fragment>
+      </>
     );
   }
 }
 
-export default PageSeven;
+const mapState = ({ profile, industrySectors }: AppState) => ({
+  profile,
+  industrySectors
+});
+
+const mapDispatch = {
+  addIndustrySectorToApplicant: addIndustrySectorsToApplicantRequest,
+  removeIndustrySectorFromApplicant: removeIndustrySectorFromApplicantRequest,
+  loadIndustrySectorsRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(PageSeven);

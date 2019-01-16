@@ -1,41 +1,60 @@
 import * as React from "react";
 import { Formik } from "formik";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Input from "../Shared/Input";
 import { EducationExperience } from "../../types";
 import "../../styles/input.css";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
-import { Link } from "react-router-dom";
+import {
+  createEducationExperienceRequest,
+  updateApplicantRequest,
+  deleteEducationExperienceRequest
+} from "../../actions/profile";
+import { AppState } from "../../reducers";
 
-type Props = {
-  handleSubmit: (
-    applicantId: number,
-    educationExperience: EducationExperience
-  ) => void;
-  completePage: (applicantId: number) => void;
+type MapStateProps = {
   profile: ProfileState;
 };
+
+type MapDispatchProps = {
+  createEducationExperienceRequest: typeof createEducationExperienceRequest;
+  updateApplicantRequest: typeof updateApplicantRequest;
+  deleteEducationExperienceRequest: typeof deleteEducationExperienceRequest;
+};
+
+type Props = MapStateProps & MapDispatchProps;
 
 class PageFour extends React.Component<Props> {
   render() {
     const {
-      handleSubmit,
+      createEducationExperienceRequest,
       profile: {
         info: {
           Applicant: { id, EducationExperiences }
         }
       },
-      completePage
+      updateApplicantRequest,
+      deleteEducationExperienceRequest
     } = this.props;
 
     return (
       <React.Fragment>
+        <h1 className="profile-header">Education</h1>
         {EducationExperiences.length > 0 &&
           EducationExperiences.map(education => (
-            <div key={education.id}>
+            <p key={education.id}>
               {education.university} - {education.educationLevel}{" "}
               {education.areaOfStudy} {education.graduationYear}{" "}
-            </div>
+              <span
+                onClick={() =>
+                  deleteEducationExperienceRequest(education.id || 0, id)
+                }
+              >
+                ( X )
+              </span>
+            </p>
           ))}
         <Formik
           initialValues={{
@@ -46,7 +65,7 @@ class PageFour extends React.Component<Props> {
             graduationYear: ""
           }}
           onSubmit={educationExperience =>
-            handleSubmit(id, educationExperience)
+            createEducationExperienceRequest(id, educationExperience)
           }
           validate={values => {
             let errors: EducationExperience = {};
@@ -58,9 +77,8 @@ class PageFour extends React.Component<Props> {
             touched,
             handleBlur,
             handleChange,
-            handleSubmit,
-            isSubmitting
-          }) => (
+            handleSubmit
+          }: any) => (
             <form onSubmit={handleSubmit}>
               <Input
                 label="LEVEL OF EDUCATION"
@@ -114,7 +132,18 @@ class PageFour extends React.Component<Props> {
                 <Button styles={{ marginRight: "20px" }} type="submit">
                   ADD EDUCATION
                 </Button>
-                <Button type="button" onClick={() => completePage(id)}>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    updateApplicantRequest(
+                      id,
+                      {
+                        currentPageOfSignup: 5
+                      },
+                      "/onboarding/signup/5/"
+                    )
+                  }
+                >
                   FINISHED
                 </Button>
               </div>
@@ -126,4 +155,15 @@ class PageFour extends React.Component<Props> {
   }
 }
 
-export default PageFour;
+const mapState = ({ profile }: AppState) => ({ profile });
+
+const mapDispatch = {
+  createEducationExperienceRequest,
+  updateApplicantRequest,
+  deleteEducationExperienceRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(PageFour);

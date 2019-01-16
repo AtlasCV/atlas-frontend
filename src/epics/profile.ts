@@ -74,6 +74,29 @@ const createEducationExperience: CreateEducationExperience = (
         );
     });
 
+type DeleteEducationExperience = Epic<AnyAction, AppState, Dependencies>;
+const deleteEducationExperience: DeleteEducationExperience = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.DELETE_EDUCATION_EXPERIENCE_REQUEST)
+    .mergeMap(({ payload: { educationId, applicantId } }) => {
+      return ajax({
+        method: "DELETE",
+        url: `${endpoint.applicants}/${applicantId}/education`,
+        headers: { "content-type": "application/json" },
+        data: {educationId}
+      })
+        .map(response =>
+          actions.deleteEducationExperienceSuccess(educationId)
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            actions.profileAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        );
+    });
+
 type CreateJobExperience = Epic<AnyAction, AppState, Dependencies>;
 const createJobExperience: CreateJobExperience = (action$, store, { ajax }) =>
   action$
@@ -97,8 +120,33 @@ const createJobExperience: CreateJobExperience = (action$, store, { ajax }) =>
         );
     });
 
+type DeleteJobExperience = Epic<AnyAction, AppState, Dependencies>;
+const deleteJobExperience: DeleteJobExperience = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.DELETE_JOB_EXPERIENCE_REQUEST)
+    .mergeMap(({ payload: { jobExperienceId, applicantId } }) => {
+      return ajax({
+        method: "DELETE",
+        url: `${endpoint.applicants}/${applicantId}/jobExperience`,
+        headers: { "content-type": "application/json" },
+        data: {jobExperienceId}
+      })
+        .map(response =>
+          actions.deleteJobExperienceSuccess(jobExperienceId)
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            actions.profileAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        );
+    });
+
 export default [
   createOrUpdateApplicantEpic,
   createEducationExperience,
-  createJobExperience
+  deleteEducationExperience,
+  createJobExperience,
+  deleteJobExperience,
 ];

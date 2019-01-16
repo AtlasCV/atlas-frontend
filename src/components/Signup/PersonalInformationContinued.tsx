@@ -9,18 +9,29 @@ import "../../styles/input.css";
 import Button from "../Shared/Button";
 import { ProfileState } from "../../reducers/profile";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { AppState } from "src/reducers";
+import { updateApplicantRequest } from "src/actions/profile";
 
-type Props = {
-  handleSubmit: (
-    applicantId: number,
-    applicantFormProps: UpdateApplicantFormProps,
-    nextPage?: string
-  ) => void;
-  applicantId: number;
+type MapStateProps = {
   profile: ProfileState;
 };
 
-export default ({ handleSubmit, applicantId, profile }: Props) => (
+type MapDispatchProps = {
+  updateApplicantRequest: typeof updateApplicantRequest;
+};
+
+type Props = MapStateProps & MapDispatchProps;
+
+const PersonalInformationContinued = ({
+  updateApplicantRequest,
+  profile,
+  profile: {
+    info: {
+      Applicant: { id: applicantId }
+    }
+  }
+}: Props) => (
   <Formik
     initialValues={{
       phone: profile.info.phone || "",
@@ -31,12 +42,16 @@ export default ({ handleSubmit, applicantId, profile }: Props) => (
       gender: profile.info.gender || ""
     }}
     onSubmit={applicantFormProps =>
-      handleSubmit(applicantId, {
-        ...applicantFormProps,
-        currentPageOfSignup: 3
-      })
+      updateApplicantRequest(
+        applicantId,
+        {
+          ...applicantFormProps,
+          currentPageOfSignup: 3
+        },
+        "/onboarding/signup/3"
+      )
     }
-    validate={values => {
+    validate={(values: any) => {
       let errors: UpdateApplicantFormProps = {};
       Object.keys(errors).forEach(key => {
         if (!values[key]) {
@@ -57,7 +72,7 @@ export default ({ handleSubmit, applicantId, profile }: Props) => (
       handleChange,
       handleSubmit,
       isSubmitting
-    }) => (
+    }: any) => (
       <form onSubmit={handleSubmit}>
         <Input
           label="PHONE"
@@ -108,3 +123,14 @@ export default ({ handleSubmit, applicantId, profile }: Props) => (
     )}
   />
 );
+
+const mapState = ({ profile }: AppState) => ({ profile });
+
+const mapDispatch = {
+  updateApplicantRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(PersonalInformationContinued);

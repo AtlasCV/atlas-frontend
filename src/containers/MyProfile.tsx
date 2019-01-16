@@ -9,6 +9,10 @@ import "../styles/my-profile.css";
 import Header from "../components/MyProfile/Header";
 import ProfileBody from "../components/MyProfile/ProfileBody";
 import DistinguishYourself from "../components/DistinguishYourself";
+import Skills from "../components/Signup/Skills";
+import Education from "../components/Signup/Education";
+import JobExperiences from "../components/Signup/JobExperiences";
+import Certifications from "../components/Signup/Certifications";
 
 interface Props {
   profile: ProfileState;
@@ -24,22 +28,38 @@ class MyProfile extends React.Component<Props> {
     return (
       <div>
         <Navbar />
+        <Header />
         <div className="my-profile">
           <Switch>
             <Route
               exact={true}
               path="/my-profile/distinguish-yourself"
-              render={() => <DistinguishYourself />}
+              render={() => <DistinguishYourself noMarginLeft={true} />}
+            />
+            <Route
+              exact={true}
+              path="/my-profile/skills"
+              render={() => <Skills />}
+            />
+            <Route
+              exact={true}
+              path="/my-profile/education"
+              render={() => <Education />}
+            />
+            <Route
+              exact={true}
+              path="/my-profile/job-experiences"
+              render={() => <JobExperiences />}
+            />
+            <Route
+              exact={true}
+              path="/my-profile/certifications"
+              render={() => <Certifications />}
             />
             <Route
               exact={true}
               path="/my-profile"
-              render={() => (
-                <>
-                  <Header />
-                  <ProfileBody />
-                </>
-              )}
+              render={() => <ProfileBody />}
             />
           </Switch>
         </div>

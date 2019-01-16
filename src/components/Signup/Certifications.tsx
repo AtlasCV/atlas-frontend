@@ -52,29 +52,30 @@ class Certifications extends React.Component<Props, State> {
     );
     return (
       <React.Fragment>
-        <div>
-          <h1>Do you hold any of the following certifications?</h1>
-          {this.props.certifications.list.map(certification => {
-            const hasCertification =
-              applicantCertifications.indexOf(certification.id) > -1;
-            return (
-              <CertificationToken
-                key={certification.id}
-                certification={certification}
-                selectCertificationForApplicant={
-                  this.props.selectCertificationForApplicant
-                }
-                removeCertificationFromApplicant={
-                  this.props.removeCertificationFromApplicant
-                }
-                applicantId={this.props.profile.info.Applicant.id}
-                selected={this.state.selectedCertification === certification.id}
-                selectCertification={this.selectCertification}
-                hasCertification={hasCertification}
-              />
-            );
-          })}
-        </div>
+        <h1 className="profile-header">
+          Do you hold any of the following certifications?
+        </h1>
+        {this.props.certifications.list.map(certification => {
+          const hasCertification =
+            applicantCertifications.indexOf(certification.id) > -1;
+          return (
+            <CertificationToken
+              key={certification.id}
+              certification={certification}
+              selectCertificationForApplicant={
+                this.props.selectCertificationForApplicant
+              }
+              removeCertificationFromApplicant={
+                this.props.removeCertificationFromApplicant
+              }
+              applicantId={this.props.profile.info.Applicant.id}
+              selected={this.state.selectedCertification === certification.id}
+              selectCertification={this.selectCertification}
+              hasCertification={hasCertification}
+            />
+          );
+        })}
+
         <Link to="/onboarding/signup/7">
           <Button styles={{ float: "left", marginTop: "40px" }}>
             PREVIOUS

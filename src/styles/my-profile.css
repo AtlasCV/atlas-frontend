@@ -1,13 +1,15 @@
 .my-profile {
-  padding-top: 130px;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 1280px;
+  width: 1200px;
   margin: 40px auto;
+  padding-top: 130px;
 }
 
 .image-placeholder {
@@ -37,14 +39,13 @@
 }
 
 .profile-body-inner-section {
-  width: 1280px;
   background-color: rgb(236, 210, 82);
   margin: 0 auto;
   padding: 100px;
 }
 
 .large-white-rectangle {
-  width: 510px;
+  width: 370px;
   background-color: #fff;
   border-radius: 10px;
   padding: 50px;
@@ -123,7 +124,7 @@
   margin: 50px 0px;
   text-align: center;
   height: 330px;
-  width: 380px;
+  width: 300px;
 }
 
 .medium-white-rectangle p {
@@ -146,4 +147,36 @@
 .skill-experience {
   font-size: 16px !important;
   margin: 0px !important;
+}
+
+.about-me p {
+  max-height: 275px;
+  overflow: hidden;
+}
+
+.about-me {
+  width: 400px !important;
+}
+
+.view-more {
+  cursor: pointer;
+  color: #d94c43;
+  margin-top: 20px !important;
+}
+
+.view-more {
+  text-decoration: none;
+  color: #d94c43;
+}
+
+.view-more:visited {
+  color: #d94c43;
+}
+
+.profile-header {
+  text-align: center;
+}
+
+.medium-white-rectangle .list-item {
+  margin: 10px auto;
 }

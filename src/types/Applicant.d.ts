@@ -49,6 +49,7 @@ export interface EducationExperience {
 }
 
 export interface JobExperience {
+  id?: number;
   name?: string;
   numOfYears?: number;
   currentlyWorkingHere?: boolean;

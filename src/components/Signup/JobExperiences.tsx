@@ -1,5 +1,7 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import * as moment from "moment";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import { JobExperience } from "../../types";
@@ -8,32 +10,52 @@ import Select from "../Shared/Select";
 import TextArea from "../Shared/TextArea";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
-import { Link } from "react-router-dom";
+import {
+  createJobExperienceRequest,
+  updateApplicantRequest,
+  deleteJobExperienceRequest
+} from "../../actions/profile";
+import { AppState } from "../../reducers";
 
-type Props = {
-  handleSubmit: (applicantId: number, jobExperience: JobExperience) => void;
-  completePage: (applicantId: number) => void;
+type MapStateProps = {
   profile: ProfileState;
 };
 
-class PageFive extends React.Component<Props> {
+type MapDispatchProps = {
+  createJobExperienceRequest: typeof createJobExperienceRequest;
+  updateApplicantRequest: typeof updateApplicantRequest;
+  deleteJobExperienceRequest: typeof deleteJobExperienceRequest;
+};
+
+type Props = MapStateProps & MapDispatchProps;
+
+class Jobs extends React.Component<Props> {
   render() {
     const {
-      handleSubmit,
+      createJobExperienceRequest,
       profile: {
         info: {
           Applicant: { id, JobExperiences }
         }
       },
-      completePage
+      updateApplicantRequest,
+      deleteJobExperienceRequest
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
+        <h1 className="profile-header">Job Experience</h1>
         {JobExperiences.length > 0 &&
           JobExperiences.map(job => (
             <div key={`${job.name} -${job.companyName}`}>
-              {job.name} - {job.companyName}
+              <p>
+                {job.name} - {job.companyName}
+                <span
+                  onClick={() => deleteJobExperienceRequest(job.id || 0, id)}
+                >
+                  ( X )
+                </span>
+              </p>
             </div>
           ))}
         <Formik
@@ -54,7 +76,7 @@ class PageFive extends React.Component<Props> {
             description
           }: any) => {
             console.log(to, from);
-            return handleSubmit(id, {
+            return createJobExperienceRequest(id, {
               name,
               companyName,
               description,
@@ -72,8 +94,7 @@ class PageFive extends React.Component<Props> {
             touched,
             handleBlur,
             handleChange,
-            handleSubmit,
-            isSubmitting
+            handleSubmit
           }: any) => (
             <form onSubmit={handleSubmit}>
               <Input
@@ -141,16 +162,38 @@ class PageFive extends React.Component<Props> {
                 <Button styles={{ marginRight: "20px" }} type="submit">
                   ADD JOB
                 </Button>
-                <Button type="button" onClick={() => completePage(id)}>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    updateApplicantRequest(
+                      id,
+                      {
+                        currentPageOfSignup: 6
+                      },
+                      "/onboarding/signup/6"
+                    )
+                  }
+                >
                   FINISHED
                 </Button>
               </div>
             </form>
           )}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
 
-export default PageFive;
+const mapState = ({ profile }: AppState) => ({ profile });
+
+const mapDispatch = {
+  createJobExperienceRequest,
+  updateApplicantRequest,
+  deleteJobExperienceRequest
+};
+
+export default connect<MapStateProps, MapDispatchProps, {}>(
+  mapState,
+  mapDispatch
+)(Jobs);
