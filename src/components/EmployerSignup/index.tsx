@@ -36,7 +36,6 @@ export default connect(
       employerId: number,
       employerFormProps: EmployerFormProps
     ) => {
-      console.log("Page One Submitted");
       this.setState({ activePage: 2 });
       this.props.push("/employer-onboarding/company-signup/2");
     };
@@ -45,7 +44,6 @@ export default connect(
       employerId: number,
       employerFormProps: EmployerFormProps
     ) => {
-      console.log("Page Two Submitted");
       this.setState({ activePage: 3 });
       this.props.push("/employer-onboarding/company-signup/3");
     };
@@ -54,7 +52,6 @@ export default connect(
       employerId: number,
       employerFormProps: EmployerFormProps
     ) => {
-      console.log("Page Three Submitted");
       this.setState({ activePage: 4 });
       this.props.push("/employer-onboarding/profile-signup/1");
     };
@@ -64,7 +61,7 @@ export default connect(
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about your company</h2>
-          <ProgressTracker progress={this.state.activePage / 4 * 100} />
+          <ProgressTracker progress={(this.state.activePage / 4) * 100} />
           <Route
             path={"/employer-onboarding/company-signup/1"}
             render={() => (

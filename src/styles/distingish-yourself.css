@@ -10,9 +10,14 @@
 
 .distinguish-yourself-inner-section {
   padding: 0px 140px 100px 100px;
-  background-color: rgb(36, 114, 155);
+
+  background-color: rgb(51, 61, 66);
   width: 960px;
   position: relative;
+}
+
+.not-editable {
+  background-color: rgb(36, 114, 155) !important;
 }
 
 .distinguish-yourself textarea {

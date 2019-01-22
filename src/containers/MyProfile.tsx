@@ -34,7 +34,9 @@ class MyProfile extends React.Component<Props> {
             <Route
               exact={true}
               path="/my-profile/distinguish-yourself"
-              render={() => <DistinguishYourself noMarginLeft={true} />}
+              render={() => (
+                <DistinguishYourself noMarginLeft={true} isInProfile={true} />
+              )}
             />
             <Route
               exact={true}

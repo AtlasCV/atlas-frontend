@@ -28,7 +28,6 @@ export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
         data: applicantFormProps
       })
         .concatMap(({ data: { result } }: AxiosResponse) => {
-          console.log(result);
           if (nextPage) {
             if (result.token) {
               localStorage.setItem("accessToken", result.token);
