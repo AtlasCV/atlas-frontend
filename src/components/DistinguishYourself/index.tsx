@@ -5,6 +5,7 @@ import "../../styles/distingish-yourself.css";
 import Button from "../Shared/Button";
 import * as profileActions from "../../actions/profile";
 import { ProfileState } from "src/reducers/profile";
+import { Link } from "react-router-dom";
 
 type Props = {
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
@@ -24,7 +25,7 @@ class DistinguishYourself extends React.Component<Props, State> {
     };
   }
   render() {
-    const { updateApplicantRequest, profile, noMarginLeft } = this.props;
+    const { profile, noMarginLeft, isInProfile } = this.props;
     const { distinguishYourself, isEditable } = this.state;
     return (
       <>
@@ -50,9 +51,19 @@ class DistinguishYourself extends React.Component<Props, State> {
                 onChange={e =>
                   this.setState({ distinguishYourself: e.currentTarget.value })
                 }
-                onBlur={() => ({})}
                 disabled={!isEditable}
               />
+              <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/8"}>
+                <Button
+                  styles={{
+                    position: "absolute",
+                    left: 120,
+                    bottom: 125
+                  }}
+                >
+                  BACK
+                </Button>
+              </Link>
               <Button
                 disabled={
                   !!(distinguishYourself && distinguishYourself.length < 1)
@@ -62,17 +73,7 @@ class DistinguishYourself extends React.Component<Props, State> {
                   right: 120,
                   bottom: 125
                 }}
-                onClick={() => {
-                  if (isEditable) {
-                    updateApplicantRequest(profile.info.Applicant.id, {
-                      aboutMe: distinguishYourself,
-                      signupComplete: true
-                    });
-                    this.setState({ isEditable: false });
-                  } else {
-                    this.setState({ isEditable: true });
-                  }
-                }}
+                onClick={this.handleSubmitOrEdit}
               >
                 {isEditable ? "Submit" : "Edit"}
               </Button>
@@ -96,6 +97,20 @@ class DistinguishYourself extends React.Component<Props, State> {
       </>
     );
   }
+
+  private handleSubmitOrEdit = () => {
+    const { isEditable, distinguishYourself } = this.state;
+    const { updateApplicantRequest, profile } = this.props;
+    if (isEditable) {
+      updateApplicantRequest(profile.info.Applicant.id, {
+        aboutMe: distinguishYourself,
+        signupComplete: true
+      });
+      this.setState({ isEditable: false });
+    } else {
+      this.setState({ isEditable: true });
+    }
+  };
 }
 export default connect(
   ({ profile }: AppState) => ({ profile }),

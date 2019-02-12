@@ -26,6 +26,14 @@
   align-items: center;
 }
 
+.name-and-photo h1 {
+  font-size: 24px;
+}
+
+.name-and-photo h2 {
+  font-size: 20px;
+}
+
 .personality-evaluator {
   font-size: 58px;
   font-weight: 500;

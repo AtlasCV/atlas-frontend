@@ -16,6 +16,7 @@ type Props = {
   selectCertificationForApplicant: typeof certificationActions.addCertificationsToApplicantRequest;
   loadCertificationsRequest: typeof certificationActions.loadCertificationsRequest;
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
+  isInProfile?: boolean;
 };
 
 type State = {
@@ -47,7 +48,16 @@ class Certifications extends React.Component<Props, State> {
   };
 
   render() {
-    const applicantCertifications = this.props.profile.info.Applicant.Certifications.map(
+    const {
+      profile,
+      certifications,
+      selectCertificationForApplicant,
+      removeCertificationFromApplicant,
+      updateApplicantRequest,
+      isInProfile
+    } = this.props;
+
+    const applicantCertifications = profile.info.Applicant.Certifications.map(
       appCertification => appCertification.id
     );
     return (
@@ -55,44 +65,45 @@ class Certifications extends React.Component<Props, State> {
         <h1 className="profile-header">
           Do you hold any of the following certifications?
         </h1>
-        {this.props.certifications.list.map(certification => {
+        {certifications.list.map(certification => {
           const hasCertification =
             applicantCertifications.indexOf(certification.id) > -1;
           return (
             <CertificationToken
               key={certification.id}
               certification={certification}
-              selectCertificationForApplicant={
-                this.props.selectCertificationForApplicant
-              }
+              selectCertificationForApplicant={selectCertificationForApplicant}
               removeCertificationFromApplicant={
-                this.props.removeCertificationFromApplicant
+                removeCertificationFromApplicant
               }
-              applicantId={this.props.profile.info.Applicant.id}
+              applicantId={profile.info.Applicant.id}
               selected={this.state.selectedCertification === certification.id}
               selectCertification={this.selectCertification}
               hasCertification={hasCertification}
             />
           );
         })}
-
-        <Link to="/onboarding/signup/7">
-          <Button styles={{ float: "left", marginTop: "40px" }}>
-            PREVIOUS
-          </Button>
-        </Link>
-        <Button
-          onClick={() =>
-            this.props.updateApplicantRequest(
-              this.props.profile.info.Applicant.id,
-              { currentPageOfSignup: 8 },
-              "/onboarding/distinguish-yourself"
-            )
-          }
-          styles={{ float: "right", marginTop: "40px" }}
-        >
-          NEXT
-        </Button>
+        <div>
+          <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/7"}>
+            <Button styles={{ float: "left", marginTop: "40px" }}>
+              {isInProfile ? "BACK" : "PREVIOUS"}
+            </Button>
+          </Link>
+          {!isInProfile && (
+            <Button
+              onClick={() =>
+                updateApplicantRequest(
+                  profile.info.Applicant.id,
+                  { currentPageOfSignup: 8 },
+                  "/onboarding/distinguish-yourself"
+                )
+              }
+              styles={{ float: "right", marginTop: "40px" }}
+            >
+              NEXT
+            </Button>
+          )}
+        </div>
       </React.Fragment>
     );
   }

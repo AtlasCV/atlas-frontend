@@ -41,22 +41,22 @@ class MyProfile extends React.Component<Props> {
             <Route
               exact={true}
               path="/my-profile/skills"
-              render={() => <Skills />}
+              render={() => <Skills isInProfile={true} />}
             />
             <Route
               exact={true}
               path="/my-profile/education"
-              render={() => <Education />}
+              render={() => <Education isInProfile={true} />}
             />
             <Route
               exact={true}
               path="/my-profile/job-experiences"
-              render={() => <JobExperiences />}
+              render={() => <JobExperiences isInProfile={true} />}
             />
             <Route
               exact={true}
               path="/my-profile/certifications"
-              render={() => <Certifications />}
+              render={() => <Certifications isInProfile={true} />}
             />
             <Route
               exact={true}

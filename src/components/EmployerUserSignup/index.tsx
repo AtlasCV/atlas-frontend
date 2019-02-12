@@ -32,7 +32,7 @@ export default connect(
       employerId: number,
       employerFormProps: EmployerFormProps
     ) => {
-      console.log("Page One Submitted");
+      return employerId;
     };
 
     render() {
@@ -40,7 +40,7 @@ export default connect(
       return (
         <div className="signup-container col-sm-9">
           <h2>Tell us about yourself and your role in the company</h2>
-          <ProgressTracker progress={this.state.activePage / 1 * 100} />
+          <ProgressTracker progress={(this.state.activePage / 1) * 100} />
           <Route
             path={"/employer-onboarding/profile-signup/1"}
             render={() => (

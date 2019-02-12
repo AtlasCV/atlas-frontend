@@ -22,7 +22,7 @@ type MapDispatchProps = {
   completeSkills: typeof updateApplicantRequest;
 };
 
-type Props = MapStateProps & MapDispatchProps;
+type Props = MapStateProps & MapDispatchProps & { isInProfile?: boolean };
 
 type State = {
   selectedSkill: number;
@@ -53,22 +53,31 @@ class PageSix extends React.Component<Props, State> {
   };
 
   render() {
-    const applicantSkills = this.props.profile.info.Applicant.ApplicantSkills.map(
+    const {
+      profile,
+      skills,
+      selectSkillForApplicant,
+      removeSkillFromApplicant,
+      completeSkills,
+      isInProfile
+    } = this.props;
+
+    const applicantSkills = profile.info.Applicant.ApplicantSkills.map(
       appSkill => appSkill.SkillId
     );
     return (
       <React.Fragment>
         <div>
           <h1 className="profile-header">Tell us about your skills...</h1>
-          {this.props.skills.list.map(skill => {
+          {skills.list.map(skill => {
             const hasSkill = applicantSkills.indexOf(skill.id) > -1;
             return (
               <SkillToken
                 key={skill.id}
                 skill={skill}
-                selectSkillForApplicant={this.props.selectSkillForApplicant}
-                removeSkillFromApplicant={this.props.removeSkillFromApplicant}
-                applicantId={this.props.profile.info.Applicant.id}
+                selectSkillForApplicant={selectSkillForApplicant}
+                removeSkillFromApplicant={removeSkillFromApplicant}
+                applicantId={profile.info.Applicant.id}
                 selected={this.state.selectedSkill === skill.id}
                 selectSkill={this.selectSkill}
                 hasSkill={hasSkill}
@@ -76,25 +85,29 @@ class PageSix extends React.Component<Props, State> {
             );
           })}
         </div>
-        <Link to="/onboarding/signup/5">
-          <Button styles={{ float: "left", marginTop: "40px" }}>
-            PREVIOUS
-          </Button>
-        </Link>
-        <Button
-          onClick={() =>
-            this.props.completeSkills(
-              this.props.profile.info.Applicant.id,
-              {
-                currentPageOfSignup: 7
-              },
-              "/onboarding/signup/7"
-            )
-          }
-          styles={{ float: "right", marginTop: "40px" }}
-        >
-          NEXT
-        </Button>
+        <div>
+          <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/5"}>
+            <Button styles={{ float: "left", marginTop: "40px" }}>
+              {isInProfile ? "BACK" : "PREVIOUS"}
+            </Button>
+          </Link>
+          {!isInProfile && (
+            <Button
+              onClick={() =>
+                completeSkills(
+                  profile.info.Applicant.id,
+                  {
+                    currentPageOfSignup: 7
+                  },
+                  "/onboarding/signup/7"
+                )
+              }
+              styles={{ float: "right", marginTop: "40px" }}
+            >
+              NEXT
+            </Button>
+          )}
+        </div>
       </React.Fragment>
     );
   }

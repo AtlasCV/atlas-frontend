@@ -49,11 +49,6 @@ const ProfileBody = ({ profile }: Props) => {
             </p>
           </div>
           <div>
-            <button className="message-me-button">Message</button>
-            <div className="contact-buttons-container">
-              <button className="contact-buttons">Website</button>
-              <button className="contact-buttons">Resume</button>
-            </div>
             <div className="small-white-rectangle">
               <p>
                 <img src="/assets/phone-icon.png" alt="phone-number" /> {phone}

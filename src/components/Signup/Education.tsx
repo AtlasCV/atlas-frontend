@@ -24,7 +24,7 @@ type MapDispatchProps = {
   deleteEducationExperienceRequest: typeof deleteEducationExperienceRequest;
 };
 
-type Props = MapStateProps & MapDispatchProps;
+type Props = MapStateProps & MapDispatchProps & { isInProfile?: boolean };
 
 class PageFour extends React.Component<Props> {
   render() {
@@ -36,7 +36,8 @@ class PageFour extends React.Component<Props> {
         }
       },
       updateApplicantRequest,
-      deleteEducationExperienceRequest
+      deleteEducationExperienceRequest,
+      isInProfile
     } = this.props;
 
     return (
@@ -125,27 +126,34 @@ class PageFour extends React.Component<Props> {
                 handleBlur={handleBlur}
                 error={touched.gpa && errors.gpa}
               />
-              <Link to="/onboarding/signup/3">
-                <Button styles={{ float: "left" }}>PREVIOUS</Button>
+              <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/3"}>
+                <Button styles={{ float: "left" }}>
+                  {isInProfile ? "BACK" : "PREVIOUS"}
+                </Button>
               </Link>
               <div style={{ float: "right" }}>
-                <Button styles={{ marginRight: "20px" }} type="submit">
+                <Button
+                  styles={{ marginRight: isInProfile ? "" : "20px" }}
+                  type="submit"
+                >
                   ADD EDUCATION
                 </Button>
-                <Button
-                  type="button"
-                  onClick={() =>
-                    updateApplicantRequest(
-                      id,
-                      {
-                        currentPageOfSignup: 5
-                      },
-                      "/onboarding/signup/5/"
-                    )
-                  }
-                >
-                  FINISHED
-                </Button>
+                {!isInProfile && (
+                  <Button
+                    type="button"
+                    onClick={() =>
+                      updateApplicantRequest(
+                        id,
+                        {
+                          currentPageOfSignup: 5
+                        },
+                        "/onboarding/signup/5/"
+                      )
+                    }
+                  >
+                    FINISHED
+                  </Button>
+                )}
               </div>
             </form>
           )}

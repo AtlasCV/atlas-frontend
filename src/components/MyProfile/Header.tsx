@@ -25,6 +25,11 @@ const Header = ({ profile }: Props) => {
           </h1>
           <h2>{Industries[0] && Industries[0].name}</h2>
           <h2>{city}</h2>
+          <button className="message-me-button">Message</button>
+          <div className="contact-buttons-container">
+            <button className="contact-buttons">Website</button>
+            <button className="contact-buttons">Resume</button>
+          </div>
         </div>
       </div>
       <div>
