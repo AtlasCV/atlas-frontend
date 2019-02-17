@@ -6,7 +6,6 @@ import { ProfileState } from "..//reducers/profile";
 import { getMeRequest } from "../actions/auth";
 import Navbar from "../components/Navbar";
 import "../styles/my-profile.css";
-import Header from "../components/MyProfile/Header";
 import ProfileBody from "../components/MyProfile/ProfileBody";
 import DistinguishYourself from "../components/DistinguishYourself";
 import Skills from "../components/Signup/Skills";
@@ -28,7 +27,6 @@ class MyProfile extends React.Component<Props> {
     return (
       <div>
         <Navbar />
-        <Header />
         <div className="my-profile">
           <Switch>
             <Route
