@@ -8,12 +8,22 @@ type Action = ActionUnion<typeof actions>;
 
 export type ApplicantState = {
   list: Array<Applicant>;
+  detail: Applicant;
   fetchingApplicants: boolean;
   error?: Error;
 };
 
 export const INITIAL_APPLICANT_STATE: ApplicantState = {
   list: [],
+  detail: { 
+    id: 0,
+    Industries: [],
+    EducationExperiences: [],
+    JobExperiences: [],
+    ApplicantSkills: [],
+    ApplicantIndustrySectors: [], 
+    Certifications: [] 
+  },
   fetchingApplicants: false,
 };
 
@@ -28,6 +38,20 @@ const loadApplicantsSuccess = (
 ) => ({
   ...state,
   list: applicants,
+  fetchingApplicants: false
+});
+
+const loadApplicantDetailRequest = (state: ApplicantState) => ({
+  ...state,
+  fetchingApplicants: true
+});
+
+const loadApplicantDetailSuccess = (
+  state: ApplicantState,
+  { payload: { applicant } }: ReturnType<typeof actions.loadApplicantDetailSuccess>
+) => ({
+  ...state,
+  detail: applicant,
   fetchingApplicants: false
 });
 
@@ -49,6 +73,10 @@ const applicantReducer: Reducer<ApplicantState> = (
       return loadApplicantsRequest(state);
     case actionTypes.LOAD_APPLICANTS_SUCCESS:
       return loadApplicantsSuccess(state, action);
+    case actionTypes.LOAD_APPLICANT_DETAIL_REQUEST:
+      return loadApplicantDetailRequest(state);
+    case actionTypes.LOAD_APPLICANT_DETAIL_SUCCESS:
+      return loadApplicantDetailSuccess(state, action);
     case actionTypes.APPLICANT_AJAX_FAILURE:
       return applicantAjaxFailure(state, action);
     default:

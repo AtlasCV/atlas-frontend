@@ -1,27 +1,33 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { AppState } from "src/reducers";
-import { loadApplicantsRequest } from "../actions/applicants";
+import { Route, match } from "react-router";
+import { AppState } from "../reducers";
+import Navbar from "../components/Navbar";
+import ProfileList from "../components/ProfileSearch/ProfileList";
+import ProfileDetail from "../components/ProfileSearch/ProfileDetail";
+import "../styles/profile-container.css";
 
-type MapDispatchProps = { loadApplicantsRequest: typeof loadApplicantsRequest };
-
-type Props = Partial<AppState> & MapDispatchProps;
+type Props = Partial<AppState> & { match: match<{}> };
 
 class Search extends React.Component<Props> {
-  componentDidMount() {
-    this.props.loadApplicantsRequest();
-  }
-
   render() {
-    return <div>Search here</div>;
+    return (
+      <div>
+        <Navbar />
+        <div className="search-container">
+          <Route
+            exact={true}
+            path={this.props.match.url + "/"}
+            component={ProfileList}
+          />
+          <Route
+            exact={true}
+            path={this.props.match.url + "/:applicantId"}
+            component={ProfileDetail}
+          />
+        </div>
+      </div>
+    );
   }
 }
 
-const mapState = ({ applicants }: AppState) => ({ applicants });
-
-const mapDispatch = { loadApplicantsRequest };
-
-export default connect<Partial<AppState>, MapDispatchProps>(
-  mapState,
-  mapDispatch
-)(Search);
+export default Search;

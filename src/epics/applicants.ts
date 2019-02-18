@@ -9,10 +9,11 @@ import {
   loadApplicantsRequest,
   loadApplicantsSuccess,
   applicantAjaxFailure,
+  loadApplicantDetailRequest,
+  loadApplicantDetailSuccess,
 } from "../actions/applicants";
 import * as actionTypes from "../constants/actionTypes";
 import * as types from "../types";
-import { Applicant } from "../types";
 
 type LoadApplicantsEpic = Epic<AnyAction, AppState, Dependencies>;
 export const loadApplicantsEpic: LoadApplicantsEpic = (action$, store, { ajax }) =>
@@ -26,8 +27,32 @@ export const loadApplicantsEpic: LoadApplicantsEpic = (action$, store, { ajax })
         .map(
           ({
             data: { result }
-          }: AxiosResponse<types.AxiosResponseData<Applicant[]>>) =>
+          }: AxiosResponse<types.AxiosResponseData<types.Applicant[]>>) =>
             loadApplicantsSuccess(result)
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            applicantAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        )
+    );
+
+type LoadApplicantDetailEpic = Epic<AnyAction, AppState, Dependencies>;
+export const loadApplicantDetailEpic: LoadApplicantDetailEpic = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.LOAD_APPLICANT_DETAIL_REQUEST)
+    .mergeMap((action: ReturnType<typeof loadApplicantDetailRequest>) =>
+      ajax({
+        method: "GET",
+        url: `${endpoint.applicants}/${action.payload.applicantId}`
+      })
+        .map(
+          ({
+            data: { result }
+          }: AxiosResponse<types.AxiosResponseData<types.Applicant>>) =>
+            loadApplicantDetailSuccess(result)
         )
         .catch((err: AxiosError) =>
           Observable.of(
@@ -40,4 +65,5 @@ export const loadApplicantsEpic: LoadApplicantsEpic = (action$, store, { ajax })
 
 export default [
   loadApplicantsEpic,
+  loadApplicantDetailEpic
 ];

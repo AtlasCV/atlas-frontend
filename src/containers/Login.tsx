@@ -7,6 +7,7 @@ import { AppState } from "../reducers";
 import Input from "../components/Shared/Input";
 import Button from "../components/Shared/Button";
 import { AuthState } from "../reducers/auth";
+import Navbar from "../components/Navbar";
 
 const styleContainer = style({
   backgroundColor: "#fff",
@@ -51,28 +52,31 @@ export default connect(
         isSubmitting
       }) => {
         return (
-          <form onSubmit={handleSubmit}>
-            <Input
-              label="EMAIL"
-              name="email"
-              type="text"
-              value={values.email}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              error={(touched.email && errors.email) || ""}
-            />
+          <div>
+            <Navbar />
+            <form onSubmit={handleSubmit}>
+              <Input
+                label="EMAIL"
+                name="email"
+                type="text"
+                value={values.email}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                error={(touched.email && errors.email) || ""}
+              />
 
-            <Input
-              label="PASSWORD"
-              name="password"
-              type="password"
-              value={values.password}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              error={(touched.password && errors.password) || ""}
-            />
-            <Button type="submit">LOGIN</Button>
-          </form>
+              <Input
+                label="PASSWORD"
+                name="password"
+                type="password"
+                value={values.password}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                error={(touched.password && errors.password) || ""}
+              />
+              <Button type="submit">LOGIN</Button>
+            </form>
+          </div>
         );
       }}
     />

@@ -6,7 +6,7 @@ export interface Applicant {
   aboutMe?: string;
   transcript?: string;
   city?: string;
-  user?: User;
+  User?: User;
   PersonalityEvaluation?: PersonalityEvaluator;
   Industries: Industry[];
   EducationExperiences: EducationExperience[];
