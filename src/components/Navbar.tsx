@@ -14,7 +14,9 @@ type ComponentProps = MapStateProps & MapDispatchProps;
 
 const Navbar = ({ auth, logout }: ComponentProps) => (
   <div className="navbar">
-    <img src="/assets/logo.png" alt="logo" />
+    <Link to="/">
+      <img src="/assets/logo.png" alt="logo" />
+    </Link>
     <div className="nav-links">
       <Link to="/#how-it-works">how it works</Link>
       <Link to="/faq">FAQ</Link>

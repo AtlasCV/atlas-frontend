@@ -4,14 +4,20 @@ import { AppState } from "../../reducers";
 import "../../styles/distingish-yourself.css";
 import Button from "../Shared/Button";
 import * as profileActions from "../../actions/profile";
-import { ProfileState } from "src/reducers/profile";
-import { Link } from "react-router-dom";
+import { ProfileState } from "../../reducers/profile";
+import { Link, match } from "react-router-dom";
+import { ApplicantState } from "../../reducers/applicants";
+import { loadApplicantDetailRequest } from "../../actions/applicants";
 
 type Props = {
   updateApplicantRequest: typeof profileActions.updateApplicantRequest;
+  loadApplicantDetailRequest: typeof loadApplicantDetailRequest;
   profile: ProfileState;
+  applicants: ApplicantState;
   noMarginLeft?: boolean;
   isInProfile?: boolean;
+  isMyProfile: boolean;
+  match: match<{ applicantId: number }>;
 };
 
 type State = { distinguishYourself?: string; isEditable: boolean };
@@ -24,8 +30,20 @@ class DistinguishYourself extends React.Component<Props, State> {
       isEditable: !props.isInProfile
     };
   }
+
+  componentDidMount() {
+    // const { match, loadApplicantDetailRequest } = this.props;
+    // loadApplicantDetailRequest(match.params.applicantId);
+  }
+
   render() {
-    const { profile, noMarginLeft, isInProfile } = this.props;
+    const {
+      profile,
+      noMarginLeft,
+      isInProfile,
+      isMyProfile,
+      applicants: { detail }
+    } = this.props;
     const { distinguishYourself, isEditable } = this.state;
     return (
       <>
@@ -37,7 +55,15 @@ class DistinguishYourself extends React.Component<Props, State> {
               noMarginLeft ? "no-margin-left" : ""
             }`}
           >
-            <h1>Think of this as your cover letter.</h1>
+            {isMyProfile ? (
+              <h1>Think of this as your cover letter.</h1>
+            ) : (
+              detail.User && (
+                <h1>
+                  {detail.User.firstName} {detail.User.lastName}
+                </h1>
+              )
+            )}
             <div
               className={`distinguish-yourself-inner-section ${
                 isEditable ? "" : "not-editable"
@@ -53,7 +79,15 @@ class DistinguishYourself extends React.Component<Props, State> {
                 }
                 disabled={!isEditable}
               />
-              <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/8"}>
+              <Link
+                to={
+                  isMyProfile
+                    ? isInProfile
+                      ? "/my-profile"
+                      : "/onboarding/signup/8"
+                    : `/profiles/${detail.User && detail.User.id}`
+                }
+              >
                 <Button
                   styles={{
                     position: "absolute",
@@ -64,19 +98,21 @@ class DistinguishYourself extends React.Component<Props, State> {
                   BACK
                 </Button>
               </Link>
-              <Button
-                disabled={
-                  !!(distinguishYourself && distinguishYourself.length < 1)
-                }
-                styles={{
-                  position: "absolute",
-                  right: 120,
-                  bottom: 125
-                }}
-                onClick={this.handleSubmitOrEdit}
-              >
-                {isEditable ? "Submit" : "Edit"}
-              </Button>
+              {isMyProfile && (
+                <Button
+                  disabled={
+                    !!(distinguishYourself && distinguishYourself.length < 1)
+                  }
+                  styles={{
+                    position: "absolute",
+                    right: 120,
+                    bottom: 125
+                  }}
+                  onClick={this.handleSubmitOrEdit}
+                >
+                  {isEditable ? "Submit" : "Edit"}
+                </Button>
+              )}
               {isEditable && (
                 <Button
                   onClick={() => this.setState({ isEditable: false })}
@@ -112,7 +148,10 @@ class DistinguishYourself extends React.Component<Props, State> {
     }
   };
 }
-export default connect(
-  ({ profile }: AppState) => ({ profile }),
-  { updateApplicantRequest: profileActions.updateApplicantRequest }
+export default connect<any, any, any, any>(
+  ({ profile, applicants }: AppState) => ({ profile, applicants }),
+  {
+    updateApplicantRequest: profileActions.updateApplicantRequest,
+    loadApplicantDetailRequest
+  }
 )(DistinguishYourself);

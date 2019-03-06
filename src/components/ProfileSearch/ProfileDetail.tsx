@@ -4,6 +4,7 @@ import { match } from "react-router";
 import { AppState } from "../../reducers";
 import { loadApplicantDetailRequest } from "../../actions/applicants";
 import "../../styles/profile-detail.css";
+import ProfileBody from "../MyProfile/ProfileBody";
 
 type MapDispatchProps = {
   loadApplicantDetailRequest: typeof loadApplicantDetailRequest;
@@ -19,7 +20,7 @@ class ProfileDetail extends React.Component<Props> {
   }
 
   render() {
-    return <div className="profile-detail">DETAILS</div>;
+    return <ProfileBody isMyProfile={false} />;
   }
 }
 

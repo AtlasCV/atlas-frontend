@@ -3,9 +3,12 @@ import { connect } from "react-redux";
 import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
+import { ApplicantState } from "src/reducers/applicants";
 
 interface Props {
   profile: ProfileState;
+  applicants: ApplicantState;
+  isMyProfile: boolean;
 }
 
 const messageMeButtonStyle = {
@@ -13,36 +16,57 @@ const messageMeButtonStyle = {
   color: "#fff",
   height: "48px",
   width: "100%",
-  borderRadius: "10px"
+  borderRadius: "10px",
+  marginTop: "10px"
 };
 
 const contactButtons = {
   color: "rgb(36, 114, 155)",
   backgroundColor: "#fff",
-  marginTop: "20px",
+  marginTop: "10px",
   height: "36px",
-  width: "48%",
+  width: "50%",
   borderRadius: "10px"
 };
 
-const Header = ({ profile }: Props) => {
+const Header = ({ profile, applicants: { detail }, isMyProfile }: Props) => {
+  let profileDetail: any;
+
   const {
     info: {
       firstName,
       lastName,
-      Applicant: { Industries, city }
+      Applicant: { JobExperiences, city }
     }
   } = profile;
+  if (isMyProfile) {
+    profileDetail = {
+      firstName,
+      lastName,
+      JobExperiences,
+      city
+    };
+  } else {
+    profileDetail = {
+      firstName: detail.User ? detail.User.firstName : "",
+      lastName: detail.User ? detail.User.lastName : "",
+      JobExperiences: detail.JobExperiences,
+      city: detail.city
+    };
+  }
   return (
     <div className="header">
       <div className="name-and-photo">
         <div className="image-placeholder" />
-        <div>
+        <div className="name-and-title">
           <h1>
-            {firstName} {lastName}
+            {profileDetail.firstName} {profileDetail.lastName}
           </h1>
-          <h2>{Industries[0] && Industries[0].name}</h2>
-          <h2>{city}</h2>
+          <h2 className="sans-serif">
+            {profileDetail.JobExperiences[0] &&
+              profileDetail.JobExperiences[0].name}
+          </h2>
+          <h2 className="sans-serif">{profileDetail.city}</h2>
           <Button styles={messageMeButtonStyle}>Message</Button>
           <div className="contact-buttons-container">
             <Button styles={contactButtons}>Website</Button>
@@ -55,6 +79,6 @@ const Header = ({ profile }: Props) => {
 };
 
 export default connect(
-  ({ profile }: AppState) => ({ profile }),
+  ({ profile, applicants }: AppState) => ({ profile, applicants }),
   {}
 )(Header);

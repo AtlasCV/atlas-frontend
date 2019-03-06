@@ -16,21 +16,26 @@
   width: 250px;
   background-color: red;
   border-radius: 50%;
-  margin-right: 50px;
 }
 
 .name-and-photo {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .name-and-photo h1 {
   font-size: 24px;
+  margin: 0px;
 }
 
 .name-and-photo h2 {
   font-size: 20px;
+  margin: 0px;
+}
+
+.name-and-title {
+  margin-left: 30px;
 }
 
 .profile-body {

@@ -1,8 +1,8 @@
 .signup-container {
   padding: 20px;
   background-color: #fff;
-  margin-left: 350px;
   width: 800px;
+  margin: 0 auto;
 }
 
 .signup-container h1 {

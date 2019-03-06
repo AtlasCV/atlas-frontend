@@ -62,42 +62,42 @@ export default connect(
         taskOriented,
         improvisor
       } = finalScore;
+      console.log(scoreSignature);
       return (
         <div className="results-container">
-          <h2>
-            You are{" "}
-            <b>
-              {results[scoreSignature] && results[scoreSignature].name} (
-              {scoreSignature})
-            </b>
-          </h2>
-          <ul className="results-list">
-            <li>
+          <div className="results-header">
+            <h2>Your personality type is...</h2>
+            <h1>
+              <b>
+                {results[scoreSignature] && results[scoreSignature].name} (
+                {scoreSignature})
+              </b>
+            </h1>
+            <h3 className="results-list">
               {independent > collaborative
-                ? "Independent (I)"
-                : "Collaborative (L)"}
-            </li>
-            <li>
+                ? "Independent, "
+                : "Collaborative, "}
               {formal > casual
-                ? "Business Formal Culture (B)"
-                : "Casual Creative Culture (C)"}
-            </li>
-            <li>
+                ? "Business Formal Culture, "
+                : "Casual Creative Culture, "}
               {taskOriented > improvisor
-                ? "Task Oriented (T)"
-                : "Improvisational (M)"}
-            </li>
-            <li>
-              {backOffice > clientFacing
-                ? "Back Office (O)"
-                : "Collaborative (F)"}
-            </li>
-          </ul>
-          <div className="description">
-            <h5>Description</h5>
-            <p>
-              {results[scoreSignature] && results[scoreSignature].description}
-            </p>
+                ? "Task Oriented, "
+                : "Improvisational, "}
+              {backOffice > clientFacing ? "Back Office" : "Client Facing"}
+            </h3>
+          </div>
+          <div className="results-body">
+            <img
+              src={`/assets/trophies/${scoreSignature}.png`}
+              alt={scoreSignature}
+              className="trophy-img"
+            />
+
+            <div className="description">
+              <p>
+                {results[scoreSignature] && results[scoreSignature].description}
+              </p>
+            </div>
           </div>
           <Link to={`/onboarding/signup/1/${uuid}`}>
             <Button>Next</Button>

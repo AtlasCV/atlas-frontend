@@ -33,7 +33,11 @@ class MyProfile extends React.Component<Props> {
               exact={true}
               path="/my-profile/distinguish-yourself"
               render={() => (
-                <DistinguishYourself noMarginLeft={true} isInProfile={true} />
+                <DistinguishYourself
+                  isMyProfile={true}
+                  noMarginLeft={true}
+                  isInProfile={true}
+                />
               )}
             />
             <Route
@@ -59,7 +63,7 @@ class MyProfile extends React.Component<Props> {
             <Route
               exact={true}
               path="/my-profile"
-              render={() => <ProfileBody />}
+              render={() => <ProfileBody isMyProfile={true} />}
             />
           </Switch>
         </div>

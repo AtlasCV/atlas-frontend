@@ -4,9 +4,8 @@
 
 .question-container {
   padding: 16px;
-  margin-left: 350px;
   width: 800px;
-  margin-top: 0px;
+  margin: 0 auto;
 }
 
 .question-container-header {

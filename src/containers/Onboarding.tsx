@@ -14,7 +14,6 @@ import "../styles/onboarding.css";
 import { QuestionState } from "../reducers/questions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import OnboardingSidebar from "../components/OnboardingSidebar";
 import { AuthState } from "../reducers/auth";
 import { ProfileState } from "../reducers/profile";
 
@@ -51,9 +50,6 @@ class Onboarding extends React.Component<Props> {
       <div>
         <Navbar />
         <div className="onboarding-container">
-          {!location.pathname.includes("introduction") && (
-            <OnboardingSidebar location={location} />
-          )}
           <div className="onboarding-sections">
             <Route
               path={this.props.match.url + "/introduction"}

@@ -1,0 +1,46 @@
+.profile-list {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-list h4 {
+  font-size: 21px;
+  font-weight: 200;
+  text-align: left;
+  color: #7d7c7c;
+}
+
+.profile-card {
+  height: 285px;
+  background-color: rgb(244, 239, 226);
+  border: 5px solid #24729b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 25px;
+}
+
+.image-placeholder {
+  height: 177px;
+  width: 177px;
+  background-color: red;
+  border-radius: 50%;
+  margin-right: 0px;
+}
+
+.identifying-information h2,
+.identifying-information h3 {
+  margin: 5px 0px;
+}
+
+.identifying-information h2 {
+  font-weight: 500;
+}
+
+.search-bar {
+  height: 114px;
+  background-color: rgb(243, 240, 226);
+  width: 100%;
+  box-shadow: 0px 2px 2px -1px #333;
+}
