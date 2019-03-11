@@ -9,6 +9,7 @@ import results from "../constants/results";
 import "../styles/results.css";
 import { QuestionState } from "../reducers/questions";
 import Button from "./Shared/Button";
+import { formatDescription } from "./Types/descriptions";
 
 type ResultsProps = {
   questions: QuestionState;
@@ -94,9 +95,9 @@ export default connect(
             />
 
             <div className="description">
-              <p>
-                {results[scoreSignature] && results[scoreSignature].description}
-              </p>
+              {formatDescription(
+                results[scoreSignature] && results[scoreSignature].description
+              )}
             </div>
           </div>
           <Link to={`/onboarding/signup/1/${uuid}`}>

@@ -9,6 +9,8 @@ import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
 import MyProfile from "./containers/MyProfile";
 import ProfileSearch from "./containers/ProfileSearch";
+import Description from "./components/Types/descriptions";
+import ResultTypes from "./components/Types";
 
 const init = require("./init").default;
 
@@ -23,6 +25,12 @@ const App = () => (
         <Route path="/employer-onboarding" component={EmployerOnboarding} />
         <Route path="/my-profile" component={MyProfile} />
         <Route path="/profiles" component={ProfileSearch} />
+        <Route exact={true} path="/personality-types" component={ResultTypes} />
+        <Route
+          exact={true}
+          path="/personality-types/:resultType"
+          component={Description}
+        />
         <Route path="/" component={LandingPage} />
       </Switch>
     </ConnectedRouter>

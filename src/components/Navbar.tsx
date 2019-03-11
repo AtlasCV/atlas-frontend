@@ -18,7 +18,7 @@ const Navbar = ({ auth, logout }: ComponentProps) => (
       <img src="/assets/logo.png" alt="logo" />
     </Link>
     <div className="nav-links">
-      <Link to="/#how-it-works">how it works</Link>
+      <Link to="/personality-types">personality types</Link>
       <Link to="/faq">FAQ</Link>
       <Link to="/support">support</Link>
       {auth.authenticated ? (
