@@ -5,6 +5,7 @@ import { loadApplicantsRequest } from "../../actions/applicants";
 import "../../styles/profile-list.css";
 import Button from "../Shared/Button";
 import { Link } from "react-router-dom";
+import { Applicant } from "src/types";
 
 type MapDispatchProps = { loadApplicantsRequest: typeof loadApplicantsRequest };
 
@@ -32,38 +33,46 @@ class ProfileList extends React.Component<Props> {
           <h4>
             Showing {apps.length} {apps.length === 1 ? "result" : "results"}
           </h4>
-          {apps.map(applicant => (
-            <div className="profile-card" key={applicant.id}>
-              <div className="image-placeholder" />
-              <div className="identifying-information">
-                <h2 className="sans-serif">
-                  {applicant.User &&
-                    `${applicant.User.firstName} ${applicant.User.lastName}`}
-                </h2>
-                <h3 className="sans-serif">
-                  {applicant.JobExperiences[0].name}
-                </h3>
-                <h3 className="sans-serif">
-                  {applicant.JobExperiences[0].numOfYears} Years Experience
-                </h3>
-                <h3 className="sans-serif">{applicant.city}</h3>
-              </div>
-              <div className="button-section">
-                <Link to={`/profiles/${applicant.User && applicant.User.id}`}>
-                  <Button styles={buttonStyles}>View Profile</Button>
-                </Link>
-                <Button styles={buttonStyles}>Contact</Button>
-              </div>
-              <img
-                src="/assets/personality-type-3.png"
-                alt="personality-type"
-              />
-            </div>
-          ))}
+          {apps.map(this.renderApplicant)}
         </div>
       </div>
     );
   }
+
+  renderApplicant = (applicant: Applicant) => {
+    const profileLink = `/profiles${applicant.User &&
+      `/${applicant.User.firstName.toLowerCase()}-${applicant.User.lastName.toLowerCase()}/${
+        applicant.User.id
+      }`}`;
+
+    return (
+      <div className="profile-card" key={applicant.id}>
+        <div className="image-placeholder" />
+        <div className="identifying-information">
+          <h2 className="sans-serif">
+            {applicant.User &&
+              `${applicant.User.firstName} ${applicant.User.lastName}`}
+          </h2>
+          <h3 className="sans-serif">{applicant.JobExperiences[0].name}</h3>
+          <h3 className="sans-serif">
+            {applicant.JobExperiences[0].numOfYears} Years Experience
+          </h3>
+          <h3 className="sans-serif">{applicant.city}</h3>
+        </div>
+        <div className="button-section">
+          <Link to={profileLink}>
+            <Button styles={buttonStyles}>View Profile</Button>
+          </Link>
+          <Button styles={buttonStyles}>Contact</Button>
+        </div>
+        <img
+          src={`/assets/merit_badges/${applicant.PersonalityEvaluation &&
+            applicant.PersonalityEvaluation.scoreSignature}.png`}
+          alt="personality-type"
+        />
+      </div>
+    );
+  };
 }
 
 const mapState = ({ applicants }: AppState) => ({ applicants });

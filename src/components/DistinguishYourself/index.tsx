@@ -5,7 +5,7 @@ import "../../styles/distingish-yourself.css";
 import Button from "../Shared/Button";
 import * as profileActions from "../../actions/profile";
 import { ProfileState } from "../../reducers/profile";
-import { Link, match } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { ApplicantState } from "../../reducers/applicants";
 import { loadApplicantDetailRequest } from "../../actions/applicants";
 
@@ -17,7 +17,7 @@ type Props = {
   noMarginLeft?: boolean;
   isInProfile?: boolean;
   isMyProfile: boolean;
-  match: match<{ applicantId: number }>;
+  routerProps: RouteComponentProps<{ applicantId: number }>;
 };
 
 type State = { distinguishYourself?: string; isEditable: boolean };
@@ -32,8 +32,16 @@ class DistinguishYourself extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // const { match, loadApplicantDetailRequest } = this.props;
-    // loadApplicantDetailRequest(match.params.applicantId);
+    console.log(this.props);
+    const {
+      routerProps,
+      loadApplicantDetailRequest,
+      isInProfile,
+      isMyProfile
+    } = this.props;
+    if (!isMyProfile && isInProfile) {
+      loadApplicantDetailRequest(routerProps.match.params.applicantId);
+    }
   }
 
   render() {
@@ -45,6 +53,18 @@ class DistinguishYourself extends React.Component<Props, State> {
       applicants: { detail }
     } = this.props;
     const { distinguishYourself, isEditable } = this.state;
+
+    const backLink = isMyProfile
+      ? isInProfile
+        ? "/my-profile"
+        : "/onboarding/signup/8"
+      : `/profiles/${detail.User &&
+          `${detail.User.firstName.toLowerCase()}/${detail.User.lastName.toLowerCase()}`}/${detail.User &&
+          detail.User.id}`;
+
+    const aboutMe = isMyProfile
+      ? this.props.profile.info.Applicant.aboutMe
+      : this.props.applicants.detail.aboutMe;
     return (
       <>
         {profile.fetchingApplicant ? (
@@ -73,21 +93,13 @@ class DistinguishYourself extends React.Component<Props, State> {
               <textarea
                 placeholder="Distinguish yourself..."
                 name="distinguishYourself"
-                defaultValue={this.props.profile.info.Applicant.aboutMe}
+                defaultValue={aboutMe}
                 onChange={e =>
                   this.setState({ distinguishYourself: e.currentTarget.value })
                 }
                 disabled={!isEditable}
               />
-              <Link
-                to={
-                  isMyProfile
-                    ? isInProfile
-                      ? "/my-profile"
-                      : "/onboarding/signup/8"
-                    : `/profiles/${detail.User && detail.User.id}`
-                }
-              >
+              <Link to={backLink}>
                 <Button
                   styles={{
                     position: "absolute",

@@ -30,17 +30,21 @@ class Search extends React.Component<Props> {
           />
           <Route
             exact={true}
-            path={this.props.match.url + "/:applicantId"}
+            path={this.props.match.url + "/:applicantName/:applicantId"}
             component={ProfileDetail}
           />
           <Route
             exact={true}
-            path={this.props.match.url + "/:applicantId/distinguish-yourself"}
-            render={() => (
+            path={
+              this.props.match.url +
+              "/:applicantName/:applicantId/distinguish-yourself"
+            }
+            render={props => (
               <DistinguishYourself
                 isMyProfile={false}
                 isInProfile={true}
                 noMarginLeft={true}
+                routerProps={props}
               />
             )}
           />

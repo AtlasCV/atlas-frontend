@@ -142,10 +142,35 @@ const deleteJobExperience: DeleteJobExperience = (action$, store, { ajax }) =>
         );
     });
 
+type AddProfilePicture = Epic<AnyAction, AppState, Dependencies>;
+const addProfilePicture: AddProfilePicture = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.ADD_PROFILE_PICTURE_REQUEST)
+    .mergeMap(({ payload: { image, applicantId } }) => {
+      console.log('yoooooo', applicantId);
+      return ajax({
+        method: "POST",
+        url: `${endpoint.applicants}/${applicantId}/profile-picture`,
+        headers: { "content-type": "application/json" },
+        data: { image }
+      })
+        .map(response =>
+          actions.addProfilePictureSuccess(response.data.result.imageLink)
+        )
+        .catch((err: AxiosError) =>
+          Observable.of(
+            actions.profileAjaxFailure(
+              !err.response ? err.message : err.response.data.message
+            )
+          )
+        );
+    });
+
 export default [
   createOrUpdateApplicantEpic,
   createEducationExperience,
   deleteEducationExperience,
   createJobExperience,
   deleteJobExperience,
+  addProfilePicture
 ];

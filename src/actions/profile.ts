@@ -86,6 +86,12 @@ export const deleteJobExperienceSuccess = (
   jobExperienceId: number
 ) => createAction(actionTypes.DELETE_JOB_EXPERIENCE_SUCCESS, { jobExperienceId });
 
+export const addProfilePictureRequest = (image: string, applicantId: number) => 
+  createAction(actionTypes.ADD_PROFILE_PICTURE_REQUEST, { image, applicantId });
+
+export const addProfilePictureSuccess = (imageLink: string) => 
+  createAction(actionTypes.ADD_PROFILE_PICTURE_SUCCESS, { imageLink });
+
 export const profileAjaxFailure = (reason: string) =>
   createAction(
     actionTypes.PROFILE_AJAX_FAILURE,

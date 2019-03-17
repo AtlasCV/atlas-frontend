@@ -1,14 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import Dropzone from "react-dropzone";
 import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
 import { ApplicantState } from "src/reducers/applicants";
+import { addProfilePictureRequest } from "src/actions/profile";
 
 interface Props {
   profile: ProfileState;
   applicants: ApplicantState;
   isMyProfile: boolean;
+  addProfilePicture: typeof addProfilePictureRequest;
 }
 
 const messageMeButtonStyle = {
@@ -29,14 +32,20 @@ const contactButtons = {
   borderRadius: "10px"
 };
 
-const Header = ({ profile, applicants: { detail }, isMyProfile }: Props) => {
+const Header = ({
+  profile,
+  applicants: { detail },
+  isMyProfile,
+  addProfilePicture
+}: Props) => {
   let profileDetail: any;
 
   const {
     info: {
       firstName,
       lastName,
-      Applicant: { JobExperiences, city }
+      Applicant: { JobExperiences, city },
+      id
     }
   } = profile;
   if (isMyProfile) {
@@ -44,7 +53,8 @@ const Header = ({ profile, applicants: { detail }, isMyProfile }: Props) => {
       firstName,
       lastName,
       JobExperiences,
-      city
+      city,
+      id
     };
   } else {
     profileDetail = {
@@ -54,10 +64,41 @@ const Header = ({ profile, applicants: { detail }, isMyProfile }: Props) => {
       city: detail.city
     };
   }
+
+  const onDrop = (acceptedFiles: any) => {
+    acceptedFiles.forEach((file: any) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imgData = { base64Img: reader.result, file };
+        addProfilePicture(imgData as any, profileDetail.id);
+      };
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+
+      reader.readAsDataURL(file);
+    });
+  };
+
   return (
     <div className="header">
       <div className="name-and-photo">
-        <div className="image-placeholder" />
+        <Dropzone onDrop={onDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div
+              {...getRootProps()}
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: "50%",
+                backgroundColor: "#f5f5f5"
+              }}
+            >
+              <input {...getInputProps()} />
+            </div>
+          )}
+        </Dropzone>
+
         <div className="name-and-title">
           <h1>
             {profileDetail.firstName} {profileDetail.lastName}
@@ -80,5 +121,5 @@ const Header = ({ profile, applicants: { detail }, isMyProfile }: Props) => {
 
 export default connect(
   ({ profile, applicants }: AppState) => ({ profile, applicants }),
-  {}
+  { addProfilePicture: addProfilePictureRequest }
 )(Header);

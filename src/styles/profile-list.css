@@ -29,6 +29,10 @@
   margin-right: 0px;
 }
 
+.identifying-information {
+  width: 200px;
+}
+
 .identifying-information h2,
 .identifying-information h3 {
   margin: 5px 0px;
@@ -43,4 +47,9 @@
   background-color: rgb(243, 240, 226);
   width: 100%;
   box-shadow: 0px 2px 2px -1px #333;
+}
+
+.profile-card img {
+  height: auto;
+  width: 150px;
 }

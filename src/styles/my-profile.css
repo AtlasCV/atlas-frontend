@@ -91,26 +91,18 @@
   width: 100%;
 }
 
-.small-white-rectangle {
-  width: 389px;
-  min-height: 141px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  padding: 20px;
-  position: relative;
-  top: 321px;
-  display: flex;
-  flex-direction: column;
+.contact-information h3 {
+  margin-bottom: 50px;
 }
 
-.small-white-rectangle p {
+.contact-information p {
   margin: 20px;
   font-size: 21px;
   display: flex;
   align-items: center;
 }
 
-.small-white-rectangle p img {
+.contact-information p img {
   margin-right: 15px;
 }
 
@@ -147,7 +139,7 @@
 }
 
 .about-me p {
-  max-height: 275px;
+  max-height: 480px;
   overflow: hidden;
 }
 
@@ -176,5 +168,17 @@
 
 .my-personality-type-img {
   position: absolute;
-  top: 150px;
+  top: 130px;
+  height: 600px;
+  width: auto;
+}
+
+.personality-info {
+  position: relative;
+  top: 260px;
+}
+
+.personality-info p {
+  max-height: 220px;
+  overflow: hidden;
 }

@@ -4,11 +4,6 @@ import * as profileActions from "../actions/profile";
 import * as authActions from "../actions/auth";
 import * as industryActions from "../actions/industries";
 import * as actionTypes from "../constants/actionTypes";
-import { ActionUnion } from "../actions/helpers";
-
-type Action = ActionUnion<
-  typeof profileActions | typeof authActions | typeof industryActions
->;
 
 export type ProfileState = {
   info: User;
@@ -175,7 +170,7 @@ const loginSuccess = (
 
 const profileReducer: Reducer<ProfileState> = (
   state = PROFILE_INITIAL_STATE,
-  action: Action
+  action: any
 ) => {
   switch (action.type) {
     case actionTypes.CREATE_APPLICANT_REQUEST:
@@ -202,6 +197,10 @@ const profileReducer: Reducer<ProfileState> = (
       return deleteEducationExperienceSuccess(state, action);
     case actionTypes.LOGIN_SUCCESS:
       return loginSuccess(state, action);
+    case actionTypes.ADD_PROFILE_PICTURE_REQUEST:
+      return { ...state, fetchingApplicant: true };
+    case actionTypes.ADD_PROFILE_PICTURE_SUCCESS:
+      return { ...state, info: { ...state.info, profileImgUrl: action.payload.imageLink} };
     default:
       return state;
   }

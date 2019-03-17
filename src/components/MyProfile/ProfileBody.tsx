@@ -12,6 +12,7 @@ import {
   ApplicantSkill,
   ApplicantIndustrySector
 } from "src/types";
+import results from "../../constants/results";
 
 interface Props {
   profile: ProfileState;
@@ -35,7 +36,9 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
           PersonalityEvaluation
         },
         phone,
-        email
+        email,
+        firstName,
+        lastName
       }
     } = profile;
     profileDetail = {
@@ -48,6 +51,8 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
       city,
       phone,
       email,
+      firstName,
+      lastName,
       scoreSignature: PersonalityEvaluation
         ? PersonalityEvaluation.scoreSignature
         : ""
@@ -74,6 +79,8 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
       JobExperiences,
       Certifications,
       city,
+      firstName: User ? User.firstName : "",
+      lastName: User ? User.lastName : "",
       phone: User ? User.phone : "",
       email: User ? User.email : "",
       id: User ? User.id : "",
@@ -93,6 +100,12 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
           .concat(s.slice(1).toLowerCase())
       )
       .join(" ");
+
+  const distinguishYourselfLink = isMyProfile
+    ? "/my-profile/distinguish-yourself"
+    : `/profiles/${profileDetail.firstName.toLowerCase()}-${profileDetail.lastName.toLowerCase()}/${
+        profileDetail.id
+      }/distinguish-yourself`;
   return (
     <div>
       <Header isMyProfile={!!isMyProfile} />
@@ -103,14 +116,7 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
               <h3>Biography</h3>
               <p>{profileDetail.aboutMe}</p>
               <p className="view-more">
-                <Link
-                  className="view-more"
-                  to={
-                    isMyProfile
-                      ? "/my-profile/distinguish-yourself"
-                      : `/profiles/${profileDetail.id}/distinguish-yourself`
-                  }
-                >
+                <Link className="view-more" to={distinguishYourselfLink}>
                   + More
                 </Link>
               </p>
@@ -121,15 +127,21 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
                 src={`/assets/trophies/${profileDetail.scoreSignature}.png`}
                 alt={profileDetail.scoreSignature}
               />
-              <div className="small-white-rectangle">
+              <div className="personality-info large-white-rectangle">
+                <h3>
+                  {results[profileDetail.scoreSignature] &&
+                    results[profileDetail.scoreSignature].name}
+                </h3>
                 <p>
-                  <img src="/assets/phone-icon.png" alt="phone-number" />{" "}
-                  {profileDetail.phone}
+                  {results[profileDetail.scoreSignature] &&
+                    results[profileDetail.scoreSignature].description}
                 </p>
-                <p>
-                  <img src="/assets/mail-icon.png" alt="email" />{" "}
-                  {profileDetail.email}
-                </p>
+                <Link
+                  className="view-more"
+                  to={`/personality-types/${profileDetail.scoreSignature}`}
+                >
+                  <p>+ More</p>
+                </Link>
               </div>
             </div>
           </div>
@@ -216,10 +228,20 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
                 </Link>
               )}
             </div>
-            <div className="large-white-rectangle center-content">
-              <h3>Looking for work in...</h3>
-              <p>{profileDetail.city}</p>
-              <p>Map will go here</p>
+            <div className="large-white-rectangle contact-information">
+              <h3 className="center-content">Contact Information</h3>
+              <p>
+                <img src="/assets/phone-icon.png" alt="phone-number" />{" "}
+                {profileDetail.phone}
+              </p>
+              <p>
+                <img src="/assets/mail-icon.png" alt="email" />{" "}
+                {profileDetail.email}
+              </p>
+              <p>
+                <img src="/assets/location-icon.png" alt="city" />{" "}
+                {profileDetail.city}
+              </p>
             </div>
           </div>
         </div>
