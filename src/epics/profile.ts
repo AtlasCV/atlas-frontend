@@ -1,13 +1,15 @@
-import { Observable } from "rxjs/Rx";
+import { Observable, Observer } from "rxjs/Rx";
 import { AxiosResponse, AxiosError } from "axios";
 import { AnyAction } from "redux";
 import { Epic } from "redux-observable";
+import { push } from "react-router-redux";
 import { AppState } from "../reducers";
 import { Dependencies } from "../init";
 import endpoint from "../constants/endpoint";
 import * as actions from "../actions/profile";
 import * as actionTypes from "../constants/actionTypes";
-import { push } from "react-router-redux";
+import S3 from '../config/aws';
+import { v1 } from 'uuid';
 
 type CreateOrUpdateApplicantEpic = Epic<AnyAction, AppState, Dependencies>;
 export const createOrUpdateApplicantEpic: CreateOrUpdateApplicantEpic = (
@@ -146,24 +148,27 @@ type AddProfilePicture = Epic<AnyAction, AppState, Dependencies>;
 const addProfilePicture: AddProfilePicture = (action$, store, { ajax }) =>
   action$
     .ofType(actionTypes.ADD_PROFILE_PICTURE_REQUEST)
-    .mergeMap(({ payload: { image, applicantId } }) => {
-      console.log('yoooooo', applicantId);
-      return ajax({
-        method: "POST",
-        url: `${endpoint.applicants}/${applicantId}/profile-picture`,
-        headers: { "content-type": "application/json" },
-        data: { image }
-      })
-        .map(response =>
-          actions.addProfilePictureSuccess(response.data.result.imageLink)
-        )
-        .catch((err: AxiosError) =>
-          Observable.of(
-            actions.profileAjaxFailure(
-              !err.response ? err.message : err.response.data.message
-            )
-          )
-        );
+    .mergeMap(({ payload: { image: file, applicantId } }) => {
+      const fileName = v1() + '-' + file.name;  
+      const configObject = {
+        Key: fileName,
+        Body: file,
+        ACL: 'public-read',
+        Bucket: 'atlas-profile-pictures',
+        ContentType: 'image/png',
+      };
+
+      return Observable.create((observer: Observer<any>) => {
+        S3.upload(configObject, (err: Error, data: any) => {
+          if (err) {
+            observer.next(actions.profileAjaxFailure(err.message));
+          } else {
+            observer.next(actions.updateApplicantRequest(applicantId, {
+              profileImgUrl: (data as any).Location,
+            }));
+          }
+        });
+      });
     });
 
 export default [

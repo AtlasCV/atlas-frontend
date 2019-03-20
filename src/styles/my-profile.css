@@ -182,3 +182,30 @@
   max-height: 220px;
   overflow: hidden;
 }
+
+.profile-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.profile-upload + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #e6e6e6;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  cursor: pointer;
+}

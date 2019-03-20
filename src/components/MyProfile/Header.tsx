@@ -1,10 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Dropzone from "react-dropzone";
 import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
 import { ApplicantState } from "src/reducers/applicants";
+import Modal from "../Modal";
 import { addProfilePictureRequest } from "src/actions/profile";
 
 interface Props {
@@ -45,7 +45,8 @@ const Header = ({
       firstName,
       lastName,
       Applicant: { JobExperiences, city },
-      id
+      id,
+      profileImgUrl
     }
   } = profile;
   if (isMyProfile) {
@@ -54,51 +55,48 @@ const Header = ({
       lastName,
       JobExperiences,
       city,
-      id
+      id,
+      profileImgUrl
     };
   } else {
     profileDetail = {
       firstName: detail.User ? detail.User.firstName : "",
       lastName: detail.User ? detail.User.lastName : "",
       JobExperiences: detail.JobExperiences,
+      profileImgUrl: detail.User ? detail.User.profileImgUrl : "",
       city: detail.city
     };
   }
 
-  const onDrop = (acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const imgData = { base64Img: reader.result, file };
-        addProfilePicture(imgData as any, profileDetail.id);
-      };
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-
-      reader.readAsDataURL(file);
-    });
+  let fileUpload: any;
+  const onDrop = (event: any) => {
+    console.log(fileUpload.files);
+    const file = fileUpload.files[0];
+    addProfilePicture(file, profileDetail.id);
   };
 
   return (
     <div className="header">
       <div className="name-and-photo">
-        <Dropzone onDrop={onDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div
-              {...getRootProps()}
-              style={{
-                width: 200,
-                height: 200,
-                borderRadius: "50%",
-                backgroundColor: "#f5f5f5"
-              }}
-            >
-              <input {...getInputProps()} />
-            </div>
-          )}
-        </Dropzone>
-
+        {profileDetail.profileImgUrl ? (
+          <img
+            className="profile-image"
+            src={profileDetail.profileImgUrl}
+            alt="profile-image"
+          />
+        ) : (
+          <React.Fragment>
+            <input
+              type="file"
+              onChange={onDrop}
+              ref={ref => (fileUpload = ref)}
+              accept="image/*"
+              className="profile-upload"
+              id="profile-upload"
+            />
+            <label htmlFor="profile-upload" />
+          </React.Fragment>
+        )}
         <div className="name-and-title">
           <h1>
             {profileDetail.firstName} {profileDetail.lastName}
@@ -112,6 +110,7 @@ const Header = ({
           <div className="contact-buttons-container">
             <Button styles={contactButtons}>Website</Button>
             <Button styles={contactButtons}>Resume</Button>
+            <Modal />
           </div>
         </div>
       </div>
