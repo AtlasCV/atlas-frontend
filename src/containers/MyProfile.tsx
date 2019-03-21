@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
 import { AppState } from "../reducers";
-import { ProfileState } from "..//reducers/profile";
+import { ProfileState } from "../reducers/profile";
 import { getMeRequest } from "../actions/auth";
 import Navbar from "../components/Navbar";
 import "../styles/my-profile.css";
@@ -12,15 +12,23 @@ import Skills from "../components/Signup/Skills";
 import Education from "../components/Signup/Education";
 import JobExperiences from "../components/Signup/JobExperiences";
 import Certifications from "../components/Signup/Certifications";
+import { push } from "react-router-redux";
 
 interface Props {
   profile: ProfileState;
   getMeRequest: typeof getMeRequest;
+  push: typeof push;
 }
 
 class MyProfile extends React.Component<Props> {
   componentDidMount() {
     this.props.getMeRequest();
+  }
+
+  componentDidUpdate() {
+    if (this.props.profile.info.id === 0) {
+      this.props.push("/");
+    }
   }
 
   render() {
@@ -74,5 +82,5 @@ class MyProfile extends React.Component<Props> {
 
 export default connect(
   ({ profile }: AppState) => ({ profile }),
-  { getMeRequest }
+  { getMeRequest, push }
 )(MyProfile);

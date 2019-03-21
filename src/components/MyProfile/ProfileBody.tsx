@@ -6,13 +6,13 @@ import { ProfileState } from "../../reducers/profile";
 import { ApplicantState } from "../../reducers/applicants";
 import Header from "./Header";
 import {
-  EducationExperience,
-  JobExperience,
   Certification,
   ApplicantSkill,
   ApplicantIndustrySector
 } from "src/types";
 import results from "../../constants/results";
+import EducationExperience from "./EducationExperience";
+import JobExperience from "./JobExperience";
 
 interface Props {
   profile: ProfileState;
@@ -117,7 +117,7 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
               <p>{profileDetail.aboutMe}</p>
               <p className="view-more">
                 <Link className="view-more" to={distinguishYourselfLink}>
-                  + More
+                  VIEW MORE
                 </Link>
               </p>
             </div>
@@ -140,54 +140,31 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
                   className="view-more"
                   to={`/personality-types/${profileDetail.scoreSignature}`}
                 >
-                  <p>+ More</p>
+                  <p>VIEW MORE</p>
                 </Link>
               </div>
             </div>
           </div>
           <div className="profile-row">
-            <div className="medium-white-rectangle">
-              <h2>Education</h2>
-              {profileDetail.EducationExperiences.map(
-                (education: EducationExperience) => (
-                  <div key={education.id} className="list-item">
-                    <p>{education.educationLevel}</p>
-                    <p>
-                      {education.university} {education.graduationYear}
-                    </p>
-                  </div>
-                )
-              )}
-              {isMyProfile && (
-                <Link className="view-more" to="/my-profile/education">
-                  <p>+ More</p>
-                </Link>
-              )}
-            </div>
-            <div className="medium-white-rectangle">
-              <h2>Experience</h2>
-              {profileDetail.JobExperiences.map((job: JobExperience) => (
-                <div key={job.id} className="list-item">
-                  <p>{job.name}</p>
-                  <p>{job.numOfYears} years</p>
-                </div>
-              ))}
-              {isMyProfile && (
-                <Link className="view-more" to="/my-profile/job-experiences">
-                  <p>+ More</p>
-                </Link>
-              )}
-            </div>
+            <EducationExperience
+              isMyProfile={isMyProfile}
+              profileDetail={profileDetail}
+            />
+            <JobExperience
+              isMyProfile={isMyProfile}
+              profileDetail={profileDetail}
+            />
             <div className="medium-white-rectangle">
               <h2>Certifications</h2>
-              {profileDetail.Certifications.map((cert: Certification) => (
-                <div key={cert.id} className="list-item">
-                  <p>{cert.name}</p>
-                </div>
-              ))}
+              {profileDetail.Certifications &&
+                profileDetail.Certifications.map((cert: Certification) => (
+                  <div key={cert.id} className="list-item">
+                    <p>{cert.name}</p>
+                  </div>
+                ))}
               {isMyProfile && (
                 <Link className="view-more" to="/my-profile/certifications">
-                  <p>+ More</p>
+                  <p>EDIT</p>
                 </Link>
               )}
             </div>
@@ -224,7 +201,7 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
               )}
               {isMyProfile && (
                 <Link className="view-more" to="/my-profile/skills">
-                  <p>+ More</p>
+                  <p>EDIT</p>
                 </Link>
               )}
             </div>

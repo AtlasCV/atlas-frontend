@@ -83,7 +83,7 @@ const PersonalInformationContinued = ({
           handleBlur={handleBlur}
           error={touched.phone && errors.phone}
         />
-        <Input
+        {/* <Input
           label="PROFILE PICTURE"
           name="profileImgUrl"
           type="text"
@@ -91,7 +91,7 @@ const PersonalInformationContinued = ({
           handleChange={handleChange}
           handleBlur={handleBlur}
           error={touched.profileImgUrl && errors.profileImgUrl}
-        />
+        /> */}
         <Input
           label="BIRTHDAY"
           name="birthday"

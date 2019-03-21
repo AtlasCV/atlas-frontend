@@ -24,7 +24,14 @@
 .image-placeholder {
   height: 177px;
   width: 177px;
-  background-color: red;
+  background-color: #7d7c7c;
+  border-radius: 50%;
+  margin-right: 0px;
+}
+
+.profile-image {
+  height: 177px !important;
+  width: 177px !important;
   border-radius: 50%;
   margin-right: 0px;
 }

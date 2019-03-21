@@ -4,7 +4,6 @@ import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
 import { ApplicantState } from "src/reducers/applicants";
-// import Modal from "../Modal";
 import { addProfilePictureRequest } from "src/actions/profile";
 
 interface Props {
@@ -85,8 +84,8 @@ const Header = ({
             alt="profile-image"
           />
         ) : (
-          isMyProfile && (
-            <React.Fragment>
+          <React.Fragment>
+            {isMyProfile ? (
               <input
                 type="file"
                 onChange={onDrop}
@@ -95,9 +94,11 @@ const Header = ({
                 className="profile-upload"
                 id="profile-upload"
               />
-              <label htmlFor="profile-upload" />
-            </React.Fragment>
-          )
+            ) : (
+              <div className="profile-upload" />
+            )}
+            <label htmlFor="profile-upload" />
+          </React.Fragment>
         )}
         <div className="name-and-title">
           <h1>

@@ -70,7 +70,7 @@ export const loginEpic: LoginEpic = (action$, store, { ajax }) =>
             getMeRequest(), 
             push(
               result.user.Applicant.signupComplete 
-              ? '/profile' 
+              ? '/my-profile' 
               : `/onboarding/signup/${result.user.Applicant.currentPageOfSignup}`
             )];
           }

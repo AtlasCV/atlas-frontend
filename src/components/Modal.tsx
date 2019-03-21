@@ -38,9 +38,7 @@ class ModalContainer extends React.Component<Props, { modalIsOpen: boolean }> {
   render() {
     return (
       <div>
-        <button onClick={this.openModal}>
-          {this.props.openModalComponent}
-        </button>
+        <div onClick={this.openModal}>{this.props.openModalComponent}</div>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}

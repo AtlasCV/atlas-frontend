@@ -47,7 +47,15 @@ class ProfileList extends React.Component<Props> {
 
     return (
       <div className="profile-card" key={applicant.id}>
-        <div className="image-placeholder" />
+        {applicant.User && applicant.User.profileImgUrl ? (
+          <img
+            src={applicant.User && applicant.User.profileImgUrl}
+            alt="profile-image"
+            className="profile-image"
+          />
+        ) : (
+          <div className="image-placeholder" />
+        )}
         <div className="identifying-information">
           <h2 className="sans-serif">
             {applicant.User &&

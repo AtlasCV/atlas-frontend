@@ -59,7 +59,7 @@ class DistinguishYourself extends React.Component<Props, State> {
         ? "/my-profile"
         : "/onboarding/signup/8"
       : `/profiles/${detail.User &&
-          `${detail.User.firstName.toLowerCase()}/${detail.User.lastName.toLowerCase()}`}/${detail.User &&
+          `${detail.User.firstName.toLowerCase()}-${detail.User.lastName.toLowerCase()}`}/${detail.User &&
           detail.User.id}`;
 
     const aboutMe = isMyProfile
