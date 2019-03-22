@@ -13,29 +13,65 @@ type MapDispatchProps = {
 type ComponentProps = MapStateProps & MapDispatchProps;
 
 const Navbar = ({ auth, logout }: ComponentProps) => (
-  <div className="navbar">
-    <Link to="/">
-      <img src="/assets/logo.png" alt="logo" />
+  <nav className="navbar navbar-expand-lg navbar-light bg-light row">
+    <Link className="navbar-brand" to="/">
+      <img
+        src="/assets/logo.png"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+        alt=""
+      />
     </Link>
-    <div className="nav-links">
-      <Link to="/personality-types">personality types</Link>
-      <Link to="/faq">FAQ</Link>
-      <Link to="/support">support</Link>
-      {auth.authenticated ? (
-        <>
-          <Link to="/my-profile">view my profile</Link>
-          <Link to="/" onClick={logout}>
-            logout
-          </Link>
-        </>
-      ) : (
-        <>
-          <Link to="/login">login</Link>
-          <Link to="/onboarding/introduction">create an account</Link>
-        </>
-      )}
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      {" "}
+      <span className="navbar-toggler-icon" />
+    </button>
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav">
+        <Link className="nav-link nav-item" to="/personality-types">
+          personality types
+        </Link>
+
+        <Link className="nav-link nav-item" to="/faq">
+          FAQ
+        </Link>
+
+        <Link className="nav-link nav-item" to="/support">
+          support
+        </Link>
+        {auth.authenticated ? (
+          <>
+            <Link className="nav-link nav-item" to="/my-profile">
+              view my profile
+            </Link>
+
+            <Link className="nav-link nav-item" to="/" onClick={logout}>
+              logout
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link className="nav-link nav-item" to="/login">
+              login
+            </Link>
+
+            <Link className="nav-link nav-item" to="/onboarding/introduction">
+              create an account
+            </Link>
+          </>
+        )}
+      </ul>
     </div>
-  </div>
+  </nav>
 );
 
 const mapState = ({ auth }: AppState) => ({ auth });
