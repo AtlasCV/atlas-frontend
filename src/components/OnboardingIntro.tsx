@@ -4,16 +4,16 @@ import "../styles/onboarding-intro.css";
 import Button from "./Shared/Button";
 
 export default ({ uuid }: { uuid?: string }) => (
-  <div className="introduction">
-    <div className="introduction-header">
+  <div className="introduction container-fluid">
+    <div className="introduction-header row">
       <h2>Welcome to Showcase</h2>
       <h3>
         There are just three easy steps to joining the only job hunting site you
         will ever need
       </h3>
     </div>
-    <div className="onboarding-steps-container">
-      <div className="step-explanation">
+    <div className="onboarding-steps-container row">
+      <div className="step-explanation col-md-4">
         <div className="step-number">
           <h3>1</h3>
         </div>
@@ -23,7 +23,7 @@ export default ({ uuid }: { uuid?: string }) => (
           position to suit your strengths and preferences.
         </p>
       </div>
-      <div className="step-explanation">
+      <div className="step-explanation col-md-4">
         <div className="step-number">
           <h3>2</h3>
         </div>
@@ -33,7 +33,7 @@ export default ({ uuid }: { uuid?: string }) => (
           the resume section.
         </p>
       </div>
-      <div className="step-explanation">
+      <div className="step-explanation col-md-4">
         <div className="step-number">
           <h3>3</h3>
         </div>

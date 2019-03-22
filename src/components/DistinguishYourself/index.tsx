@@ -17,6 +17,7 @@ type Props = {
   noMarginLeft?: boolean;
   isInProfile?: boolean;
   isMyProfile: boolean;
+  isOnboardingFlow?: boolean;
   routerProps: RouteComponentProps<{ applicantId: number }>;
 };
 
@@ -50,7 +51,8 @@ class DistinguishYourself extends React.Component<Props, State> {
       noMarginLeft,
       isInProfile,
       isMyProfile,
-      applicants: { detail }
+      applicants: { detail },
+      isOnboardingFlow
     } = this.props;
     const { distinguishYourself, isEditable } = this.state;
 
@@ -99,46 +101,35 @@ class DistinguishYourself extends React.Component<Props, State> {
                 }
                 disabled={!isEditable}
               />
-              <Link to={backLink}>
-                <Button
-                  styles={{
-                    position: "absolute",
-                    left: 120,
-                    bottom: 125
-                  }}
-                >
-                  BACK
-                </Button>
-              </Link>
-              {isMyProfile && (
-                <Button
-                  disabled={
-                    !!(distinguishYourself && distinguishYourself.length < 1)
-                  }
-                  styles={{
-                    position: "absolute",
-                    right: 120,
-                    bottom: 125
-                  }}
-                  onClick={this.handleSubmitOrEdit}
-                >
-                  {isEditable ? "Submit" : "Edit"}
-                </Button>
-              )}
-              {isEditable && (
-                <Button
-                  onClick={() => this.setState({ isEditable: false })}
-                  styles={{
-                    position: "absolute",
-                    right: 290,
-                    bottom: 125,
-                    border: "rgb(223, 69, 67) 1px solid",
-                    color: "rgb(223, 69, 67)"
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
+              <div className="button-container">
+                <Link to={backLink}>
+                  <Button>BACK</Button>
+                </Link>
+                {isMyProfile ||
+                  (isOnboardingFlow && (
+                    <Button
+                      disabled={
+                        !!(
+                          distinguishYourself && distinguishYourself.length < 1
+                        )
+                      }
+                      onClick={this.handleSubmitOrEdit}
+                    >
+                      {isEditable ? "SUBMIT" : "EDIT"}
+                    </Button>
+                  ))}
+                {isEditable && isMyProfile && (
+                  <Button
+                    onClick={() => this.setState({ isEditable: false })}
+                    styles={{
+                      border: "rgb(223, 69, 67) 1px solid",
+                      color: "rgb(223, 69, 67)"
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         )}

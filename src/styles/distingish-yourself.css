@@ -9,10 +9,10 @@
 
 .distinguish-yourself-inner-section {
   padding: 0px 140px 100px 100px;
-
   background-color: rgb(51, 61, 66);
-  width: 960px;
+  max-width: 960px;
   position: relative;
+  margin: 0 auto;
 }
 
 .not-editable {
@@ -42,4 +42,15 @@
 
 .no-margin-left {
   margin-left: 0px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+  .distinguish-yourself-inner-section {
+    padding: 20px;
+  }
 }

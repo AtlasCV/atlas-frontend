@@ -85,7 +85,7 @@ class Onboarding extends React.Component<Props> {
             <Route
               exact={true}
               path={this.props.match.url + "/distinguish-yourself"}
-              component={DistinguishYourself}
+              render={() => <DistinguishYourself isOnboardingFlow={true} />}
             />
           </div>
         </div>
