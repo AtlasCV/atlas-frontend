@@ -111,8 +111,8 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
       <Header isMyProfile={!!isMyProfile} />
       <div className="profile-body">
         <div className="profile-body-inner-section">
-          <div className="profile-row">
-            <div className="large-white-rectangle about-me">
+          <div className="row">
+            <div className="large-white-rectangle about-me col-lg-6">
               <h3>Biography</h3>
               <p>{profileDetail.aboutMe}</p>
               <p className="view-more">
@@ -121,12 +121,16 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
                 </Link>
               </p>
             </div>
-            <div>
-              <img
-                className="trophy-img my-personality-type-img"
-                src={`/assets/trophies/${profileDetail.scoreSignature}.png`}
-                alt={profileDetail.scoreSignature}
-              />
+
+            <div className="offset-lg-1 col-lg-5">
+              <div className="my-personality-type-badge-img large-white-rectangle">
+                <img
+                  src={`/assets/merit_badges/${
+                    profileDetail.scoreSignature
+                  }.png`}
+                  alt={profileDetail.scoreSignature}
+                />
+              </div>
               <div className="personality-info large-white-rectangle">
                 <h3>
                   {results[profileDetail.scoreSignature] &&
@@ -145,80 +149,92 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
               </div>
             </div>
           </div>
-          <div className="profile-row">
-            <EducationExperience
-              isMyProfile={isMyProfile}
-              profileDetail={profileDetail}
-            />
-            <JobExperience
-              isMyProfile={isMyProfile}
-              profileDetail={profileDetail}
-            />
-            <div className="medium-white-rectangle">
-              <h2>Certifications</h2>
-              {profileDetail.Certifications &&
-                profileDetail.Certifications.map((cert: Certification) => (
-                  <div key={cert.id} className="list-item">
-                    <p>{cert.name}</p>
-                  </div>
-                ))}
-              {isMyProfile && (
-                <Link className="view-more" to="/my-profile/certifications">
-                  <p>EDIT</p>
-                </Link>
-              )}
+          <div className="row">
+            <div className="col-lg-4">
+              <EducationExperience
+                isMyProfile={isMyProfile}
+                profileDetail={profileDetail}
+              />
+            </div>
+            <div className="col-lg-4">
+              <JobExperience
+                isMyProfile={isMyProfile}
+                profileDetail={profileDetail}
+              />
+            </div>
+            <div className="col-lg-4">
+              <div className="medium-white-rectangle">
+                <h2>Certifications</h2>
+                {profileDetail.Certifications &&
+                  profileDetail.Certifications.map((cert: Certification) => (
+                    <div key={cert.id} className="list-item">
+                      <p>{cert.name}</p>
+                    </div>
+                  ))}
+                {isMyProfile && (
+                  <Link className="view-more" to="/my-profile/certifications">
+                    <p>EDIT</p>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-          <div className="profile-row">
-            <div className="large-white-rectangle center-content">
-              <h3>Skills</h3>
-              {profileDetail.ApplicantSkills.map((skill: ApplicantSkill) => (
-                <div key={skill.SkillId}>
-                  <p className="skill-name">
-                    {skill.Skill ? skill.Skill.displayName : ""}
-                  </p>
-                  <p className="skill-experience">
-                    {skill.Skill ? skill.yearsExperience : ""} years experience
-                  </p>
-                </div>
-              ))}
-              {profileDetail.ApplicantIndustrySectors.map(
-                (industrySector: ApplicantIndustrySector) => (
-                  <div key={industrySector.IndustrySectorId}>
+
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="large-white-rectangle center-content">
+                <h3>Skills</h3>
+                {profileDetail.ApplicantSkills.map((skill: ApplicantSkill) => (
+                  <div key={skill.SkillId}>
                     <p className="skill-name">
-                      {formatIndustrySector(
-                        (industrySector.IndustrySector &&
-                          industrySector.IndustrySector.name) ||
-                          ""
-                      )}
+                      {skill.Skill ? skill.Skill.displayName : ""}
                     </p>
                     <p className="skill-experience">
-                      {industrySector ? industrySector.yearsExperience : ""}{" "}
-                      years experience
+                      {skill.Skill ? skill.yearsExperience : ""} years
+                      experience
                     </p>
                   </div>
-                )
-              )}
-              {isMyProfile && (
-                <Link className="view-more" to="/my-profile/skills">
-                  <p>EDIT</p>
-                </Link>
-              )}
+                ))}
+                {profileDetail.ApplicantIndustrySectors.map(
+                  (industrySector: ApplicantIndustrySector) => (
+                    <div key={industrySector.IndustrySectorId}>
+                      <p className="skill-name">
+                        {formatIndustrySector(
+                          (industrySector.IndustrySector &&
+                            industrySector.IndustrySector.name) ||
+                            ""
+                        )}
+                      </p>
+                      <p className="skill-experience">
+                        {industrySector ? industrySector.yearsExperience : ""}{" "}
+                        years experience
+                      </p>
+                    </div>
+                  )
+                )}
+                {isMyProfile && (
+                  <Link className="view-more" to="/my-profile/skills">
+                    <p>EDIT</p>
+                  </Link>
+                )}
+              </div>
             </div>
-            <div className="large-white-rectangle contact-information">
-              <h3 className="center-content">Contact Information</h3>
-              <p>
-                <img src="/assets/phone-icon.png" alt="phone-number" />{" "}
-                {profileDetail.phone}
-              </p>
-              <p>
-                <img src="/assets/mail-icon.png" alt="email" />{" "}
-                {profileDetail.email}
-              </p>
-              <p>
-                <img src="/assets/location-icon.png" alt="city" />{" "}
-                {profileDetail.city}
-              </p>
+            <div className="col-lg-6">
+              <div className="large-white-rectangle contact-information">
+                <h3 className="center-content">Contact Information</h3>
+                <p>
+                  <img src="/assets/phone-icon.png" alt="phone-number" />{" "}
+                  {profileDetail.phone}
+                </p>
+                <p>
+                  <img src="/assets/mail-icon.png" alt="email" />{" "}
+                  {profileDetail.email}
+                </p>
+                <p>
+                  <img src="/assets/location-icon.png" alt="city" />{" "}
+                  {profileDetail.city}
+                </p>
+              </div>
             </div>
           </div>
         </div>

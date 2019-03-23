@@ -46,13 +46,15 @@ const DescriptionBody: React.SFC<DescriptionBodyProps> = ({
             {resultType[0] === "O" ? "Back Office" : "Client Facing"}
           </h3>
         </div>
-        <div className="results-body">
-          <img
-            src={`/assets/trophies/${resultType}.png`}
-            alt={resultType}
-            className="trophy-img"
-          />
-          <div className="description">
+        <div className="results-body row">
+          <div className="col-md-6">
+            <img
+              src={`/assets/trophies/${resultType}.png`}
+              alt={resultType}
+              className="trophy-img"
+            />
+          </div>
+          <div className="description col-md-6">
             {formatDescription(
               results[resultType] && results[resultType].description
             )}

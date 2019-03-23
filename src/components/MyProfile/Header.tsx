@@ -43,7 +43,7 @@ const Header = ({
     info: {
       firstName,
       lastName,
-      Applicant: { JobExperiences, city },
+      Applicant: { JobExperiences, city, PersonalityEvaluation },
       id,
       profileImgUrl
     }
@@ -55,7 +55,10 @@ const Header = ({
       JobExperiences,
       city,
       id,
-      profileImgUrl
+      profileImgUrl,
+      scoreSignature: PersonalityEvaluation
+        ? PersonalityEvaluation.scoreSignature
+        : ""
     };
   } else {
     profileDetail = {
@@ -63,7 +66,10 @@ const Header = ({
       lastName: detail.User ? detail.User.lastName : "",
       JobExperiences: detail.JobExperiences,
       profileImgUrl: detail.User ? detail.User.profileImgUrl : "",
-      city: detail.city
+      city: detail.city,
+      scoreSignature:
+        detail.PersonalityEvaluation &&
+        detail.PersonalityEvaluation.scoreSignature
     };
   }
 
@@ -75,8 +81,8 @@ const Header = ({
   };
 
   return (
-    <div className="header">
-      <div className="name-and-photo">
+    <div className="header row">
+      <div className="name-and-photo col-lg-6">
         {profileDetail.profileImgUrl ? (
           <img
             className="profile-image"
@@ -115,6 +121,13 @@ const Header = ({
             <Button styles={contactButtons}>Resume</Button>
           </div>
         </div>
+      </div>
+      <div className="col-lg-5 offset-lg-1">
+        <img
+          className="my-personality-type-img"
+          src={`/assets/trophies/${profileDetail.scoreSignature}.png`}
+          alt={profileDetail.scoreSignature}
+        />
       </div>
     </div>
   );

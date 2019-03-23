@@ -25,12 +25,6 @@ class MyProfile extends React.Component<Props> {
     this.props.getMeRequest();
   }
 
-  componentDidUpdate() {
-    if (this.props.profile.info.id === 0) {
-      this.props.push("/");
-    }
-  }
-
   render() {
     return (
       <div>
