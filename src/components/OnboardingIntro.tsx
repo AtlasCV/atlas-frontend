@@ -44,7 +44,7 @@ export default ({ uuid }: { uuid?: string }) => (
         </p>
       </div>
     </div>
-    <div className="button-container">
+    <div className="button-container-onboarding">
       <Link to="/onboarding/personality-evaluator">
         <Button>LET'S GET STARTED</Button>
       </Link>
