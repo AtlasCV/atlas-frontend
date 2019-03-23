@@ -73,5 +73,5 @@
       "check-typecast"
     ]
   },
-  "extends": ["tslint-react", "tslint-config-prettier"]
+  "extends": ["tslint-react"]
 }
