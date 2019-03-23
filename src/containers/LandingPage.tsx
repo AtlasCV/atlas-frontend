@@ -60,7 +60,7 @@ class LandingPage extends React.Component<Props> {
             />
           </div>
         </div>
-        <div className="boring-resume-section row">
+        <div className="boring-resume-section">
           <h3 className="display-5">Say goodbye to boring resumes.</h3>
           <h5>
             We believe that being fitted to the right role in the right company

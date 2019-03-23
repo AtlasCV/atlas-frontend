@@ -88,6 +88,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-top: 30px;
 }
 
 .step {
@@ -126,7 +127,7 @@
 }
 
 .boring-resume-footer {
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: right;
 }
 
