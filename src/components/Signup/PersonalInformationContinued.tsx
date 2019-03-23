@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as moment from "moment";
+import moment from "moment";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
 import Select from "../Shared/Select";

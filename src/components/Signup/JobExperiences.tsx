@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import * as moment from "moment";
+import moment from "moment";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
