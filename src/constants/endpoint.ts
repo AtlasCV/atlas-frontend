@@ -1,8 +1,4 @@
-const ROOT_URL = process.env.ROOT_URL;
-
-console.log(process.env);
-
-console.log(ROOT_URL);
+const ROOT_URL = "http://atlas-back-end.herokuapp.com";
 
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
