@@ -1,4 +1,4 @@
-const ROOT_URL = "http://showcase-dev.us-east-1.elasticbeanstalk.com";
+const ROOT_URL = "https://atlas-back-end.herokuapp.com/";
 
 // create constants for each service URL here and replace DEV_URL
 const DEV_URL = "http://localhost:10013";
