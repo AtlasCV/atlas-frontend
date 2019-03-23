@@ -1,4 +1,4 @@
-const ROOT_URL = process.env.ROOT_URL || "http://localhost:10013";
+const ROOT_URL = process.env.ROOT_URL;
 
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
