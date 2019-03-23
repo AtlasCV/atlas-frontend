@@ -1,5 +1,9 @@
 const ROOT_URL = process.env.ROOT_URL;
 
+console.log(process.env);
+
+console.log(ROOT_URL);
+
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
   applicants: `${ROOT_URL}/applicants`,
@@ -10,7 +14,5 @@ const URL = {
   me: `${ROOT_URL}/me`,
   login: `${ROOT_URL}/login`
 };
-
-console.log(process.env.ROOT_URL);
 
 export default URL;
