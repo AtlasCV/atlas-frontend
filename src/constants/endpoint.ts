@@ -11,4 +11,6 @@ const URL = {
   login: `${ROOT_URL}/login`
 };
 
+console.log(process.env.ROOT_URL);
+
 export default URL;
