@@ -1,4 +1,4 @@
-const ROOT_URL = "http://atlas-back-end.herokuapp.com";
+const ROOT_URL = "https://atlas-back-end.herokuapp.com";
 
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
