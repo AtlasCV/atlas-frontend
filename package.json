@@ -2,6 +2,9 @@
   "name": "atlas-front-end",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.15.3"
+  },
   "dependencies": {
     "@types/jest": "^22.1.4",
     "@types/prop-types": "^15.5.2",
