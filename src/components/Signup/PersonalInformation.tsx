@@ -112,7 +112,7 @@ const PersonalInformation = ({
             handleBlur={handleBlur}
             error={touched.email && errors.email}
           />
-          <Input
+          {/* <Input
             label="LINKED IN URL"
             name="linkedIn"
             type="text"
@@ -120,7 +120,7 @@ const PersonalInformation = ({
             handleChange={handleChange}
             handleBlur={handleBlur}
             error={touched.linkedIn && errors.linkedIn}
-          />
+          /> */}
           <Input
             label="PASSWORD"
             name="password"

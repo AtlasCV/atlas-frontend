@@ -25,7 +25,7 @@ export default ({ progress }: Props) => {
           style={{
             width: `${progress}%`,
             backgroundColor: "#28719d",
-            height: "20px",
+            height: "16px",
             zIndex: 1,
             borderRadius: "2px"
           }}

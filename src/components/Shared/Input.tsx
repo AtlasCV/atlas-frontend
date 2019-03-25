@@ -1,5 +1,6 @@
 import * as React from "react";
 import "../../styles/input.css";
+import "nodep-date-input-polyfill";
 
 type InputProps = {
   label: string;
@@ -34,6 +35,7 @@ export default ({
       name={name}
       className="text-box"
       ref={ref}
+      date-format={"mm/dd/yyyy"}
     />
   </div>
 );

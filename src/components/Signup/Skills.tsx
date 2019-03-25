@@ -40,14 +40,6 @@ class PageSix extends React.Component<Props, State> {
     this.props.loadSkillsRequest();
   }
 
-  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
-    if (!nextProps.skills.savedSkills) {
-      return { selectedSkill: 0 };
-    } else {
-      return null;
-    }
-  }
-
   selectSkill = (skillId: number) => {
     this.setState({ selectedSkill: skillId });
   };
@@ -61,6 +53,8 @@ class PageSix extends React.Component<Props, State> {
       completeSkills,
       isInProfile
     } = this.props;
+
+    console.log(this.state.selectedSkill);
 
     const applicantSkills = profile.info.Applicant.ApplicantSkills.map(
       appSkill => appSkill.SkillId

@@ -54,8 +54,11 @@ class SkillToken extends React.Component<Props> {
       selectSkillForApplicant,
       applicantId,
       hasSkill,
-      removeSkillFromApplicant
+      removeSkillFromApplicant,
+      selected
     } = this.props;
+
+    console.log(selected);
 
     const tokenStyle = style({
       height: "70px",
@@ -75,7 +78,7 @@ class SkillToken extends React.Component<Props> {
 
     return (
       <div className={tokenContainer}>
-        {this.props.selected ? (
+        {selected ? (
           hasSkill ? (
             <div className={years}>
               <div

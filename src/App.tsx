@@ -2,7 +2,6 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import { Route, Switch } from "react-router-dom";
-
 import Onboarding from "./containers/Onboarding";
 import EmployerOnboarding from "./containers/EmployerOnboarding";
 import LandingPage from "./containers/LandingPage";

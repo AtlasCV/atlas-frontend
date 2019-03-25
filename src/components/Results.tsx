@@ -87,14 +87,16 @@ export default connect(
               {backOffice > clientFacing ? "Back Office" : "Client Facing"}
             </h3>
           </div>
-          <div className="results-body">
-            <img
-              src={`/assets/trophies/${scoreSignature}.png`}
-              alt={scoreSignature}
-              className="trophy-img"
-            />
+          <div className="results-body row">
+            <div className="col-md-6">
+              <img
+                src={`/assets/trophies/${scoreSignature}.png`}
+                alt={scoreSignature}
+                className="trophy-img"
+              />
+            </div>
 
-            <div className="description">
+            <div className="description col-md-6">
               {formatDescription(
                 results[scoreSignature] && results[scoreSignature].description
               )}

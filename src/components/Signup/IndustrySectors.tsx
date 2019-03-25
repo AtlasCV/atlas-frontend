@@ -43,14 +43,6 @@ class PageSeven extends React.Component<Props, State> {
     );
   }
 
-  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
-    if (!nextProps.industrySectors.savedIndustrySectors) {
-      return { selectedIndustrySector: 0 };
-    } else {
-      return null;
-    }
-  }
-
   selectIndustrySector = (industrySectorId: number) => {
     this.setState({ selectedIndustrySector: industrySectorId });
   };

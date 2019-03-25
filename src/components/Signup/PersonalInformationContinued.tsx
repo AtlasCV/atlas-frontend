@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppState } from "src/reducers";
 import { updateApplicantRequest } from "src/actions/profile";
+import { DatePicker } from "../Shared/DatePicker";
 
 type MapStateProps = {
   profile: ProfileState;
@@ -41,16 +42,19 @@ const PersonalInformationContinued = ({
         : "",
       gender: profile.info.gender || ""
     }}
-    onSubmit={applicantFormProps =>
+    onSubmit={applicantFormProps => {
+      // @ts-ignore
+      const { birthdayMonth, birthdayDay, birthdayYear } = applicantFormProps;
       updateApplicantRequest(
         applicantId,
         {
           ...applicantFormProps,
+          birthday: `${birthdayMonth}/${birthdayDay}/${birthdayYear}`,
           currentPageOfSignup: 3
         },
         "/onboarding/signup/3"
-      )
-    }
+      );
+    }}
     validate={(values: any) => {
       let errors: UpdateApplicantFormProps = {};
       Object.keys(errors).forEach(key => {
@@ -92,14 +96,13 @@ const PersonalInformationContinued = ({
           handleBlur={handleBlur}
           error={touched.profileImgUrl && errors.profileImgUrl}
         /> */}
-        <Input
-          label="BIRTHDAY"
-          name="birthday"
-          type="text"
-          value={values.birthday}
+        <label>BIRTHDAY</label>
+        <DatePicker
+          values={values}
           handleChange={handleChange}
           handleBlur={handleBlur}
-          error={touched.birthday && errors.birthday}
+          errors={errors}
+          namePrefix="birthday"
         />
         <Select
           label="GENDER"

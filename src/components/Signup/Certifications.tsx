@@ -35,14 +35,6 @@ class Certifications extends React.Component<Props, State> {
     this.props.loadCertificationsRequest();
   }
 
-  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
-    if (!nextProps.certifications.savedCertifications) {
-      return { selectedCertification: 0 };
-    } else {
-      return null;
-    }
-  }
-
   selectCertification = (certificationId: number) => {
     this.setState({ selectedCertification: certificationId });
   };

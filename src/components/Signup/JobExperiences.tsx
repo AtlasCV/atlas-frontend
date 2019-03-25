@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import moment from "moment";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import Input from "../Shared/Input";
@@ -16,6 +15,7 @@ import {
 } from "../../actions/profile";
 import { AppState } from "../../reducers";
 import "../../styles/edit-profile.css";
+import { DatePicker } from "../Shared/DatePicker";
 
 type MapStateProps = {
   profile: ProfileState;
@@ -72,20 +72,19 @@ class Jobs extends React.Component<Props> {
               companyName: ""
             }}
             onSubmit={({
-              from,
-              to,
+              fromYear,
+              toYear,
               currentlyWorkingHere,
               name,
               companyName,
               description
             }: any) => {
-              console.log(to, from);
               return createJobExperienceRequest(id, {
                 name,
                 companyName,
                 description,
                 currentlyWorkingHere: currentlyWorkingHere === "yes",
-                numOfYears: moment(to).year() - moment(from).year()
+                numOfYears: +toYear - +fromYear
               });
             }}
             validate={values => {
@@ -120,23 +119,21 @@ class Jobs extends React.Component<Props> {
                   handleBlur={handleBlur}
                   error={touched.name && errors.name}
                 />
-                <Input
-                  label="FROM"
-                  name="from"
-                  type="text"
-                  value={values.from}
+                <label style={{ color: "#fff" }}>FROM</label>
+                <DatePicker
+                  values={values}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
-                  error={touched.from && errors.from}
+                  errors={errors}
+                  namePrefix="from"
                 />
-                <Input
-                  label="TO"
-                  name="to"
-                  type="text"
-                  value={values.to}
+                <label style={{ color: "#fff" }}>TO</label>
+                <DatePicker
+                  values={values}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
-                  error={touched.to && errors.to}
+                  errors={errors}
+                  namePrefix="to"
                 />
                 <Select
                   label="ARE YOU CURRENTLY WORKING HERE?"
