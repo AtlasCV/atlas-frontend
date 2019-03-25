@@ -37,8 +37,14 @@ const PersonalInformationContinued = ({
     initialValues={{
       phone: profile.info.phone || "",
       profileImgUrl: profile.info.profileImgUrl || "",
-      birthday: profile.info.birthday
-        ? moment(profile.info.birthday).format("MM/DD/YYYY")
+      birthdayMonth: profile.info.birthday
+        ? moment(profile.info.birthday).format("YYYY")
+        : "",
+      birthdayDay: profile.info.birthday
+        ? moment(profile.info.birthday).format("DD")
+        : "",
+      birthdayYear: profile.info.birthday
+        ? moment(profile.info.birthday).format("MM")
         : "",
       gender: profile.info.gender || ""
     }}
