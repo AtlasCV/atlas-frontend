@@ -105,19 +105,16 @@ class DistinguishYourself extends React.Component<Props, State> {
                 <Link to={backLink}>
                   <Button>BACK</Button>
                 </Link>
-                {isMyProfile ||
-                  (isOnboardingFlow && (
-                    <Button
-                      disabled={
-                        !!(
-                          distinguishYourself && distinguishYourself.length < 1
-                        )
-                      }
-                      onClick={this.handleSubmitOrEdit}
-                    >
-                      {isEditable ? "SUBMIT" : "EDIT"}
-                    </Button>
-                  ))}
+                {(isMyProfile || isOnboardingFlow) && (
+                  <Button
+                    disabled={
+                      !!(distinguishYourself && distinguishYourself.length < 1)
+                    }
+                    onClick={this.handleSubmitOrEdit}
+                  >
+                    {isEditable ? "SUBMIT" : "EDIT"}
+                  </Button>
+                )}
                 {isEditable && isMyProfile && (
                   <Button
                     onClick={() => this.setState({ isEditable: false })}
