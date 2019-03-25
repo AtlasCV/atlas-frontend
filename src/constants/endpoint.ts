@@ -1,6 +1,6 @@
-// const ROOT_URL = "https://atlas-back-end.herokuapp.com";
+const ROOT_URL = "https://atlas-back-end.herokuapp.com";
 
-const ROOT_URL = "http://localhost:10013";
+// const ROOT_URL = "http://localhost:10013";
 
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
