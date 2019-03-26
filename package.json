@@ -49,16 +49,18 @@
     "redux-logger": "^3.0.6",
     "redux-observable": "^0.18.0",
     "rxjs": "^5.5.6",
+    "serve": "^10.1.2",
     "typesafe-actions": "^1.1.2",
     "typescript": "^2.8.1",
     "typestyle": "^1.7.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "dev": "react-scripts-ts start",
     "build": "react-scripts-ts build",
+    "start": "serve -s build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "deploy": "aws s3 sync build/ s3://new-atlas-frontend"
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
