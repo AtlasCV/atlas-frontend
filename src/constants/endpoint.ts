@@ -2,6 +2,8 @@ const ROOT_URL = "https://atlas-back-end.herokuapp.com";
 
 // const ROOT_URL = "http://localhost:10013";
 
+console.log(process.env.NODE_ENV);
+
 const URL = {
   personalityEvaluations: `${ROOT_URL}/personality-evaluations`,
   applicants: `${ROOT_URL}/applicants`,
