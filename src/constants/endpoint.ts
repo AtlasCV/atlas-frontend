@@ -1,6 +1,9 @@
-const ROOT_URL = "https://atlas-back-end.herokuapp.com";
+// const ROOT_URL = "https://atlas-back-end.herokuapp.com";
 
-// const ROOT_URL = "http://localhost:10013";
+const ROOT_URL =
+  JSON.stringify(process.env.NODE_ENV) === "production"
+    ? "https://atlas-back-end.herokuapp.com"
+    : "http://localhost:10013";
 
 console.log(process.env.NODE_ENV);
 

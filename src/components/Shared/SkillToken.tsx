@@ -58,8 +58,6 @@ class SkillToken extends React.Component<Props> {
       selected
     } = this.props;
 
-    console.log(selected);
-
     const tokenStyle = style({
       height: "70px",
       margin: "20px auto",

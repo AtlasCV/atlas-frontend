@@ -185,7 +185,14 @@ class Jobs extends React.Component<Props> {
                     <Button
                       type="button"
                       onClick={() => {
-                        createJobExperienceRequest(id, values);
+                        createJobExperienceRequest(id, {
+                          name: values.name,
+                          companyName: values.companyName,
+                          description: values.description,
+                          currentlyWorkingHere:
+                            values.currentlyWorkingHere === "yes",
+                          numOfYears: +values.toYear - +values.fromYear
+                        });
                         updateApplicantRequest(
                           id,
                           {
