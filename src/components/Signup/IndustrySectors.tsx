@@ -54,7 +54,7 @@ class PageSeven extends React.Component<Props, State> {
     return (
       <>
         <div>
-          <h1>Tell us about your skills...</h1>
+          <h1>Tell us about your industry expertise...</h1>
           {this.props.industrySectors.list.map(industrySector => {
             const hasIndustrySector =
               applicantIndustrySectors.indexOf(industrySector.id) > -1;

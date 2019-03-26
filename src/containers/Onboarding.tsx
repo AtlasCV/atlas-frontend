@@ -41,7 +41,7 @@ class Onboarding extends React.Component<Props> {
   componentDidUpdate() {
     const { auth, push, profile } = this.props;
     if (auth.authenticated && profile.info.Applicant.signupComplete) {
-      push("/");
+      push("/my-profile");
     }
   }
 

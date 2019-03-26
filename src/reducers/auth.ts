@@ -77,6 +77,11 @@ const logoutSuccess = (state: AuthState) => ({
   fetchingAuth: false
 });
 
+const clearError = (state: AuthState) => ({
+  ...state,
+  error: false,
+});
+
 const authReducer: Reducer<AuthState> = (
   state = INITIAL_AUTH_STATE,
   action: Action
@@ -98,6 +103,8 @@ const authReducer: Reducer<AuthState> = (
       return logoutRequest(state);
     case actionTypes.LOGOUT_SUCCESS:
       return logoutSuccess(state);
+    case actionTypes.CLEAR_ERROR:
+      return clearError(state);
     default:
       return state;
   }

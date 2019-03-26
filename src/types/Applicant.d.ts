@@ -17,6 +17,7 @@ export interface Applicant {
   ApplicantSkills: ApplicantSkill[];
   ApplicantIndustrySectors: ApplicantIndustrySector[];
   Certifications: Certification[];
+  signupComplete?: boolean;
 }
 
 export interface ApplicantSkill {

@@ -33,7 +33,9 @@ class ProfileList extends React.Component<Props> {
           <h4>
             Showing {apps.length} {apps.length === 1 ? "result" : "results"}
           </h4>
-          {apps.map(this.renderApplicant)}
+          {apps
+            .filter(app => app && app.signupComplete)
+            .map(this.renderApplicant)}
         </div>
       </div>
     );

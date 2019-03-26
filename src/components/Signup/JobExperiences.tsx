@@ -179,22 +179,23 @@ class Jobs extends React.Component<Props> {
                     }}
                     type="submit"
                   >
-                    SAVE
+                    {isInProfile ? "SAVE" : "ADD ANOTHER"}
                   </Button>
                   {!isInProfile && (
                     <Button
                       type="button"
-                      onClick={() =>
+                      onClick={() => {
+                        createJobExperienceRequest(id, values);
                         updateApplicantRequest(
                           id,
                           {
                             currentPageOfSignup: 6
                           },
                           "/onboarding/signup/6"
-                        )
-                      }
+                        );
+                      }}
                     >
-                      FINISHED
+                      CONTINUE
                     </Button>
                   )}
                 </div>

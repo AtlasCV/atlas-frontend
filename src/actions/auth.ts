@@ -21,3 +21,5 @@ export const logoutSuccess = () =>
 
 export const authAjaxFailure = (reason: string) =>
   createAction(actionTypes.AUTH_AJAX_FAILURE, { reason }, true);
+
+export const clearError = () => createAction(actionTypes.CLEAR_ERROR, {});

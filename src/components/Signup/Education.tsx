@@ -151,22 +151,23 @@ class PageFour extends React.Component<Props> {
                     }}
                     type="submit"
                   >
-                    {isInProfile ? "SAVE" : "ADD EDUCATION"}
+                    {isInProfile ? "SAVE" : "ADD ANOTHER"}
                   </Button>
                   {!isInProfile && (
                     <Button
                       type="button"
-                      onClick={() =>
+                      onClick={() => {
+                        createEducationExperienceRequest(id, values);
                         updateApplicantRequest(
                           id,
                           {
                             currentPageOfSignup: 5
                           },
                           "/onboarding/signup/5/"
-                        )
-                      }
+                        );
+                      }}
                     >
-                      FINISHED
+                      CONTINUE
                     </Button>
                   )}
                 </div>

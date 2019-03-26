@@ -6,7 +6,9 @@ interface Props {
   disabled?: boolean;
   children: string;
   type?: string;
-  onClick?(): void;
+  id?: string;
+  name?: string;
+  onClick?(e: React.SyntheticEvent<HTMLButtonElement>): void;
 }
 
 const buttonStyle = (styles?: Object) =>
@@ -24,13 +26,23 @@ const buttonStyle = (styles?: Object) =>
     styles
   );
 
-export default ({ children, type, onClick, styles, disabled }: Props) => {
+export default ({
+  children,
+  type,
+  styles,
+  disabled,
+  id,
+  name,
+  onClick
+}: Props) => {
   return (
     <button
       onClick={onClick}
       type={type}
       disabled={disabled}
       className={buttonStyle(styles)}
+      id={id}
+      name={name}
     >
       {children}
     </button>
