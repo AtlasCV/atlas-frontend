@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .step-number h3 {
@@ -44,6 +44,7 @@
   font-family: Butler;
   font-size: 32px;
   padding-top: 5px;
+  margin: 0px;
 }
 
 .step-explanation h5 {

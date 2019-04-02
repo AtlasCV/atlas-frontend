@@ -65,21 +65,21 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I'm comfortable with an \"elevator\" pitch... You give me 30 seconds and I'll pique your interest",
+      "I'm comfortable with an \"elevator\" pitch... You give me 30 seconds and I'll pique your interest.",
     questionType: "clientFacing",
     questionOpposite: "backOffice",
     userResponse: 0
   },
   {
     text:
-      "I believe in dressing for the job you want not the job you have. I definitely prefer to be overdressed than appear informal",
+      "I believe in dressing for the job you want not the job you have. I definitely prefer to be overdressed than appear informal.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
   },
   {
     text:
-      "I find that to get things done, I need to first list out all of the steps and objectives",
+      "I find that to get things done, I need to first list out all of the steps and objectives.",
     questionType: "taskOriented",
     questionOpposite: "improvisor",
     userResponse: 0
@@ -93,7 +93,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I consider myself cut out for the traditional business office culture -- strict guidelines, operating procedures, and regulations don't bother me as long as my work shines through and I can advance quickly",
+      "I consider myself cut out for the traditional business office culture -- strict guidelines, operating procedures, and regulations don't bother me as long as my work shines through and I can advance quickly.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
@@ -121,14 +121,14 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "Pushing a team to victory can be more rewarding to me than winning alone",
+      "Pushing a team to victory can be more rewarding to me than winning alone.",
     questionType: "collaborative",
     questionOpposite: "independent",
     userResponse: 0
   },
   {
     text:
-      'In meetings, I often find myself "zoning out" to think of my course of action rather than listen to colleagues',
+      'In meetings, I often find myself "zoning out" to think of my course of action rather than listen to colleagues.',
     questionType: "independent",
     questionOpposite: "collaborative",
     userResponse: 0
@@ -177,7 +177,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "While social interactions aren't my \"forte\", I'm the kind of person that has got everything on my to-do list under control",
+      "While social interactions aren't my \"forte\", I'm the kind of person that has got everything on my to-do list under control.",
     questionType: "backOffice",
     questionOpposite: "clientFacing",
     userResponse: 0
@@ -191,7 +191,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "Nothing bogs me down more than a rigid daily routine. Leave me free to roam in my day to day schedule and I'll make magic.",
+      "Nothing bogs me down more than a rigid daily routine. Leave me free to roam in my day to day schedule and I'll make magic happen.",
     questionType: "improvisor",
     questionOpposite: "taskOriented",
     userResponse: 0
@@ -246,14 +246,14 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I am fully geared up to work long hours and put in hard work at the office at a young age to climb the busines ladder",
+      "I am fully geared up to work long hours and put in hard work at the office at a young age to climb the business ladder.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0
   },
   {
     text:
-      "I don't need to be seen or heard out in front of the company. I'm fine with being the \"mastermind\" in the background",
+      "I don't need to be seen or heard out in front of the company. I'm fine with being the \"mastermind\" in the background.",
     questionType: "backOffice",
     questionOpposite: "clientFacing",
     userResponse: 0
@@ -267,7 +267,7 @@ const personalityQuestions: PersonalityQuestion[] = [
   },
   {
     text:
-      "I picture myself thriving in a traditional business office, striving to climb the ladder and claim the corner office",
+      "I picture myself thriving in a traditional business office, striving to climb the ladder and claim the corner office.",
     questionType: "formal",
     questionOpposite: "casual",
     userResponse: 0

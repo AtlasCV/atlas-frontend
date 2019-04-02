@@ -31,7 +31,7 @@ class LandingPage extends React.Component<Props> {
           </h1>
         </div>
         <div className="explainer-section row">
-          <div className="col-lg-7">
+          <div className="offset-lg-2 col-lg-5">
             <h3 className="display-5">
               Consider us your 'Common App' for the job hunt.
             </h3>

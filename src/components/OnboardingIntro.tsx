@@ -29,8 +29,9 @@ export default ({ uuid }: { uuid?: string }) => (
         </div>
         <h5>Qualifications</h5>
         <p>
-          What have you done in your professional and educational life? This is
-          the resume section.
+          Say goodbye to multiple job applications – List your credentials in
+          detail once, and let us do the legwork by uploading it to 3 top job
+          sites for free!
         </p>
       </div>
       <div className="step-explanation col-md-4">
@@ -39,8 +40,8 @@ export default ({ uuid }: { uuid?: string }) => (
         </div>
         <h5>Distinguish Yourself</h5>
         <p>
-          Say goodbye to the days of writing repetitive cover letters. Let
-          employers know just how unique you are once and for all!
+          The days of traditional cover letters are over. Distinguish yourself
+          with a detailed bio or introduction video.{" "}
         </p>
       </div>
     </div>

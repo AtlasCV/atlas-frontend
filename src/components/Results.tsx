@@ -63,32 +63,45 @@ export default connect(
         taskOriented,
         improvisor
       } = finalScore;
-      console.log(scoreSignature);
       return (
-        <div className="results-container">
+        <div className="results-container descriptor-page">
           <div className="results-header">
             <h2>Your personality type is...</h2>
+            <div
+              className={`color-bar color-bar-${results[scoreSignature].color}`}
+            />
+
             <h1>
-              <b>
-                {results[scoreSignature] && results[scoreSignature].name} (
-                {scoreSignature})
-              </b>
+              <b>{results[scoreSignature] && results[scoreSignature].name}</b>
             </h1>
-            <h3 className="results-list">
-              {independent > collaborative
-                ? "Independent, "
-                : "Collaborative, "}
-              {formal > casual
-                ? "Business Formal Culture, "
-                : "Casual Creative Culture, "}
-              {taskOriented > improvisor
-                ? "Task Oriented, "
-                : "Improvisational, "}
-              {backOffice > clientFacing ? "Back Office" : "Client Facing"}
-            </h3>
+            <h2>{scoreSignature}</h2>
+            <ul className="results-list">
+              <div style={{ marginRight: "20px" }}>
+                <li>
+                  {independent > collaborative
+                    ? "Independent"
+                    : "Collaborative"}
+                </li>
+                <li>
+                  {formal > casual
+                    ? "Business Formal Culture"
+                    : "Casual Creative Culture"}
+                </li>
+              </div>
+              <div>
+                <li>
+                  {taskOriented > improvisor
+                    ? "Task Oriented"
+                    : "Improvisational"}
+                </li>
+                <li>
+                  {backOffice > clientFacing ? "Back Office" : "Client Facing"}
+                </li>
+              </div>
+            </ul>
           </div>
           <div className="results-body row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <img
                 src={`/assets/trophies/${scoreSignature}.png`}
                 alt={scoreSignature}
@@ -96,7 +109,7 @@ export default connect(
               />
             </div>
 
-            <div className="description col-md-6">
+            <div className="description col-md-8">
               {formatDescription(
                 results[scoreSignature] && results[scoreSignature].description
               )}
