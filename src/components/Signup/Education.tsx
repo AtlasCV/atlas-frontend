@@ -1,4 +1,5 @@
 import * as React from "react";
+import { range } from "lodash";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -13,6 +14,7 @@ import {
 } from "../../actions/profile";
 import { AppState } from "../../reducers";
 import "../../styles/edit-profile.css";
+import Select from "../Shared/Select";
 
 type MapStateProps = {
   profile: ProfileState;
@@ -36,7 +38,6 @@ class PageFour extends React.Component<Props> {
         }
       },
       updateApplicantRequest,
-      deleteEducationExperienceRequest,
       isInProfile
     } = this.props;
 
@@ -44,21 +45,9 @@ class PageFour extends React.Component<Props> {
       <>
         <div className="edit-profile-header">
           {EducationExperiences.length > 0 &&
-            EducationExperiences.map(education => (
-              <p key={education.id}>
-                {education.university} - {education.educationLevel}{" "}
-                {education.areaOfStudy} {education.graduationYear}{" "}
-                <span
-                  onClick={() =>
-                    deleteEducationExperienceRequest(education.id || 0, id)
-                  }
-                >
-                  ( X )
-                </span>
-              </p>
-            ))}
-          <h1>Show off your education</h1>
+            EducationExperiences.map(this._renderAddedEducations)}
         </div>
+        <h1>Show off your education</h1>
         <div className="edit-profile-container">
           <Formik
             initialValues={{
@@ -68,9 +57,10 @@ class PageFour extends React.Component<Props> {
               educationLevel: "",
               graduationYear: ""
             }}
-            onSubmit={educationExperience =>
-              createEducationExperienceRequest(id, educationExperience)
-            }
+            onSubmit={(educationExperience, { resetForm }) => {
+              createEducationExperienceRequest(id, educationExperience);
+              resetForm();
+            }}
             validate={values => {
               let errors: EducationExperience = {};
               return errors;
@@ -84,16 +74,30 @@ class PageFour extends React.Component<Props> {
               handleSubmit
             }: any) => (
               <form onSubmit={handleSubmit} className="edit-profile">
-                <h2>Tell us a little about the degrees you've earned.</h2>
-                <Input
+                <h2>
+                  Be sure to list each level of your education. You never know
+                  what doors it may open!
+                </h2>
+
+                <Select
                   label="LEVEL OF EDUCATION"
                   name="educationLevel"
-                  type="text"
                   value={values.educationLevel}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   error={touched.educationLevel && errors.educationLevel}
-                />
+                >
+                  <option value="">{` `}</option>
+                  <option value="High School">High School</option>
+                  <option value="Associate's Degree">Associate's Degree</option>
+                  <option value="Bachelor's Degree">Bachelor's Degree</option>
+                  <option value="Master's Degree">Master's Degree</option>
+                  <option value="PHD">PHD</option>
+                  <option value="Graduate / Professional Degree">
+                    Graduate / Professional Degree
+                  </option>
+                </Select>
+
                 <Input
                   label="SCHOOL"
                   type="text"
@@ -112,24 +116,35 @@ class PageFour extends React.Component<Props> {
                   handleBlur={handleBlur}
                   error={touched.areaOfStudy && errors.areaOfStudy}
                 />
-                <Input
+
+                <Select
                   label="GRADUATION YEAR"
                   name="graduationYear"
-                  type="text"
                   value={values.graduationYear}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   error={touched.graduationYear && errors.graduationYear}
-                />
-                <Input
+                >
+                  <option value="">{` `}</option>
+
+                  {range(2019, 1960).map(i => (
+                    <option key={i}>{i}</option>
+                  ))}
+                </Select>
+                <Select
                   label="GPA"
                   name="gpa"
-                  type="text"
                   value={values.gpa}
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   error={touched.gpa && errors.gpa}
-                />
+                >
+                  <option value="">{` `}</option>
+
+                  {range(40, 0).map(i => (
+                    <option key={i}>{(i / 10).toFixed(1)}</option>
+                  ))}
+                </Select>
                 <Link to={isInProfile ? "/my-profile" : "/onboarding/signup/3"}>
                   <Button
                     styles={{
@@ -178,6 +193,26 @@ class PageFour extends React.Component<Props> {
       </>
     );
   }
+
+  private _renderAddedEducations = (education: EducationExperience) => (
+    <div className="added-education">
+      <p key={education.id}>
+        {education.university} - {education.educationLevel}{" "}
+        {education.areaOfStudy} {education.graduationYear}{" "}
+        <span
+          className="delete-education"
+          onClick={() =>
+            this.props.deleteEducationExperienceRequest(
+              education.id || 0,
+              this.props.profile.info.Applicant.id
+            )
+          }
+        >
+          ( X )
+        </span>
+      </p>
+    </div>
+  );
 }
 
 const mapState = ({ profile }: AppState) => ({ profile });

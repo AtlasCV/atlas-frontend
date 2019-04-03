@@ -30,126 +30,133 @@ const PersonalInformation = ({
   uuid,
   profile
 }: Props) => (
-  <Formik
-    initialValues={{
-      firstName: profile.info.firstName || "",
-      lastName: profile.info.lastName || "",
-      email: profile.info.email || "",
-      password: "",
-      confirmPassword: "",
-      linkedIn: profile.info.Applicant.linkedIn || ""
-    }}
-    onSubmit={(values: any) => {
-      if (profile.info.Applicant.id) {
-        updateApplicantRequest(
-          profile.info.Applicant.id,
-          { ...values, uuid, currentPageOfSignup: 2 },
-          "/onboarding/signup/2"
-        );
-      } else {
-        createApplicantRequest(
-          { ...values, uuid, currentPageOfSignup: 2 },
-          "/onboarding/signup/2"
-        );
-      }
-    }}
-    validate={(values: any) => {
-      let errors: {
-        firstName?: string;
-        lastName?: string;
-        email?: string;
-        password?: string;
-      } = {};
-      Object.keys(errors).forEach(key => {
-        if (values[key] !== "linkedIn" && !values[key]) {
-          errors[key] = "Required";
+  <div>
+    <h5>Don’t worry, this is the last time you’ll have to do this!</h5>
+    <Formik
+      initialValues={{
+        firstName: profile.info.firstName || "",
+        lastName: profile.info.lastName || "",
+        email: profile.info.email || "",
+        password: "",
+        confirmPassword: "",
+        linkedIn: profile.info.Applicant.linkedIn || ""
+      }}
+      onSubmit={(values: any) => {
+        if (profile.info.Applicant.id) {
+          updateApplicantRequest(
+            profile.info.Applicant.id,
+            { ...values, uuid, currentPageOfSignup: 2 },
+            "/onboarding/signup/2"
+          );
+        } else {
+          createApplicantRequest(
+            { ...values, uuid, currentPageOfSignup: 2 },
+            "/onboarding/signup/2"
+          );
         }
-      });
-      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Invalid email address";
-      }
-      if (values.password !== values.confirmPassword) {
-        errors.password = "Password fields must match";
-      }
-      return errors;
-    }}
-    render={({
-      values,
-      errors,
-      touched,
-      handleBlur,
-      handleChange,
-      handleSubmit,
-      isSubmitting
-    }: any) => {
-      return (
-        <form onSubmit={handleSubmit}>
-          <Input
-            label="FIRST NAME"
-            name="firstName"
-            type="text"
-            value={values.firstName}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.firstName && errors.firstName}
-          />
+      }}
+      validate={(values: any) => {
+        let errors: {
+          firstName?: string;
+          lastName?: string;
+          email?: string;
+          password?: string;
+        } = {};
+        Object.keys(errors).forEach(key => {
+          if (values[key] !== "linkedIn" && !values[key]) {
+            errors[key] = "Required";
+          }
+        });
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+          errors.email = "Invalid email address";
+        }
+        if (values.password !== values.confirmPassword) {
+          errors.password = "Password fields must match";
+        }
+        return errors;
+      }}
+      render={({
+        values,
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting
+      }: any) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <Input
+              label="FIRST NAME"
+              name="firstName"
+              type="text"
+              value={values.firstName}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.firstName && errors.firstName}
+            />
 
-          <Input
-            label="LAST NAME"
-            name="lastName"
-            type="text"
-            value={values.lastName}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.lastName && errors.lastName}
-          />
-          <Input
-            label="EMAIL"
-            name="email"
-            type="text"
-            value={values.email}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.email && errors.email}
-          />
-          {/* <Input
-            label="LINKED IN URL"
-            name="linkedIn"
-            type="text"
-            value={values.linkedIn}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.linkedIn && errors.linkedIn}
-          /> */}
-          <Input
-            label="PASSWORD"
-            name="password"
-            type="password"
-            value={values.password}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.password && errors.password}
-          />
-          <Input
-            label="CONFIRM PASSWORD"
-            name="confirmPassword"
-            type="password"
-            value={values.confirmPassword}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            error={touched.confirmPassword && errors.confirmPassword}
-          />
-          <Button
-            styles={{ float: "right" }}
-            disabled={isSubmitting}
-            type="submit"
-          >
-            NEXT
-          </Button>
-        </form>
-      );
-    }}
-  />
+            <Input
+              label="LAST NAME"
+              name="lastName"
+              type="text"
+              value={values.lastName}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.lastName && errors.lastName}
+            />
+            <Input
+              label="EMAIL"
+              name="email"
+              type="text"
+              value={values.email}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.email && errors.email}
+            />
+            {/* <Input
+              label="LINKED IN URL"
+              name="linkedIn"
+              type="text"
+              value={values.linkedIn}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.linkedIn && errors.linkedIn}
+            /> */}
+            <p>
+              Master Password – will be used to create your login info on other
+              sites
+            </p>
+            <Input
+              label="PASSWORD"
+              name="password"
+              type="password"
+              value={values.password}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.password && errors.password}
+            />
+            <Input
+              label="CONFIRM PASSWORD"
+              name="confirmPassword"
+              type="password"
+              value={values.confirmPassword}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={touched.confirmPassword && errors.confirmPassword}
+            />
+            <Button
+              styles={{ float: "right" }}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              NEXT
+            </Button>
+          </form>
+        );
+      }}
+    />
+  </div>
 );
 
 const mapState = ({ profile }: AppState) => ({ profile });

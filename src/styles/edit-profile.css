@@ -17,8 +17,31 @@
 .edit-profile-header {
   max-width: 900px;
   margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .edit-profile-header h1 {
   margin-bottom: 0px;
+}
+
+.added-education {
+  height: 40px;
+  border: 1px solid #28719d;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 0px 20px 20px 0px;
+}
+
+.added-education p {
+  margin: 0px;
+  font-weight: 500;
+  color: #28719d;
+}
+
+.delete-education {
+  cursor: pointer;
 }
