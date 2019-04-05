@@ -39,7 +39,6 @@ class Jobs extends React.Component<Props> {
         }
       },
       updateApplicantRequest,
-      deleteJobExperienceRequest,
       isInProfile
     } = this.props;
 
@@ -47,20 +46,9 @@ class Jobs extends React.Component<Props> {
       <>
         <div className="edit-profile-header">
           {JobExperiences.length > 0 &&
-            JobExperiences.map(job => (
-              <div key={`${job.name} -${job.companyName}`}>
-                <p>
-                  {job.name} - {job.companyName}
-                  <span
-                    onClick={() => deleteJobExperienceRequest(job.id || 0, id)}
-                  >
-                    ( X )
-                  </span>
-                </p>
-              </div>
-            ))}
-          <h1>Show off your work experience</h1>
+            JobExperiences.map(this._renderAddedJobExperiences)}
         </div>
+        <h1>Show off your work experience</h1>
         <div className="edit-profile-container">
           <Formik
             initialValues={{
@@ -71,21 +59,26 @@ class Jobs extends React.Component<Props> {
               description: "",
               companyName: ""
             }}
-            onSubmit={({
-              fromYear,
-              toYear,
-              currentlyWorkingHere,
-              name,
-              companyName,
-              description
-            }: any) => {
-              return createJobExperienceRequest(id, {
+            onSubmit={(
+              {
+                fromYear,
+                toYear,
+                currentlyWorkingHere,
+                name,
+                companyName,
+                description
+              }: any,
+              { resetForm }
+            ) => {
+              createJobExperienceRequest(id, {
                 name,
                 companyName,
                 description,
                 currentlyWorkingHere: currentlyWorkingHere === "yes",
                 numOfYears: +toYear - +fromYear
               });
+              resetForm();
+              window.scrollTo(0, 0);
             }}
             validate={values => {
               let errors: JobExperience = {};
@@ -102,7 +95,7 @@ class Jobs extends React.Component<Props> {
               <form onSubmit={handleSubmit} className="edit-profile">
                 <h2>Tell us a little about the positions you've worked.</h2>
                 <Input
-                  label="COMPANY NAME"
+                  label="OFFICIAL COMPANY NAME"
                   name="companyName"
                   type="text"
                   value={values.companyName}
@@ -213,6 +206,28 @@ class Jobs extends React.Component<Props> {
       </>
     );
   }
+
+  private _renderAddedJobExperiences = (job: JobExperience) => (
+    <div
+      className="added-job-experience"
+      key={`${job.name} -${job.companyName}`}
+    >
+      <p>
+        {job.name} - {job.companyName}
+        <span
+          className="delete-job-experience"
+          onClick={() =>
+            this.props.deleteJobExperienceRequest(
+              job.id || 0,
+              this.props.profile.info.Applicant.id
+            )
+          }
+        >
+          ( X )
+        </span>
+      </p>
+    </div>
+  );
 }
 
 const mapState = ({ profile }: AppState) => ({ profile });

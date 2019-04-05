@@ -53,8 +53,8 @@ class CertificationToken extends React.Component<Props> {
   render() {
     const {
       certification,
-      selectCertification,
       selectCertificationForApplicant,
+      selectCertification,
       applicantId,
       hasCertification,
       removeCertificationFromApplicant
@@ -80,41 +80,29 @@ class CertificationToken extends React.Component<Props> {
 
     return (
       <div className={tokenContainer}>
-        {this.props.selected ? (
-          hasCertification ? (
-            <div className={years}>
-              <div
-                className={yearsOption}
-                style={{ paddingTop: "10px" }}
-                onClick={() =>
-                  removeCertificationFromApplicant(
-                    applicantId,
-                    certification.id
-                  )
-                }
-              >
-                Remove <br /> Certification
-              </div>
+        {hasCertification && this.props.selected ? (
+          <div className={years}>
+            <div
+              className={yearsOption}
+              style={{ paddingTop: "10px" }}
+              onClick={() =>
+                removeCertificationFromApplicant(applicantId, certification.id)
+              }
+            >
+              Remove <br /> Certification
             </div>
-          ) : (
-            <div className={years}>
-              <div
-                className={yearsOption}
-                onClick={() =>
-                  selectCertificationForApplicant(applicantId, {
-                    id: certification.id
-                  })
-                }
-              >
-                Add Certification
-              </div>
-            </div>
-          )
+          </div>
         ) : (
           <React.Fragment>
             <div
               className={tokenStyle}
-              onClick={() => selectCertification(certification.id)}
+              onClick={() =>
+                hasCertification
+                  ? selectCertification(certification.id)
+                  : selectCertificationForApplicant(applicantId, {
+                      id: certification.id
+                    })
+              }
             >
               {certification.name
                 .split(" ")

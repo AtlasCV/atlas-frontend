@@ -60,6 +60,7 @@ class PageFour extends React.Component<Props> {
             onSubmit={(educationExperience, { resetForm }) => {
               createEducationExperienceRequest(id, educationExperience);
               resetForm();
+              window.scrollTo(0, 0);
             }}
             validate={values => {
               let errors: EducationExperience = {};

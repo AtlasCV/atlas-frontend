@@ -25,7 +25,8 @@
   margin-bottom: 0px;
 }
 
-.added-education {
+.added-education,
+.added-job-experience {
   height: 40px;
   border: 1px solid #28719d;
   border-radius: 5px;
@@ -36,12 +37,14 @@
   margin: 0px 20px 20px 0px;
 }
 
-.added-education p {
+.added-education p,
+.added-job-experience p {
   margin: 0px;
   font-weight: 500;
   color: #28719d;
 }
 
-.delete-education {
+.delete-education,
+.delete-job-experience {
   cursor: pointer;
 }
