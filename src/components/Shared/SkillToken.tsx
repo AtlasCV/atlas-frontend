@@ -127,12 +127,14 @@ class SkillToken extends React.Component<Props> {
         ) : (
           <React.Fragment>
             <div className={tokenStyle} onClick={() => selectSkill(skill.id)}>
-              {skill.name
-                .split("_")
-                .map(word => word[0])
-                .slice(0, 2)
-                .join("")
-                .toUpperCase()}
+              {skill.initials
+                ? skill.initials
+                : skill.name
+                    .split("_")
+                    .map(word => word[0])
+                    .slice(0, 2)
+                    .join("")
+                    .toUpperCase()}
             </div>
           </React.Fragment>
         )}

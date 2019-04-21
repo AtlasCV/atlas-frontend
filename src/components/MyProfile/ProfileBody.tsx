@@ -181,37 +181,45 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
           </div>
 
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-8">
               <div className="large-white-rectangle center-content">
                 <h3>Skills</h3>
-                {profileDetail.ApplicantSkills.map((skill: ApplicantSkill) => (
-                  <div key={skill.SkillId}>
-                    <p className="skill-name">
-                      {skill.Skill ? skill.Skill.displayName : ""}
-                    </p>
-                    <p className="skill-experience">
-                      {skill.Skill ? skill.yearsExperience : ""} years
-                      experience
-                    </p>
-                  </div>
-                ))}
-                {profileDetail.ApplicantIndustrySectors.map(
-                  (industrySector: ApplicantIndustrySector) => (
-                    <div key={industrySector.IndustrySectorId}>
-                      <p className="skill-name">
-                        {formatIndustrySector(
-                          (industrySector.IndustrySector &&
-                            industrySector.IndustrySector.name) ||
-                            ""
-                        )}
-                      </p>
-                      <p className="skill-experience">
-                        {industrySector ? industrySector.yearsExperience : ""}{" "}
-                        years experience
-                      </p>
-                    </div>
-                  )
-                )}
+
+                <div className="skill-body">
+                  {profileDetail.ApplicantSkills.map(
+                    (skill: ApplicantSkill) => (
+                      <div className="skill" key={skill.SkillId}>
+                        <p className="skill-name">
+                          {skill.Skill ? skill.Skill.displayName : ""} <br />
+                          {skill.Skill ? skill.yearsExperience : ""} years
+                          experience
+                        </p>
+                      </div>
+                    )
+                  )}
+                  {profileDetail.ApplicantIndustrySectors.map(
+                    (industrySector: ApplicantIndustrySector) => (
+                      <div
+                        className="skill"
+                        key={industrySector.IndustrySectorId}
+                      >
+                        <p className="skill-name">
+                          {formatIndustrySector(
+                            (industrySector.IndustrySector &&
+                              industrySector.IndustrySector.name) ||
+                              ""
+                          )}{" "}
+                          <br />
+                          {industrySector
+                            ? industrySector.yearsExperience
+                            : ""}{" "}
+                          years experience
+                        </p>
+                      </div>
+                    )
+                  )}
+                </div>
+
                 {isMyProfile && (
                   <Link className="view-more" to="/my-profile/skills">
                     <p>EDIT</p>
@@ -219,7 +227,7 @@ const ProfileBody = ({ profile, applicants, isMyProfile }: Props) => {
                 )}
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-4">
               <div className="large-white-rectangle contact-information">
                 <h3 className="center-content">Contact Information</h3>
                 <p>

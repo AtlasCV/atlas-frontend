@@ -18,6 +18,9 @@ export interface Applicant {
   ApplicantIndustrySectors: ApplicantIndustrySector[];
   Certifications: Certification[];
   signupComplete?: boolean;
+  website?: string;
+  resumeUrl?: string;
+  videoUrl?: string;
 }
 
 export interface ApplicantSkill {
@@ -62,14 +65,19 @@ export interface Skill {
   name: string;
   displayName: string;
   id: number;
+  initials?: string;
+
 }
 
 export interface IndustrySector {
   id: number;
   name: string;
+  initials?: string;
+  displayName?: string;
 }
 
 export interface Certification {
   id: number;
   name: string;
+  initials?: string;
 }

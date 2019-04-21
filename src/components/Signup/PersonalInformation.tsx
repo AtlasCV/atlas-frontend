@@ -114,15 +114,15 @@ const PersonalInformation = ({
               handleBlur={handleBlur}
               error={touched.email && errors.email}
             />
-            {/* <Input
-              label="LINKED IN URL"
-              name="linkedIn"
+            <Input
+              label="WEBSITE"
+              name="website"
               type="text"
-              value={values.linkedIn}
+              value={values.website}
               handleChange={handleChange}
               handleBlur={handleBlur}
-              error={touched.linkedIn && errors.linkedIn}
-            /> */}
+              error={touched.website && errors.website}
+            />
             <p>
               Master Password – will be used to create your login info on other
               sites
