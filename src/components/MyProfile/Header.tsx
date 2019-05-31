@@ -84,28 +84,48 @@ const Header = ({
     <div className="header row">
       <div className="name-and-photo col-lg-6">
         {profileDetail.profileImgUrl ? (
-          <img
-            className="profile-image"
-            src={profileDetail.profileImgUrl}
-            alt="profile-image"
-          />
+          <React.Fragment>
+            <div className="center-content">
+              <img
+                className="profile-image"
+                src={profileDetail.profileImgUrl}
+                alt="profile-image"
+              />
+              {isMyProfile && (
+                <>
+                  <input
+                    type="file"
+                    onChange={onDrop}
+                    ref={ref => (fileUpload = ref)}
+                    accept="image/*"
+                    className="profile-upload"
+                    id="profile-upload"
+                  />
+                  <label htmlFor="profile-upload">Change Photo</label>
+                </>
+              )}
+            </div>
+          </React.Fragment>
         ) : (
           <React.Fragment>
             {isMyProfile ? (
-              <input
-                type="file"
-                onChange={onDrop}
-                ref={ref => (fileUpload = ref)}
-                accept="image/*"
-                className="profile-upload"
-                id="profile-upload"
-              />
+              <>
+                <input
+                  type="file"
+                  onChange={onDrop}
+                  ref={ref => (fileUpload = ref)}
+                  accept="image/*"
+                  className="profile-upload"
+                  id="profile-upload"
+                />
+                <label htmlFor="profile-upload">Add Photo</label>
+              </>
             ) : (
-              <div className="profile-upload" />
+              <div className="circle" />
             )}
-            <label htmlFor="profile-upload" />
           </React.Fragment>
         )}
+
         <div className="name-and-title">
           <h1>
             {profileDetail.firstName} {profileDetail.lastName}

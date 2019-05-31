@@ -202,13 +202,22 @@
 
 .profile-upload + label {
   font-size: 1.25em;
+  color: #333;
+  cursor: pointer;
+}
+
+.circle {
+  font-size: 1.25em;
   font-weight: 700;
   color: white;
   background-color: #e6e6e6;
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  cursor: pointer;
+}
+
+.center-content {
+  text-align: center;
 }
 
 .profile-image {

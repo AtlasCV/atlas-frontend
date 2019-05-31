@@ -84,7 +84,7 @@ const deleteEducationExperience: DeleteEducationExperience = (action$, store, { 
         method: "DELETE",
         url: `${endpoint.applicants}/${applicantId}/education`,
         headers: { "content-type": "application/json" },
-        data: {educationId}
+        data: { educationId }
       })
         .map(response =>
           actions.deleteEducationExperienceSuccess(educationId)
@@ -130,7 +130,7 @@ const deleteJobExperience: DeleteJobExperience = (action$, store, { ajax }) =>
         method: "DELETE",
         url: `${endpoint.applicants}/${applicantId}/jobExperience`,
         headers: { "content-type": "application/json" },
-        data: {jobExperienceId}
+        data: { jobExperienceId }
       })
         .map(response =>
           actions.deleteJobExperienceSuccess(jobExperienceId)
@@ -149,9 +149,17 @@ const addProfilePicture: AddProfilePicture = (action$, store, { ajax }) =>
   action$
     .ofType(actionTypes.ADD_PROFILE_PICTURE_REQUEST)
     .mergeMap(({ payload: { image: file, applicantId } }) => {
-      const fileName = v1() + '-' + file.name;  
-      const configObject = {
-        Key: fileName,
+
+      const oldProfilePic = store.getState().profile.info.profileImgUrl;
+      const oldKey = oldProfilePic ? oldProfilePic.slice(48) : '';
+      const oldConfigObject = {
+        Key: oldKey,
+        Bucket: 'atlas-profile-pictures',
+      };
+
+      const newFileName = v1() + '-' + file.name;
+      const newConfigObject = {
+        Key: newFileName,
         Body: file,
         ACL: 'public-read',
         Bucket: 'atlas-profile-pictures',
@@ -159,15 +167,33 @@ const addProfilePicture: AddProfilePicture = (action$, store, { ajax }) =>
       };
 
       return Observable.create((observer: Observer<any>) => {
-        S3.upload(configObject, (err: Error, data: any) => {
-          if (err) {
-            observer.next(actions.profileAjaxFailure(err.message));
-          } else {
-            observer.next(actions.updateApplicantRequest(applicantId, {
-              profileImgUrl: (data as any).Location,
-            }));
-          }
-        });
+        if (oldProfilePic) {
+          S3.deleteObject(oldConfigObject, (err, data) => {
+            if (err) {
+              observer.next(actions.profileAjaxFailure(err.message)); 
+            } else {
+              S3.upload(newConfigObject, (err: Error, data: any) => {
+                if (err) { 
+                  observer.next(actions.profileAjaxFailure(err.message)); 
+                } else {
+                  observer.next(actions.updateApplicantRequest(applicantId, {
+                    profileImgUrl: (data as any).Location,
+                  }));
+                }
+              });
+            }
+          });
+        } else {
+          S3.upload(newConfigObject, (err: Error, data: any) => {
+            if (err) { 
+              observer.next(actions.profileAjaxFailure(err.message)); 
+            } else {
+              observer.next(actions.updateApplicantRequest(applicantId, {
+                profileImgUrl: (data as any).Location,
+              }));
+            }
+          });
+        }
       });
     });
 
