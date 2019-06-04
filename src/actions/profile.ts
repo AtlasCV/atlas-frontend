@@ -92,6 +92,12 @@ export const addProfilePictureRequest = (image: string, applicantId: number) =>
 export const addProfilePictureSuccess = (imageLink: string) => 
   createAction(actionTypes.ADD_PROFILE_PICTURE_SUCCESS, { imageLink });
 
+export const addResumeRequest = (pdf: string, applicantId: number) => 
+  createAction(actionTypes.ADD_RESUME_REQUEST, { pdf, applicantId });
+
+export const addResumeSuccess = (pdfLink: string) => 
+  createAction(actionTypes.ADD_RESUME_SUCCESS, { pdfLink });
+
 export const profileAjaxFailure = (reason: string) =>
   createAction(
     actionTypes.PROFILE_AJAX_FAILURE,

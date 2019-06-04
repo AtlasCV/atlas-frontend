@@ -39,7 +39,8 @@ const PersonalInformation = ({
         email: profile.info.email || "",
         password: "",
         confirmPassword: "",
-        linkedIn: profile.info.Applicant.linkedIn || ""
+        linkedIn: profile.info.Applicant.linkedIn || "",
+        website: profile.info.Applicant.website || ""
       }}
       onSubmit={(values: any) => {
         if (profile.info.Applicant.id) {

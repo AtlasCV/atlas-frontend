@@ -197,11 +197,65 @@ const addProfilePicture: AddProfilePicture = (action$, store, { ajax }) =>
       });
     });
 
+type AddResume = Epic<AnyAction, AppState, Dependencies>;
+const addResume: AddResume = (action$, store, { ajax }) =>
+  action$
+    .ofType(actionTypes.ADD_RESUME_REQUEST)
+    .mergeMap(({ payload: { pdf: file, applicantId } }) => {
+
+      const oldResumeLink = store.getState().profile.info.Applicant.resumeUrl;
+      const oldKey = oldResumeLink ? oldResumeLink.slice(48) : '';
+      const oldConfigObject = {
+        Key: oldKey,
+        Bucket: 'atlas-resume-pdfs',
+      };
+
+      const newFileName = v1() + '-' + file.name;
+      const newConfigObject = {
+        Key: newFileName,
+        Body: file,
+        ACL: 'public-read',
+        Bucket: 'atlas-resume-pdfs',
+        ContentType: 'application/pdf',
+      };
+
+      return Observable.create((observer: Observer<any>) => {
+        if (oldResumeLink) {
+          S3.deleteObject(oldConfigObject, (err, data) => {
+            if (err) {
+              observer.next(actions.profileAjaxFailure(err.message)); 
+            } else {
+              S3.upload(newConfigObject, (err: Error, data: any) => {
+                if (err) { 
+                  observer.next(actions.profileAjaxFailure(err.message)); 
+                } else {
+                  observer.next(actions.updateApplicantRequest(applicantId, {
+                    resumeUrl: (data as any).Location,
+                  }));
+                }
+              });
+            }
+          });
+        } else {
+          S3.upload(newConfigObject, (err: Error, data: any) => {
+            if (err) { 
+              observer.next(actions.profileAjaxFailure(err.message)); 
+            } else {
+              observer.next(actions.updateApplicantRequest(applicantId, {
+                resumeUrl: (data as any).Location,
+              }));
+            }
+          });
+        }
+      });
+    });
+
 export default [
   createOrUpdateApplicantEpic,
   createEducationExperience,
   deleteEducationExperience,
   createJobExperience,
   deleteJobExperience,
-  addProfilePicture
+  addProfilePicture,
+  addResume
 ];

@@ -25,6 +25,7 @@ export interface UpdateApplicantFormProps {
   industryId?: number;
   currentPageOfSignup?: number;
   signupComplete?: boolean;
+  resumeUrl?: string;
 }
 
 export interface EducationDetails {

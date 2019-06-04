@@ -2,7 +2,8 @@
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding-top: 160px;
+  margin-bottom: 20px;
+  padding: 160px 20px 0px 20px;
 }
 
 .header {
@@ -92,7 +93,7 @@
 
 .contact-information p {
   margin: 10px;
-  font-size: 18px;
+  font-size: 14px;
   display: flex;
   align-items: center;
 }
@@ -201,6 +202,21 @@
 }
 
 .profile-upload + label {
+  font-size: 1.25em;
+  color: #333;
+  cursor: pointer;
+}
+
+.resume-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.resume-upload + label {
   font-size: 1.25em;
   color: #333;
   cursor: pointer;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { AppState } from "../../reducers";
 import { ProfileState } from "../../reducers/profile";
 import Button from "../Shared/Button";
@@ -27,7 +28,6 @@ const contactButtons = {
   backgroundColor: "#fff",
   marginTop: "10px",
   height: "36px",
-  width: "50%",
   borderRadius: "10px"
 };
 
@@ -43,7 +43,13 @@ const Header = ({
     info: {
       firstName,
       lastName,
-      Applicant: { JobExperiences, city, PersonalityEvaluation },
+      Applicant: {
+        JobExperiences,
+        city,
+        PersonalityEvaluation,
+        resumeUrl,
+        website
+      },
       id,
       profileImgUrl
     }
@@ -56,6 +62,8 @@ const Header = ({
       city,
       id,
       profileImgUrl,
+      resumeUrl,
+      website,
       scoreSignature: PersonalityEvaluation
         ? PersonalityEvaluation.scoreSignature
         : ""
@@ -66,6 +74,8 @@ const Header = ({
       lastName: detail.User ? detail.User.lastName : "",
       JobExperiences: detail.JobExperiences,
       profileImgUrl: detail.User ? detail.User.profileImgUrl : "",
+      resumeUrl: detail.User ? detail.User.Applicant.resumeUrl : "",
+      website: detail.User ? detail.User.Applicant.website : "",
       city: detail.city,
       scoreSignature:
         detail.PersonalityEvaluation &&
@@ -137,9 +147,18 @@ const Header = ({
           <h2 className="sans-serif">{profileDetail.city}</h2>
           <Button styles={messageMeButtonStyle}>Message</Button>
           <div className="contact-buttons-container">
-            <Button styles={contactButtons}>Website</Button>
-            <Button styles={contactButtons}>Resume</Button>
+            <a href={profileDetail.website} target="_blank">
+              <Button styles={contactButtons}>Website</Button>
+            </a>
+            <a href={profileDetail.resumeUrl} target="_blank">
+              <Button styles={contactButtons}>Resume</Button>
+            </a>
           </div>
+          {isMyProfile && (
+            <Link to="/my-profile/personal-information">
+              <Button styles={contactButtons}>Edit Information</Button>
+            </Link>
+          )}
         </div>
       </div>
       <div className="col-lg-5 offset-lg-1">

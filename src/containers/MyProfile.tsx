@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
+import { push } from "react-router-redux";
 import { AppState } from "../reducers";
 import { ProfileState } from "../reducers/profile";
 import { getMeRequest } from "../actions/auth";
@@ -12,7 +13,7 @@ import Skills from "../components/Signup/Skills";
 import Education from "../components/Signup/Education";
 import JobExperiences from "../components/Signup/JobExperiences";
 import Certifications from "../components/Signup/Certifications";
-import { push } from "react-router-redux";
+import FullPersonalInformation from "src/components/Signup/FullPersonalInformation";
 
 interface Props {
   profile: ProfileState;
@@ -31,6 +32,11 @@ class MyProfile extends React.Component<Props> {
         <Navbar />
         <div className="my-profile">
           <Switch>
+            <Route
+              exact={true}
+              path="/my-profile/personal-information"
+              render={() => <FullPersonalInformation />}
+            />
             <Route
               exact={true}
               path="/my-profile/distinguish-yourself"

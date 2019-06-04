@@ -10,7 +10,9 @@ type InputProps = {
   error: boolean | string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur: (e: React.SyntheticEvent<HTMLInputElement>) => void;
-  ref?: (ref: any) => any;
+  reference?: (ref: any) => any;
+  accept?: string;
+  id?: string;
 };
 
 export default ({
@@ -21,7 +23,9 @@ export default ({
   handleChange,
   handleBlur,
   error,
-  ref
+  reference,
+  accept,
+  id
 }: InputProps) => (
   <div className="text-box-container">
     <label htmlFor={name} className="text-box-label">
@@ -34,8 +38,10 @@ export default ({
       type={type}
       name={name}
       className="text-box"
-      ref={ref}
+      ref={reference}
       date-format={"mm/dd/yyyy"}
+      accept={accept}
+      id={id}
     />
   </div>
 );

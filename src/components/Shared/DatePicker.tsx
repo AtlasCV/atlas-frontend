@@ -9,13 +9,14 @@ export const DatePicker = ({
   errors,
   namePrefix
 }: any) => {
+  console.log(values);
   return (
     <div className="row">
       <div className="col-md-4">
         <Select
           label="MONTH"
           name={namePrefix + "Month"}
-          value={values.month}
+          value={values.birthdayMonth}
           handleChange={handleChange}
           handleBlur={handleBlur}
           error={errors.month}
@@ -39,14 +40,18 @@ export const DatePicker = ({
         <Select
           label="DAY"
           name={namePrefix + "Day"}
-          value={values.day}
+          value={values.birthdayDay}
           handleChange={handleChange}
           handleBlur={handleBlur}
           error={errors.day}
         >
           <option />
           {range(1, 32).map(i => {
-            return <option key={i}>{i}</option>;
+            return (
+              <option value={String(i)} key={i}>
+                {i}
+              </option>
+            );
           })}
         </Select>
       </div>
@@ -54,7 +59,7 @@ export const DatePicker = ({
         <Select
           label="YEAR"
           name={namePrefix + "Year"}
-          value={values.year}
+          value={values.birthdayYear}
           handleChange={handleChange}
           handleBlur={handleBlur}
           error={errors.year}

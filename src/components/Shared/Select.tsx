@@ -19,19 +19,21 @@ export default ({
   handleChange,
   handleBlur,
   error
-}: SelectProps) => (
-  <div className="text-box-container">
-    <label htmlFor={name} className="text-box-label">
-      {label}
-    </label>
-    <select
-      value={value}
-      name={name}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      className="text-box"
-    >
-      {children}
-    </select>
-  </div>
-);
+}: SelectProps) => {
+  return (
+    <div className="text-box-container">
+      <label htmlFor={name} className="text-box-label">
+        {label}
+      </label>
+      <select
+        value={value}
+        name={name}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        className="text-box"
+      >
+        {children}
+      </select>
+    </div>
+  );
+};
